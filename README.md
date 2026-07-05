@@ -1,4 +1,4 @@
 # ByteCarve
-Carve binaries into readable assembly , in c# and maven
+Carve binaries into readable assembly , in c# and avalonia
 
 repo in progress
