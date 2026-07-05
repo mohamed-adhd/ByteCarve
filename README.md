@@ -1,6 +1,4 @@
 # ByteCarve
-Carve binaries into readable assembly
+Carve binaries into readable assembly , in c# and maven
 
-this project is queued after the follownig repos:
-malware tester
-Enterprise-Network-Infrastructure-Lab
+repo in progress
