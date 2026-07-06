@@ -1,6 +1,20 @@
-﻿namespace ByteCarve.ViewModels;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
-public partial class MainWindowViewModel : ViewModelBase
+namespace ByteCarve.ViewModels;
+
+public partial class MainWindowViewModel : ObservableObject
 {
-    public string Greeting { get; } = "Welcome to Avalonia!";
+    [ObservableProperty] private object current_page;
+
+    public MainWindowViewModel()
+    {
+        current_page = this;
+    }
+
+    [RelayCommand]
+    public void Gotopick()
+    {
+        current_page = new PickViewModel();
+    }
 }
