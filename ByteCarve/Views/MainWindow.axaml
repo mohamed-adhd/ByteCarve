@@ -29,7 +29,9 @@
             <GradientStop Color="#12141A" Offset="0"/>
             <GradientStop Color="#1A1D26" Offset="1"/>
         </LinearGradientBrush>
+    </Window.Resources>
 
+    <Window.Styles>
         <Style Selector="Button.getStarted">
             <Setter Property="Background" Value="{StaticResource AccentGradient}"/>
             <Setter Property="Foreground" Value="White"/>
@@ -46,7 +48,7 @@
         <Style Selector="Button.getStarted:pressed /template/ ContentPresenter">
             <Setter Property="Opacity" Value="0.75"/>
         </Style>
-    </Window.Resources>
+    </Window.Styles>
 
     <Grid Background="{StaticResource BackgroundGradient}">
 

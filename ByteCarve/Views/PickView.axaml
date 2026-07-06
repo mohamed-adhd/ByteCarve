@@ -1,7 +1,165 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="ByteCarve.Views.PickView">
-    <Grid>
-        <TextBlock Text="Pick page" />
+             xmlns:vm="using:ByteCarve.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+             x:Class="ByteCarve.Views.PickView"
+             x:DataType="vm:PickViewModel">
+
+    <Design.DataContext>
+        <vm:PickViewModel/>
+    </Design.DataContext>
+
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="AccentGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+            <GradientStop Color="#6C5CE7" Offset="0"/>
+            <GradientStop Color="#00D2FF" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0%,0%" EndPoint="0%,100%">
+            <GradientStop Color="#12141A" Offset="0"/>
+            <GradientStop Color="#1A1D26" Offset="1"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <Style Selector="Button.chooseFile">
+            <Setter Property="Background" Value="{StaticResource AccentGradient}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="32,14"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="Button.chooseFile:pointerover /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+        <Style Selector="Button.chooseFile:pressed /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.75"/>
+        </Style>
+
+        <Style Selector="Border.featureCard">
+            <Setter Property="Background" Value="#171A22"/>
+            <Setter Property="CornerRadius" Value="14"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="BorderBrush" Value="#242833"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Background="{StaticResource BackgroundGradient}">
+
+        <!-- decorative glow -->
+        <Ellipse Width="480" Height="480"
+                  Fill="#1A6C5CE7"
+                  HorizontalAlignment="Right" VerticalAlignment="Top"
+                  Margin="0,-220,-200,0"/>
+
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="32"
+                    MaxWidth="880">
+
+            <!-- Process label -->
+            <StackPanel HorizontalAlignment="Center" Spacing="8">
+                <Border Background="#1E2230"
+                        CornerRadius="20"
+                        Padding="14,6"
+                        HorizontalAlignment="Center">
+                    <TextBlock Text="STEP 1 · SELECT SOURCE"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Foreground="#8B93A7"
+                               LetterSpacing="1"/>
+                </Border>
+
+                <TextBlock Text="Choose a File to Carve"
+                           FontSize="36"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Pick a disk image, dump, or raw binary and ByteCarve will scan it for recoverable files."
+                           FontSize="15"
+                           Foreground="#A9AFBC"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           MaxWidth="560"/>
+            </StackPanel>
+
+            <!-- Feature cards -->
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="16">
+                <Border Classes="featureCard" Grid.Column="0">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="🔍" FontSize="22"/>
+                        <TextBlock Text="Signature Scanning"
+                                   FontWeight="SemiBold"
+                                   Foreground="White"
+                                   FontSize="14"/>
+                        <TextBlock Text="Detects file headers and footers by magic-byte signatures."
+                                   Foreground="#8B93A7"
+                                   FontSize="12"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Classes="featureCard" Grid.Column="1">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="🧩" FontSize="22"/>
+                        <TextBlock Text="Structure Validation"
+                                   FontWeight="SemiBold"
+                                   Foreground="White"
+                                   FontSize="14"/>
+                        <TextBlock Text="Parses internal file structure to trim false positives."
+                                   Foreground="#8B93A7"
+                                   FontSize="12"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Classes="featureCard" Grid.Column="2">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="⚡" FontSize="22"/>
+                        <TextBlock Text="Fast Recovery"
+                                   FontWeight="SemiBold"
+                                   Foreground="White"
+                                   FontSize="14"/>
+                        <TextBlock Text="Extracts and reassembles recoverable files in seconds."
+                                   Foreground="#8B93A7"
+                                   FontSize="12"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Choose file row -->
+            <Border Background="#171A22"
+                    CornerRadius="14"
+                    BorderBrush="#242833"
+                    BorderThickness="1"
+                    Padding="24">
+                <Grid ColumnDefinitions="*,Auto" VerticalAlignment="Center">
+                    <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                        <TextBlock Text="Source file"
+                                   FontSize="12"
+                                   Foreground="#8B93A7"/>
+                        <TextBlock Text="{Binding SelectedFilePath, FallbackValue='No file selected yet'}"
+                                   FontSize="14"
+                                   Foreground="White"
+                                   TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+
+                    <Button Grid.Column="1"
+                            Content="Choose a File"
+                            Classes="chooseFile"
+                            Command="{Binding ChooseFileCommand}"/>
+                </Grid>
+            </Border>
+
+        </StackPanel>
     </Grid>
 </UserControl>
