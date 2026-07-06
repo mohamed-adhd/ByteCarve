@@ -3,27 +3,117 @@
         xmlns:vm="using:ByteCarve.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
         x:Class="ByteCarve.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Height="720"
         Width="1280"
+        Background="#0F1115"
         Title="ByteCarve">
-    
-        
+
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <Grid>
-        <StackPanel>
-            <Button Content="Get started"
-                    Command="{Binding GotopickCommand}" />
+    <Window.Resources>
+        <!-- Accent gradient reused across the greeting page -->
+        <LinearGradientBrush x:Key="AccentGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+            <GradientStop Color="#6C5CE7" Offset="0"/>
+            <GradientStop Color="#00D2FF" Offset="1"/>
+        </LinearGradientBrush>
 
-            <ContentControl Content="{Binding Current_page}" />
+        <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0%,0%" EndPoint="0%,100%">
+            <GradientStop Color="#12141A" Offset="0"/>
+            <GradientStop Color="#1A1D26" Offset="1"/>
+        </LinearGradientBrush>
+
+        <Style Selector="Button.getStarted">
+            <Setter Property="Background" Value="{StaticResource AccentGradient}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="36,14"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="Button.getStarted:pointerover /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+        <Style Selector="Button.getStarted:pressed /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.75"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource BackgroundGradient}">
+
+        <!-- Soft decorative glow shapes -->
+        <Ellipse Width="500" Height="500"
+                  Fill="#2A6C5CE7"
+                  HorizontalAlignment="Left" VerticalAlignment="Top"
+                  Margin="-200,-200,0,0"/>
+        <Ellipse Width="450" Height="450"
+                  Fill="#1A00D2FF"
+                  HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                  Margin="0,0,-180,-180"/>
+
+        <!-- Main content -->
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="28"
+                    MaxWidth="640">
+
+            <!-- Logo / mark -->
+            <Border Width="84" Height="84"
+                    CornerRadius="20"
+                    Background="{StaticResource AccentGradient}"
+                    HorizontalAlignment="Center"
+                    BoxShadow="0 8 32 0 #406C5CE7">
+                <TextBlock Text="&#60;/&#62;"
+                           FontSize="30"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </Border>
+
+            <!-- Title -->
+            <TextBlock Text="Welcome to ByteCarve"
+                       FontSize="42"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center"/>
+
+            <!-- Subtitle -->
+            <TextBlock Text="Carve clean, efficient code from raw ideas. Let's set things up and get you building in just a moment."
+                       FontSize="17"
+                       Foreground="#A9AFBC"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       MaxWidth="520"
+                       LineHeight="26"/>
+
+            <!-- Get Started button -->
+            <Button Content="Get Started  →"
+                    Classes="getStarted"
+                    Command="{Binding GotopickCommand}"
+                    HorizontalAlignment="Center"
+                    Margin="0,16,0,0"/>
+
+            <!-- Footer credit -->
+            <TextBlock Text="ByteCarve · by mohamed-adhd"
+                       FontSize="13"
+                       Foreground="#5A6072"
+                       HorizontalAlignment="Center"
+                       Margin="0,32,0,0"/>
         </StackPanel>
+
+        <!-- Page content injected after navigation -->
+        <ContentControl Content="{Binding Current_page}"/>
     </Grid>
 </Window>
