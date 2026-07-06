@@ -3,9 +3,9 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace ByteCarve.ViewModels;
 
-public partial class MainWindowViewModel : ObservableObject
+public partial class MainWindowViewModel : ViewModelBase
 {
-    [ObservableProperty] private object current_page;
+    [ObservableProperty] private ViewModelBase current_page;
 
     public MainWindowViewModel()
     {
@@ -15,6 +15,6 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand]
     public void Gotopick()
     {
-        current_page = new PickViewModel();
+        Current_page = new PickViewModel();
     }
 }

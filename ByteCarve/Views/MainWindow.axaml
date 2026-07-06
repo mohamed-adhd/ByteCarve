@@ -18,10 +18,12 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-        <Grid>
-            <TextBlock Text="get started"></TextBlock>
-            <Button Command="{Binding GotopickCommand}"></Button>
-            
-            
-        </Grid>
+    <Grid>
+        <StackPanel>
+            <Button Content="Get started"
+                    Command="{Binding GotopickCommand}" />
+
+            <ContentControl Content="{Binding Current_page}" />
+        </StackPanel>
+    </Grid>
 </Window>

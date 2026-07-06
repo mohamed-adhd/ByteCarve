@@ -1,6 +1,6 @@
 namespace ByteCarve.ViewModels;
 
-public class PickViewModel
+public class PickViewModel :ViewModelBase
 {
     
 }
