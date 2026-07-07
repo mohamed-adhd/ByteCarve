@@ -91,7 +91,7 @@
                        TextAlignment="Center"/>
 
             <!-- Subtitle -->
-            <TextBlock Text="Carve clean, efficient code from raw ideas. Let's set things up and get you building in just a moment."
+            <TextBlock Text="Carve clean, efficient code from raw ideas. Let's set things up "
                        FontSize="17"
                        Foreground="#A9AFBC"
                        HorizontalAlignment="Center"
