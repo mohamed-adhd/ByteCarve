@@ -38,4 +38,10 @@ public partial class ConfigsViewModel : ViewModelBase
             OP = file.Path.LocalPath;
         
     }
+
+    [RelayCommand]
+    public void Startit()
+    {
+        return;
+    }
 }
