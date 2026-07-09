@@ -1,0 +1,223 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ByteCarve.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+             x:Class="ByteCarve.Views.ConfigView"
+             x:DataType="vm:ConfigViewModel">
+
+    <Design.DataContext>
+        <vm:ConfigViewModel/>
+    </Design.DataContext>
+
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="AccentGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+            <GradientStop Color="#6C5CE7" Offset="0"/>
+            <GradientStop Color="#00D2FF" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0%,0%" EndPoint="0%,100%">
+            <GradientStop Color="#12141A" Offset="0"/>
+            <GradientStop Color="#1A1D26" Offset="1"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="{StaticResource AccentGradient}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="32,14"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+        <Style Selector="Button.primary:pressed /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.75"/>
+        </Style>
+
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="#1E2230"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="18,10"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderBrush" Value="#2C3140"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style Selector="Button.secondary:pointerover /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.85"/>
+        </Style>
+
+        <Style Selector="Border.modeCard">
+            <Setter Property="Background" Value="#171A22"/>
+            <Setter Property="CornerRadius" Value="14"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="BorderBrush" Value="#242833"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Border.modeCard.selected">
+            <Setter Property="BorderBrush" Value="#6C5CE7"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#1B1930"/>
+        </Style>
+
+        <Style Selector="TextBox.pathBox">
+            <Setter Property="Background" Value="#0F1115"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#242833"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Background="{StaticResource BackgroundGradient}">
+
+        <!-- decorative glow -->
+        <Ellipse Width="460" Height="460"
+                  Fill="#1A00D2FF"
+                  HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                  Margin="-200,0,0,-200"/>
+
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="32"
+                    MaxWidth="820">
+
+            <!-- Process label -->
+            <StackPanel HorizontalAlignment="Center" Spacing="8">
+                <Border Background="#1E2230"
+                        CornerRadius="20"
+                        Padding="14,6"
+                        HorizontalAlignment="Center">
+                    <TextBlock Text="STEP 2 · CONFIGURE"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Foreground="#8B93A7"
+                               LetterSpacing="1"/>
+                </Border>
+
+                <TextBlock Text="Set Up Your Carve"
+                           FontSize="36"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Pick a mode and an output folder, then let ByteCarve do the work."
+                           FontSize="15"
+                           Foreground="#A9AFBC"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Mode selection -->
+            <StackPanel Spacing="12">
+                <TextBlock Text="Mode"
+                           FontSize="13"
+                           FontWeight="SemiBold"
+                           Foreground="#8B93A7"/>
+
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+
+                    <!-- Media Carve -->
+                    <Border Grid.Column="0"
+                            Classes="modeCard"
+                            Classes.selected="{Binding IsMediaMode}">
+                        <StackPanel Spacing="10">
+                            <Grid ColumnDefinitions="Auto,*">
+                                <TextBlock Grid.Column="0" Text="🖼" FontSize="22"/>
+                                <RadioButton Grid.Column="1"
+                                             HorizontalAlignment="Right"
+                                             GroupName="CarveMode"
+                                             IsChecked="{Binding IsMediaMode}"
+                                             Command="{Binding SelectMediaModeCommand}"/>
+                            </Grid>
+                            <TextBlock Text="Media Carve"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       FontSize="16"/>
+                            <TextBlock Text="Recover images, documents, archives and other common file types by signature."
+                                       Foreground="#8B93A7"
+                                       FontSize="12"
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Code Carve (beta) -->
+                    <Border Grid.Column="1"
+                            Classes="modeCard"
+                            Classes.selected="{Binding IsCodeMode}">
+                        <StackPanel Spacing="10">
+                            <Grid ColumnDefinitions="Auto,Auto,*">
+                                <TextBlock Grid.Column="0" Text="⚙" FontSize="22"/>
+                                <Border Grid.Column="1"
+                                        Background="{StaticResource AccentGradient}"
+                                        CornerRadius="10"
+                                        Padding="8,2"
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center">
+                                    <TextBlock Text="BETA"
+                                               FontSize="10"
+                                               FontWeight="Bold"
+                                               Foreground="White"/>
+                                </Border>
+                                <RadioButton Grid.Column="2"
+                                             HorizontalAlignment="Right"
+                                             GroupName="CarveMode"
+                                             IsChecked="{Binding IsCodeMode}"
+                                             Command="{Binding SelectCodeModeCommand}"/>
+                            </Grid>
+                            <TextBlock Text="Code Carve"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       FontSize="16"/>
+                            <TextBlock Text="Recover embedded executables (PE/ELF) and other binaries from raw data."
+                                       Foreground="#8B93A7"
+                                       FontSize="12"
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+            </StackPanel>
+
+            <!-- Output folder -->
+            <StackPanel Spacing="12">
+                <TextBlock Text="Output Folder"
+                           FontSize="13"
+                           FontWeight="SemiBold"
+                           Foreground="#8B93A7"/>
+
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                    <TextBox Grid.Column="0"
+                              Classes="pathBox"
+                              Text="{Binding OutputFolderPath, FallbackValue='No folder selected yet'}"
+                              Watermark="No folder selected yet"/>
+
+                    <Button Grid.Column="1"
+                            Content="📁 Pick Folder"
+                            Classes="secondary"
+                            Command="{Binding PickOutputFolderCommand}"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- Carve button -->
+            <Button Content="Carve  →"
+                    Classes="primary"
+                    Command="{Binding StartCarveCommand}"
+                    HorizontalAlignment="Center"
+                    Margin="0,8,0,0"/>
+
+        </StackPanel>
+    </Grid>
+</UserControl>
