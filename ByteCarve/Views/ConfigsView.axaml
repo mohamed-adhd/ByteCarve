@@ -5,10 +5,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
              x:Class="ByteCarve.Views.ConfigView"
-             x:DataType="vm:ConfigViewModel">
+             x:DataType="vm:ConfigsViewModel">
 
     <Design.DataContext>
-        <vm:ConfigViewModel/>
+        <vm:ConfigsViewModel/>
     </Design.DataContext>
 
     <UserControl.Resources>
@@ -201,7 +201,7 @@
                 <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
                     <TextBox Grid.Column="0"
                               Classes="pathBox"
-                              Text="{Binding OutputFolderPath, FallbackValue='No folder selected yet'}"
+                              Text="{Binding OP, FallbackValue='No folder selected yet'}"
                               Watermark="No folder selected yet"/>
 
                     <Button Grid.Column="1"
@@ -214,7 +214,7 @@
             <!-- Carve button -->
             <Button Content="Carve  →"
                     Classes="primary"
-                    Command="{Binding StartCarveCommand}"
+                    Command="{Binding Startit}"
                     HorizontalAlignment="Center"
                     Margin="0,8,0,0"/>
 
