@@ -41,6 +41,26 @@
             <Setter Property="Opacity" Value="0.75"/>
         </Style>
 
+        <Style Selector="Button.next">
+            <Setter Property="Background" Value="{StaticResource AccentGradient}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="36,14"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="Button.next:pointerover /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+        <Style Selector="Button.next:pressed /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.75"/>
+        </Style>
+        <Style Selector="Button.next:disabled /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.4"/>
+        </Style>
+
         <Style Selector="Border.featureCard">
             <Setter Property="Background" Value="#171A22"/>
             <Setter Property="CornerRadius" Value="14"/>
@@ -159,6 +179,13 @@
                             Command="{Binding ChooseFileCommand}"/>
                 </Grid>
             </Border>
+
+            <!-- Next button -->
+            <Button Content="Next  →"
+                    Classes="next"
+                    Command="{Binding nexCommand}"
+                    IsEnabled="{Binding SelectedFilePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                    HorizontalAlignment="Right"/>
 
         </StackPanel>
     </Grid>

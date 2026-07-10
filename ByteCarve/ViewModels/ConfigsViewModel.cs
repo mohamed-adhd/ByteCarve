@@ -28,11 +28,7 @@ public partial class ConfigsViewModel : ViewModelBase
     public async Task PickOutputFolder()
     {
         if (StorageProvider is null) return;
-        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
-        {
-            Title = "select a file twin",
-            AllowMultiple = false
-        });
+        var files = await StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions());
         var file = files.FirstOrDefault();
         if (file is not null)
             OP = file.Path.LocalPath;

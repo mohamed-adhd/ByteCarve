@@ -15,6 +15,6 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     public void Gotopick()
     {
-        Current_page = new PickViewModel();
+        Current_page = new PickViewModel(this);
     }
 }

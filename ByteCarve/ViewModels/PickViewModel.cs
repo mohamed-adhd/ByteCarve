@@ -1,3 +1,4 @@
+using System.Drawing;
 using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -7,7 +8,15 @@ namespace ByteCarve.ViewModels;
 public partial class PickViewModel : ViewModelBase
 {
     [ObservableProperty] private string? selectedFilePath;
+    private ByteCarve.ViewModels.MainWindowViewModel _main;
+    
     public IStorageProvider? StorageProvider { get; set; }
+
+
+    public PickViewModel(ByteCarve.ViewModels.MainWindowViewModel s)
+    {
+        _main = s;
+    }
     [RelayCommand]
     private async Task ChooseFile()
     {
@@ -20,5 +29,11 @@ public partial class PickViewModel : ViewModelBase
         var file = files.FirstOrDefault();
         if (file is not null)
             SelectedFilePath = file.Path.LocalPath;
+    }
+
+    [RelayCommand]
+    public void nex()
+    {
+        _main.Current_page=new ConfigsViewModel();
     }
 }
