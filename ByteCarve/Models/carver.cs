@@ -17,16 +17,13 @@ public class carver
     int value = 0;
     private static readonly byte[] PngSig={0x89,0x50,0x4E,0x47,0x0D,0x0A,0x1A,0x0A};
     byte[] cur8; 
-    Boolean looking = true;
+    bool looking = true;
     string type = "";
     public carver(string path)
     {
         file = ReadAllBytes(path);
-        
     }
-
     public void Carvethashi()
-    
     {
       
         while (index <= file.Length - PngSig.Length)
@@ -36,6 +33,7 @@ public class carver
             {
                 pngStart = index;
                 int cp= pngStart + 8;
+                looking = true;
                 while (looking)
                 {
                     if (cp + 12 > file.Length)
@@ -44,12 +42,17 @@ public class carver
                     type = (ASCII.GetString(file, cp+4, 4));
                     if (type !="IEND")
                     {
+                        long nextCp = (long)cp + 12 + len;
+                        if (nextCp > file.Length)
+                            break;
+                        cp = (int)nextCp;
                         cp+= 12 + (int)len;
                     }
                     else
                     {
-                        pngEnd=index+20 + (int)len;
-                        looking = true;
+                        index = pngEnd - 1;
+                        pngEnd=cp;
+                        looking = false;
                         images.Add(file.AsSpan(pngStart, pngEnd-pngStart).ToArray());
                     }
                 }
@@ -60,6 +63,16 @@ public class carver
 
         }
         
+    }
+
+    public void write(string path)
+    {
+        int i = 0;
+        foreach (Byte[] s in images)
+        {
+            WriteAllBytes(path + "image_" + i, s);
+        }
+       
     }
 
     
