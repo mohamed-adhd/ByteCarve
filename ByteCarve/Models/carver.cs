@@ -23,7 +23,7 @@ public class carver
     {
         file = ReadAllBytes(path);
     }
-    public void Carvethashi()
+    public int Carvethashi()
     {
       
         while (index <= file.Length - PngSig.Length)
@@ -54,6 +54,7 @@ public class carver
                         pngEnd=cp;
                         looking = false;
                         images.Add(file.AsSpan(pngStart, pngEnd-pngStart).ToArray());
+                        
                     }
                 }
                 
@@ -62,7 +63,8 @@ public class carver
             index++;
 
         }
-        
+
+        return images.Count;
     }
 
     public void write(string path)

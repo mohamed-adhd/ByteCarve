@@ -142,7 +142,7 @@
                                    FontWeight="Bold"
                                    Foreground="#8B93A7"
                                    LetterSpacing="1"/>
-                        <TextBlock Text="{Binding FilesExtracted, FallbackValue=0}"
+                        <TextBlock Text="{Binding Totalfiles, FallbackValue=0}"
                                    FontSize="30"
                                    FontWeight="Bold"
                                    Foreground="White"/>
@@ -156,7 +156,7 @@
                                    FontWeight="Bold"
                                    Foreground="#8B93A7"
                                    LetterSpacing="1"/>
-                        <TextBlock Text="{Binding Duration, FallbackValue='00:00'}"
+                        <TextBlock Text="{Binding Dr, FallbackValue='00:00'}"
                                    FontSize="30"
                                    FontWeight="Bold"
                                    Foreground="White"/>
@@ -176,7 +176,7 @@
                                FontWeight="Bold"
                                Foreground="#8B93A7"
                                LetterSpacing="1"/>
-                    <TextBlock Text="{Binding OutputFolderPath, FallbackValue='—'}"
+                    <TextBlock Text="{Binding Op, FallbackValue='—'}"
                                FontSize="14"
                                Foreground="White"
                                TextTrimming="CharacterEllipsis"/>
@@ -189,17 +189,17 @@
                         HorizontalAlignment="Center">
                 <Button Content="📂  Open Output Folder"
                         Classes="secondary"
-                        Command="{Binding OpenOutputFolderCommand}"/>
+                        Command="{Binding OpcCommand}"/>
 
                 <Button Content="Save to History"
                         Classes="primary"
-                        Command="{Binding SaveToHistoryCommand}"/>
+                        Command="{Binding SaveCommand}"/>
             </StackPanel>
 
             <!-- Back to menu -->
             <Button Content="←  Back to Menu"
                     Classes="ghost"
-                    Command="{Binding BackToMenuCommand}"
+                    Command="{Binding Back2menuCommand}"
                     HorizontalAlignment="Center"/>
 
         </StackPanel>

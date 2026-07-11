@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using ByteCarve.Models;
 namespace ByteCarve.ViewModels;
@@ -11,11 +12,13 @@ public partial class CarvingProgressViewModel : ViewModelBase
     public CarvingProgressViewModel(MainWindowViewModel main)
     {
         _main = main;
+        var sw=Stopwatch.StartNew();
         daname=_main.Daname;
         selectedmode = _main.Sm;
         cv= new carver(_main.Path);
-        cv.Carvethashi();
+        int tot=cv.Carvethashi();
         cv.write(_main.Op);
+        _main.Current_page = new ReportViewModel(_main,sw.Elapsed.Seconds,tot);
     }
 
 }
