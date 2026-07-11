@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace ByteCarve.ViewModels;
 public partial class PickViewModel : ViewModelBase
 {
+    [ObservableProperty] public string pn; 
+    [ObservableProperty] public bool error; 
     [ObservableProperty] private string? selectedFilePath;
     private ByteCarve.ViewModels.MainWindowViewModel _main;
     
@@ -34,6 +36,6 @@ public partial class PickViewModel : ViewModelBase
     [RelayCommand]
     public void nex()
     {
-        _main.Current_page=new ConfigsViewModel();
+        _main.Current_page=new ConfigsViewModel(_main);
     }
 }

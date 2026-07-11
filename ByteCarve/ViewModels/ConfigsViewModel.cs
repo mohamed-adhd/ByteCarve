@@ -12,6 +12,12 @@ public partial class ConfigsViewModel : ViewModelBase
     [ObservableProperty] public bool isMediaMode = false;
     [ObservableProperty] public bool isCodeMode = false;
     [ObservableProperty] public string oP;
+    private MainWindowViewModel _main;
+
+    public ConfigsViewModel(MainWindowViewModel s)
+    {
+        _main = s;
+    }
     public IStorageProvider? StorageProvider { get; set; }
 
     [RelayCommand]
@@ -38,6 +44,6 @@ public partial class ConfigsViewModel : ViewModelBase
     [RelayCommand]
     public void Startit()
     {
-        return;
+        _main.Current_page= new CarvingProgressViewModel(_main);
     }
 }

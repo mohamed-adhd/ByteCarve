@@ -139,7 +139,7 @@
                            FontWeight="SemiBold"
                            Foreground="#8B93A7"/>
                 <TextBox Classes="processName"
-                         Text="{Binding ProcessName}"
+                         Text="{Binding Pn}"
                          Watermark="e.g. Recovered Photos - USB Drive"/>
             </StackPanel>
 
@@ -214,7 +214,7 @@
 
             <!-- Binary required warning -->
             <Border Classes="warningBanner"
-                    IsVisible="{Binding ShowBinaryRequiredWarning}">
+                    IsVisible="{Binding Error}">
                 <StackPanel Orientation="Horizontal" Spacing="12">
                     <TextBlock Text="⚠" FontSize="18" Foreground="#E0A458"/>
                     <TextBlock Text="The app requires a binary file (disk image, dump, or raw .bin) to carve from."
@@ -228,7 +228,7 @@
             <!-- Next button -->
             <Button Content="Next  →"
                     Classes="next"
-                    Command="{Binding NextCommand}"
+                    Command="{Binding nexCommand}"
                     IsEnabled="{Binding SelectedFilePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                     HorizontalAlignment="Right"/>
 
