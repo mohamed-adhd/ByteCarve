@@ -16,6 +16,7 @@ public partial class ReportViewModel : ViewModelBase
         _main = s;
         Pn = _main.Daname;
         
+        
 
     }
 
