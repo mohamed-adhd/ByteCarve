@@ -8,9 +8,9 @@ namespace ByteCarve.ViewModels;
 
 public partial class ConfigsViewModel : ViewModelBase
 {
-    [ObservableProperty] public string mode;
+    [ObservableProperty] public string mode, error_t="";
     [ObservableProperty] public bool isMediaMode = false;
-    [ObservableProperty] public bool isCodeMode = false;
+    [ObservableProperty] public bool isCodeMode = false, error = false;
     [ObservableProperty] public string oP="";
     private MainWindowViewModel _main;
 
@@ -44,13 +44,16 @@ public partial class ConfigsViewModel : ViewModelBase
     [RelayCommand]
     public void Startit()
     {
-        if (!IsCodeMode || !IsMediaMode)
+        if (!IsCodeMode && !IsMediaMode)
         {
+            Error = true;
+            Error_t = "select a mode please!";
             return;
         }
-
         if (OP == "")
         {
+            Error = true;
+            Error_t = "set an output folder please!";
             return;
         }
         _main.Current_page= new CarvingProgressViewModel(_main);

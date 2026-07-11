@@ -79,6 +79,14 @@
             <Setter Property="Padding" Value="12,10"/>
             <Setter Property="IsReadOnly" Value="True"/>
         </Style>
+
+        <Style Selector="Border.errorBanner">
+            <Setter Property="Background" Value="#2A1418"/>
+            <Setter Property="BorderBrush" Value="#8A2E3A"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="16,12"/>
+        </Style>
     </UserControl.Styles>
 
     <Grid Background="{StaticResource BackgroundGradient}">
@@ -119,6 +127,19 @@
                            HorizontalAlignment="Center"
                            TextAlignment="Center"/>
             </StackPanel>
+
+            <!-- Error notification -->
+            <Border Classes="errorBanner"
+                    IsVisible="{Binding Error}">
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <TextBlock Text="✕" FontSize="16" Foreground="#E0596A" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Error_t}"
+                               FontSize="13"
+                               Foreground="#E0596A"
+                               TextWrapping="Wrap"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Border>
 
             <!-- Mode selection -->
             <StackPanel Spacing="12">
@@ -202,7 +223,7 @@
                     <TextBox Grid.Column="0"
                               Classes="pathBox"
                               Text="{Binding OP, FallbackValue='No folder selected yet'}"
-                              Watermark="No folder selected yet"/>
+                              PlaceholderText="No folder selected yet"/>
 
                     <Button Grid.Column="1"
                             Content="📁 Pick Folder"
