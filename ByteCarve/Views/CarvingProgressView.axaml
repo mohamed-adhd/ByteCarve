@@ -1,0 +1,182 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ByteCarve.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+             x:Class="ByteCarve.Views.CarvingProgressView"
+             x:DataType="vm:CarvingProgressViewModel">
+
+    <Design.DataContext>
+        <vm:CarvingProgressViewModel/>
+    </Design.DataContext>
+
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="AccentGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+            <GradientStop Color="#6C5CE7" Offset="0"/>
+            <GradientStop Color="#00D2FF" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0%,0%" EndPoint="0%,100%">
+            <GradientStop Color="#12141A" Offset="0"/>
+            <GradientStop Color="#1A1D26" Offset="1"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <Style Selector="Border.infoPill">
+            <Setter Property="Background" Value="#1E2230"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="Padding" Value="14,7"/>
+        </Style>
+
+        <Style Selector="Border.statCard">
+            <Setter Property="Background" Value="#171A22"/>
+            <Setter Property="CornerRadius" Value="14"/>
+            <Setter Property="Padding" Value="18,16"/>
+            <Setter Property="BorderBrush" Value="#242833"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <!-- Pulsing scan ring -->
+        <Style Selector="Ellipse.pulseRing">
+            <Setter Property="Opacity" Value="0.5"/>
+            <Style.Animations>
+                <Animation Duration="0:0:1.6" IterationCount="INFINITE">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="ScaleTransform.ScaleX" Value="0.85"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="0.85"/>
+                        <Setter Property="Opacity" Value="0.55"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="ScaleTransform.ScaleX" Value="1.25"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1.25"/>
+                        <Setter Property="Opacity" Value="0"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Background="{StaticResource BackgroundGradient}">
+
+        <!-- decorative glow -->
+        <Ellipse Width="480" Height="480"
+                  Fill="#1A6C5CE7"
+                  HorizontalAlignment="Center" VerticalAlignment="Top"
+                  Margin="0,-260,0,0"/>
+
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="36"
+                    MaxWidth="640">
+
+            <!-- Status pill -->
+            <Border Classes="infoPill" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                    <Ellipse Width="8" Height="8" Fill="#00D2FF"/>
+                    <TextBlock Text="SCAN IN PROGRESS"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Foreground="#8B93A7"
+                               LetterSpacing="1"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Pulsing scan indicator -->
+            <Grid Width="140" Height="140" HorizontalAlignment="Center">
+                <Ellipse Classes="pulseRing" Fill="{StaticResource AccentGradient}"
+                         RenderTransformOrigin="50%,50%"/>
+                <Ellipse Classes="pulseRing" Fill="{StaticResource AccentGradient}"
+                         RenderTransformOrigin="50%,50%"
+                         Opacity="0.3"/>
+                <Border Width="100" Height="100"
+                        CornerRadius="50"
+                        Background="{StaticResource AccentGradient}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        BoxShadow="0 8 32 0 #406C5CE7">
+                    <TextBlock Text="🔎"
+                               FontSize="36"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+            </Grid>
+
+            <!-- Test name + title -->
+            <StackPanel Spacing="8" HorizontalAlignment="Center">
+                <TextBlock Text="{Binding TestName, FallbackValue='Untitled Carve'}"
+                           FontSize="30"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"/>
+                <TextBlock Text="Carving is underway — this window will update automatically."
+                           FontSize="15"
+                           Foreground="#A9AFBC"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Indeterminate progress bar -->
+            <ProgressBar IsIndeterminate="True"
+                         Height="6"
+                         CornerRadius="3"
+                         Background="#1E2230"
+                         Foreground="#6C5CE7"
+                         Width="440"/>
+
+            <!-- Stat cards: mode + status -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="16" Width="440">
+                <Border Classes="statCard" Grid.Column="0">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="MODE"
+                                   FontSize="11"
+                                   FontWeight="Bold"
+                                   Foreground="#8B93A7"
+                                   LetterSpacing="1"/>
+                        <TextBlock Text="{Binding SelectedMode, FallbackValue='Media Carve'}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="White"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Classes="statCard" Grid.Column="1">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="STATUS"
+                                   FontSize="11"
+                                   FontWeight="Bold"
+                                   Foreground="#8B93A7"
+                                   LetterSpacing="1"/>
+                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <Ellipse Width="8" Height="8" Fill="#00D2FF"/>
+                            <TextBlock Text="Scanning"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Foreground="White"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Wait notice -->
+            <Border Background="#171A22"
+                    CornerRadius="14"
+                    BorderBrush="#242833"
+                    BorderThickness="1"
+                    Padding="20"
+                    Width="440">
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <TextBlock Text="⏳" FontSize="20"/>
+                    <TextBlock Text="Please wait until the carve is finished. You'll be redirected automatically once it's done."
+                               FontSize="13"
+                               Foreground="#A9AFBC"
+                               TextWrapping="Wrap"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </Grid>
+</UserControl>
