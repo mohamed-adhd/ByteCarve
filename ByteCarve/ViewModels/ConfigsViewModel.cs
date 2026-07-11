@@ -11,7 +11,7 @@ public partial class ConfigsViewModel : ViewModelBase
     [ObservableProperty] public string mode;
     [ObservableProperty] public bool isMediaMode = false;
     [ObservableProperty] public bool isCodeMode = false;
-    [ObservableProperty] public string oP;
+    [ObservableProperty] public string oP="";
     private MainWindowViewModel _main;
 
     public ConfigsViewModel(MainWindowViewModel s)
@@ -44,6 +44,15 @@ public partial class ConfigsViewModel : ViewModelBase
     [RelayCommand]
     public void Startit()
     {
+        if (!IsCodeMode || !IsMediaMode)
+        {
+            return;
+        }
+
+        if (OP == "")
+        {
+            return;
+        }
         _main.Current_page= new CarvingProgressViewModel(_main);
     }
 }

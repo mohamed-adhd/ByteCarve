@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace ByteCarve.ViewModels;
 public partial class PickViewModel : ViewModelBase
 {
-    [ObservableProperty] public string pn; 
+    [ObservableProperty] public string pn = null,error_txt=""; 
     [ObservableProperty] public bool error; 
-    [ObservableProperty] private string? selectedFilePath;
+    [ObservableProperty] private string? selectedFilePath="";
     private ByteCarve.ViewModels.MainWindowViewModel _main;
     
     public IStorageProvider? StorageProvider { get; set; }
@@ -36,6 +36,18 @@ public partial class PickViewModel : ViewModelBase
     [RelayCommand]
     public void nex()
     {
+        if (SelectedFilePath=="" || Pn=="")
+        {
+            Error = true;
+            Error_txt="fill all fields please";
+            return;
+        }
+        if (selectedFilePath.Contains("."))
+        {
+            Error = true;
+            Error_txt="The app requires a binary file (disk image, dump, or raw .bin) to carve from.";
+            return;
+        }
         _main.Current_page=new ConfigsViewModel(_main);
     }
 }

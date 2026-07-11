@@ -217,7 +217,7 @@
                     IsVisible="{Binding Error}">
                 <StackPanel Orientation="Horizontal" Spacing="12">
                     <TextBlock Text="⚠" FontSize="18" Foreground="#E0A458"/>
-                    <TextBlock Text="The app requires a binary file (disk image, dump, or raw .bin) to carve from."
+                    <TextBlock Text="{Binding Error_txt} "
                                FontSize="13"
                                Foreground="#E0A458"
                                TextWrapping="Wrap"
