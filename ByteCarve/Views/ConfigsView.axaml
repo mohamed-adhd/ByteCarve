@@ -218,7 +218,6 @@
                            FontSize="13"
                            FontWeight="SemiBold"
                            Foreground="#8B93A7"/>
-
                 <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
                     <TextBox Grid.Column="0"
                               Classes="pathBox"

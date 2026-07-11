@@ -1,0 +1,207 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ByteCarve.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+             x:Class="ByteCarve.Views.ReportView"
+             x:DataType="vm:ReportViewModel">
+
+    <Design.DataContext>
+        <vm:ReportViewModel/>
+    </Design.DataContext>
+
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="AccentGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+            <GradientStop Color="#6C5CE7" Offset="0"/>
+            <GradientStop Color="#00D2FF" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="SuccessGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+            <GradientStop Color="#22C58B" Offset="0"/>
+            <GradientStop Color="#00D2FF" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0%,0%" EndPoint="0%,100%">
+            <GradientStop Color="#12141A" Offset="0"/>
+            <GradientStop Color="#1A1D26" Offset="1"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="{StaticResource AccentGradient}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="28,13"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+        <Style Selector="Button.primary:pressed /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.75"/>
+        </Style>
+
+        <Style Selector="Button.secondary">
+            <Setter Property="Background" Value="#1E2230"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="24,13"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderBrush" Value="#2C3140"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style Selector="Button.secondary:pointerover /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.85"/>
+        </Style>
+
+        <Style Selector="Button.ghost">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#8B93A7"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="18,10"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="Button.ghost:pointerover /template/ ContentPresenter">
+            <Setter Property="TextBlock.Foreground" Value="White"/>
+        </Style>
+
+        <Style Selector="Border.statCard">
+            <Setter Property="Background" Value="#171A22"/>
+            <Setter Property="CornerRadius" Value="14"/>
+            <Setter Property="Padding" Value="20,18"/>
+            <Setter Property="BorderBrush" Value="#242833"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Background="{StaticResource BackgroundGradient}">
+
+        <!-- decorative glow -->
+        <Ellipse Width="480" Height="480"
+                  Fill="#1A22C58B"
+                  HorizontalAlignment="Right" VerticalAlignment="Top"
+                  Margin="0,-220,-200,0"/>
+
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="32"
+                    MaxWidth="760">
+
+            <!-- Success badge + title -->
+            <StackPanel HorizontalAlignment="Center" Spacing="14">
+                <Border Width="72" Height="72"
+                        CornerRadius="36"
+                        Background="{StaticResource SuccessGradient}"
+                        HorizontalAlignment="Center"
+                        BoxShadow="0 8 28 0 #4022C58B">
+                    <TextBlock Text="✓"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+
+                <StackPanel Spacing="6" HorizontalAlignment="Center">
+                    <Border Background="#1E2230"
+                            CornerRadius="20"
+                            Padding="14,6"
+                            HorizontalAlignment="Center">
+                        <TextBlock Text="CARVE COMPLETE"
+                                   FontSize="12"
+                                   FontWeight="Bold"
+                                   Foreground="#8B93A7"
+                                   LetterSpacing="1"/>
+                    </Border>
+
+                    <TextBlock Text="{Binding ProcessName, FallbackValue='Untitled Carve'}"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Stat cards -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+                <Border Classes="statCard" Grid.Column="0">
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="🖼  FILES EXTRACTED"
+                                   FontSize="11"
+                                   FontWeight="Bold"
+                                   Foreground="#8B93A7"
+                                   LetterSpacing="1"/>
+                        <TextBlock Text="{Binding FilesExtracted, FallbackValue=0}"
+                                   FontSize="30"
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Classes="statCard" Grid.Column="1">
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="⏱  DURATION"
+                                   FontSize="11"
+                                   FontWeight="Bold"
+                                   Foreground="#8B93A7"
+                                   LetterSpacing="1"/>
+                        <TextBlock Text="{Binding Duration, FallbackValue='00:00'}"
+                                   FontSize="30"
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Output location -->
+            <Border Background="#171A22"
+                    CornerRadius="14"
+                    BorderBrush="#242833"
+                    BorderThickness="1"
+                    Padding="20">
+                <StackPanel Spacing="6">
+                    <TextBlock Text="OUTPUT LOCATION"
+                               FontSize="11"
+                               FontWeight="Bold"
+                               Foreground="#8B93A7"
+                               LetterSpacing="1"/>
+                    <TextBlock Text="{Binding OutputFolderPath, FallbackValue='—'}"
+                               FontSize="14"
+                               Foreground="White"
+                               TextTrimming="CharacterEllipsis"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Actions -->
+            <StackPanel Orientation="Horizontal"
+                        Spacing="14"
+                        HorizontalAlignment="Center">
+                <Button Content="📂  Open Output Folder"
+                        Classes="secondary"
+                        Command="{Binding OpenOutputFolderCommand}"/>
+
+                <Button Content="Save to History"
+                        Classes="primary"
+                        Command="{Binding SaveToHistoryCommand}"/>
+            </StackPanel>
+
+            <!-- Back to menu -->
+            <Button Content="←  Back to Menu"
+                    Classes="ghost"
+                    Command="{Binding BackToMenuCommand}"
+                    HorizontalAlignment="Center"/>
+
+        </StackPanel>
+    </Grid>
+</UserControl>
