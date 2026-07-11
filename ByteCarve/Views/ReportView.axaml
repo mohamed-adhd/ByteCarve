@@ -124,7 +124,7 @@
                                    LetterSpacing="1"/>
                     </Border>
 
-                    <TextBlock Text="{Binding ProcessName, FallbackValue='Untitled Carve'}"
+                    <TextBlock Text="{Binding Pn, FallbackValue='Untitled Carve'}"
                                FontSize="30"
                                FontWeight="Bold"
                                Foreground="White"

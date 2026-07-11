@@ -56,6 +56,8 @@ public partial class ConfigsViewModel : ViewModelBase
             Error_t = "set an output folder please!";
             return;
         }
+
+        _main.Op = OP;
         _main.Current_page= new CarvingProgressViewModel(_main);
     }
 }

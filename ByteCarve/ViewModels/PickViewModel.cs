@@ -48,6 +48,8 @@ public partial class PickViewModel : ViewModelBase
             Error_txt="The app requires a binary file (disk image, dump, or raw .bin) to carve from.";
             return;
         }
+
+        _main.Path = SelectedFilePath;
         _main.Current_page=new ConfigsViewModel(_main);
     }
 }
