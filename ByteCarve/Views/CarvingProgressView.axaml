@@ -105,7 +105,7 @@
 
             <!-- Test name + title -->
             <StackPanel Spacing="8" HorizontalAlignment="Center">
-                <TextBlock Text="{Binding TestName, FallbackValue='Untitled Carve'}"
+                <TextBlock Text="{Binding Daname, FallbackValue='Untitled Carve'}"
                            FontSize="30"
                            FontWeight="Bold"
                            Foreground="White"
@@ -135,7 +135,7 @@
                                    FontWeight="Bold"
                                    Foreground="#8B93A7"
                                    LetterSpacing="1"/>
-                        <TextBlock Text="{Binding SelectedMode, FallbackValue='Media Carve'}"
+                        <TextBlock Text="{Binding Selectedmode, FallbackValue='Media Carve'}"
                                    FontSize="16"
                                    FontWeight="SemiBold"
                                    Foreground="White"/>

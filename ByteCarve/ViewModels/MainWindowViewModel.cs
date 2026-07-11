@@ -6,7 +6,7 @@ namespace ByteCarve.ViewModels;
 public partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty] private ViewModelBase current_page;
-
+    [ObservableProperty] public string daname = "",sm="";
     public MainWindowViewModel()
     {
         current_page = this;

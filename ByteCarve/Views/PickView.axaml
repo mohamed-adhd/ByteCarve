@@ -68,6 +68,27 @@
             <Setter Property="BorderBrush" Value="#242833"/>
             <Setter Property="BorderThickness" Value="1"/>
         </Style>
+
+        <Style Selector="TextBox.processName">
+            <Setter Property="Background" Value="#0F1115"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#242833"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style Selector="TextBox.processName:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="#6C5CE7"/>
+        </Style>
+
+        <Style Selector="Border.warningBanner">
+            <Setter Property="Background" Value="#2A1F14"/>
+            <Setter Property="BorderBrush" Value="#8A5A1E"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="16,12"/>
+        </Style>
     </UserControl.Styles>
 
     <Grid Background="{StaticResource BackgroundGradient}">
@@ -109,6 +130,17 @@
                            TextAlignment="Center"
                            TextWrapping="Wrap"
                            MaxWidth="560"/>
+            </StackPanel>
+
+            <!-- Process name -->
+            <StackPanel Spacing="10">
+                <TextBlock Text="Process Name"
+                           FontSize="13"
+                           FontWeight="SemiBold"
+                           Foreground="#8B93A7"/>
+                <TextBox Classes="processName"
+                         Text="{Binding ProcessName}"
+                         Watermark="e.g. Recovered Photos - USB Drive"/>
             </StackPanel>
 
             <!-- Feature cards -->
@@ -180,10 +212,23 @@
                 </Grid>
             </Border>
 
+            <!-- Binary required warning -->
+            <Border Classes="warningBanner"
+                    IsVisible="{Binding ShowBinaryRequiredWarning}">
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <TextBlock Text="⚠" FontSize="18" Foreground="#E0A458"/>
+                    <TextBlock Text="The app requires a binary file (disk image, dump, or raw .bin) to carve from."
+                               FontSize="13"
+                               Foreground="#E0A458"
+                               TextWrapping="Wrap"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
             <!-- Next button -->
             <Button Content="Next  →"
                     Classes="next"
-                    Command="{Binding nexCommand}"
+                    Command="{Binding NextCommand}"
                     IsEnabled="{Binding SelectedFilePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                     HorizontalAlignment="Right"/>
 
