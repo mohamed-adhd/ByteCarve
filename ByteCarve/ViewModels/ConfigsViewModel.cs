@@ -57,6 +57,7 @@ public partial class ConfigsViewModel : ViewModelBase
             return;
         }
 
+        _main.Op = OP;
         var progress = new CarvingProgressViewModel(_main);
         _main.Current_page = progress;
         progress.Start();

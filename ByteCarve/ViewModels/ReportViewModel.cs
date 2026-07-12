@@ -41,7 +41,7 @@ public partial class ReportViewModel : ViewModelBase
             StartInfo = new ProcessStartInfo
             {
                 FileName = "thunar",
-                Arguments = Op,
+                Arguments = _main.Op,
                 UseShellExecute = false
             }
         };
