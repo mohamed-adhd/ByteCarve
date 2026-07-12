@@ -20,10 +20,6 @@ public partial class ReportViewModel : ViewModelBase
         Dr = TimeSpan.FromSeconds(dur).ToString(@"mm\:ss");
         Op=_main.Op;
         Totalfiles = tot;
-
-
-
-
     }
 
     [RelayCommand]
@@ -35,7 +31,7 @@ public partial class ReportViewModel : ViewModelBase
     [RelayCommand]
     public void Back2menu()
     {
-        _main.Current_page = _main;
+        _main.Current_page = new PickViewModel(_main);
     }
     [RelayCommand]
     public void Opc()
@@ -44,11 +40,9 @@ public partial class ReportViewModel : ViewModelBase
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = "/bin/fish",
-                Arguments = "-c \"thunar"+Op+"\"",
-                RedirectStandardOutput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true,
+                FileName = "thunar",
+                Arguments = Op,
+                UseShellExecute = false
             }
         };
         process.Start();
