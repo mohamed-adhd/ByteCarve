@@ -1,6 +1,11 @@
+using Avalonia.Controls;
+
 namespace ByteCarve.Views;
 
-public class Reportview_axaml
+public partial class ReportView : UserControl
 {
-    
+    public ReportView()
+    {
+        InitializeComponent();
+    }
 }

@@ -42,11 +42,20 @@ public partial class PickViewModel : ViewModelBase
             Error_txt="fill all fields please";
             return;
         }
-        if (selectedFilePath.Contains("."))
+        if (SelectedFilePath.Contains("."))
         {
-            Error = true;
-            Error_txt="The app requires a binary file (disk image, dump, or raw .bin) to carve from.";
-            return;
+            if (SelectedFilePath.Contains(".bin"))
+            {
+                _main.Path = SelectedFilePath;
+                _main.Current_page=new ConfigsViewModel(_main);
+            }
+            else
+            {
+                Error = true;
+                Error_txt="The app requires a binary file (disk image, dump, or raw .bin) to carve from.";
+                return;
+            }
+            
         }
 
         _main.Path = SelectedFilePath;

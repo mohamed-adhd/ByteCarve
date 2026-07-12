@@ -46,12 +46,11 @@ public class carver
                         if (nextCp > file.Length)
                             break;
                         cp = (int)nextCp;
-                        cp+= 12 + (int)len;
                     }
                     else
                     {
+                        pngEnd=cp+ 12+ checked((int)len);
                         index = pngEnd - 1;
-                        pngEnd=cp;
                         looking = false;
                         images.Add(file.AsSpan(pngStart, pngEnd-pngStart).ToArray());
                         
@@ -72,7 +71,7 @@ public class carver
         int i = 0;
         foreach (Byte[] s in images)
         {
-            WriteAllBytes(path + "image_" + i, s);
+            WriteAllBytes(path + "image_" + i+".png", s);
         }
        
     }
