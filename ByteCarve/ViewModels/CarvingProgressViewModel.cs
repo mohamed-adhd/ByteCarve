@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using ByteCarve.Models;
@@ -18,7 +19,9 @@ public partial class CarvingProgressViewModel : ViewModelBase
         cv= new carver(_main.Path);
         int tot=cv.Carvethashi();
         cv.write(_main.Op);
-        _main.Current_page = new ReportViewModel(_main,sw.Elapsed.Seconds,tot);
-    }
+        Console.WriteLine($"seconds : {sw.Elapsed.Milliseconds}, total is : {tot}");
+        _main.Current_page = new ReportViewModel(_main,sw.Elapsed.Milliseconds,tot);
+        Console.WriteLine("reached after the report switch");
 
+    }
 }
