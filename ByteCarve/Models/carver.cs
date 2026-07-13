@@ -72,7 +72,19 @@ public class carver
                 {
                     if (inscan)
                     {
-                        
+                        if (cp + 2 > file.Length)
+                            break;
+                        if (file[cp]==0xFF &&file[cp + 1] == 0xD9)
+                        {
+                            jpgEnd =cp + 2;
+                            index=jpgEnd - 1;
+                            looking=false;
+                            images.Add(file.AsSpan(jpgStart, jpgEnd - jpgStart).ToArray());
+                        }
+                        else
+                        {
+                            cp++;
+                        }
                     }
                     else
                     {
