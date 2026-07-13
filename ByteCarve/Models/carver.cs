@@ -21,6 +21,7 @@ public class carver
     
     byte[] cur8; 
     byte[] cur3;
+    private byte[] SOS = { 0xFF, 0xDA };
     bool looking = true;
     string type = "";
     public carver(string path)
@@ -99,14 +100,19 @@ public class carver
                                 break;
                             cp = (int)nextCp;
                         }
-                        else
+                        else if (temp.SequenceEqual(Jpgend))
                         {
                             jpgEnd=cp+ 2;
                             index = jpgEnd - 1;
                             looking = false;
                             images.Add(file.AsSpan(jpgStart, jpgEnd-jpgStart).ToArray());
                         
+                        }else if (temp.SequenceEqual(SOS))
+                        {
+                            cp = cp + 2 + (int)len; 
+                            inscan= true;            
                         }
+                        
                     }
                 }
             }
