@@ -29,7 +29,7 @@ public class carver
     int value = 0;
     private static readonly byte[] PngSig={0x89,0x50,0x4E,0x47,0x0D,0x0A,0x1A,0x0A};
     private static readonly byte[] JpgSig = {0xFF, 0xD8, 0xFF};
-    private static readonly byte[] BmpSig = {0x42, 0x4D};
+    private static readonly byte[] BmpSig = { 0x42, 0x4D };
     
     byte[] cur8; 
     byte[] cur3;
@@ -130,11 +130,14 @@ public class carver
                         
                     }
                 }
-            }else if (cur3.SequenceEqual(BmpSig)){
+            }else if (cur2.SequenceEqual(BmpSig)){
             {
                 bmpStart = index;
                 int cp=bmpStart + 2;
-                uint len = BinaryPrimitives.ReadUInt32BigEndian(file.AsSpan(cp, 4));
+                if (cp + 4 > file.Length)
+                    break;
+                uint len = BinaryPrimitives.ReadUInt32LittleEndian(file.AsSpan(cp, 4));
+                bmpEnd = bmpStart + (int)len;
                 pics temp = new pics("bmp", file.AsSpan(bmpStart, bmpEnd - bmpStart).ToArray());
                 images.Add(temp);
             }}
