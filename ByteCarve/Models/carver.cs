@@ -65,14 +65,14 @@ public class carver
             }else if (cur3.SequenceEqual(JpgSig))
             {
                 jpgStart = index;
-                int cp= pngStart + 2;
+                int cp=jpgStart + 2;
                 looking = true;
                 while (looking)
                 {
                     byte[] temp = file.AsSpan(cp, 2).ToArray();
                     if (cp + 3 > file.Length)
                         break;
-                    uint len = BinaryPrimitives.ReadUInt32BigEndian(file.AsSpan(cp + 2, 2));
+                    uint len = BinaryPrimitives.ReadUInt16BigEndian(file.AsSpan(cp + 2, 2));
                     byte[] Jpgend = {0xff,0xD9};
                     if (!temp.SequenceEqual(Jpgend)){
                         long nextCp = (long)cp + 2 + len;
