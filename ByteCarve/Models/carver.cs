@@ -12,6 +12,7 @@ public class carver
 {
     public List<byte[]> images = new();    
     public int pngStart,pngEnd;
+    public int jpgStart,jpgEnd;
     private int index = 0;
     private byte[] file;
     int value = 0;
@@ -63,28 +64,28 @@ public class carver
                 
             }else if (cur3.SequenceEqual(JpgSig))
             {
-                JpgStart = index;
-                int cp= pngStart + 8;
+                jpgStart = index;
+                int cp= pngStart + 2;
                 looking = true;
                 while (looking)
                 {
-                    if (cp + 12 > file.Length)
+                    byte[] temp = file.AsSpan(cp, 2).ToArray();
+                    if (cp + 3 > file.Length)
                         break;
-                    uint len = BinaryPrimitives.ReadUInt32BigEndian(file.AsSpan(cp, 4));
-                    type = (ASCII.GetString(file, cp+4, 4));
-                    if (type !="IEND")
-                    {
-                        long nextCp = (long)cp + 12 + len;
+                    uint len = BinaryPrimitives.ReadUInt32BigEndian(file.AsSpan(cp + 2, 2));
+                    byte[] Jpgend = {0xff,0xD9};
+                    if (!temp.SequenceEqual(Jpgend)){
+                        long nextCp = (long)cp + 2 + len;
                         if (nextCp > file.Length)
                             break;
                         cp = (int)nextCp;
                     }
                     else
                     {
-                        pngEnd=cp+ 12+ checked((int)len);
-                        index = pngEnd - 1;
+                        jpgEnd=cp+ 3+ checked((int)len);
+                        index = jpgEnd - 1;
                         looking = false;
-                        images.Add(file.AsSpan(pngStart, pngEnd-pngStart).ToArray());
+                        images.Add(file.AsSpan(jpgStart, jpgEnd-jpgStart).ToArray());
                         
                     }
                 }
