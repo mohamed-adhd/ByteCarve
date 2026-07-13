@@ -8,9 +8,19 @@ namespace ByteCarve.Models;
 using static  System.IO.File;
 using System.Linq;
 public class carver
-
 {
-    public List<byte[]> images = new();    
+    public class pics
+    {
+        public  byte[] content { get; set; }
+        public string type{ get; set; }
+
+        public pics(string tp, byte[] ct)
+        {
+            content = ct;
+            type = tp;
+        }
+    }
+    public List<pics> images = new();    
     public int pngStart,pngEnd;
     public int jpgStart,jpgEnd;
     private int index = 0;
@@ -58,8 +68,8 @@ public class carver
                         pngEnd=cp+ 12+ checked((int)len);
                         index = pngEnd - 1;
                         looking = false;
-                        images.Add(file.AsSpan(pngStart, pngEnd-pngStart).ToArray());
-                        
+                        pics temp = new pics("png", file.AsSpan(pngStart, pngEnd - pngStart).ToArray());
+                        images.Add(temp);
                     }
                 }
                 
@@ -75,12 +85,13 @@ public class carver
                     {
                         if (cp + 2 > file.Length)
                             break;
-                        if (file[cp]==0xFF &&file[cp + 1] == 0xD9)
+                        if (file[cp]==0xFF &&file[cp + 1]==0xD9)
                         {
                             jpgEnd =cp + 2;
                             index=jpgEnd - 1;
                             looking=false;
-                            images.Add(file.AsSpan(jpgStart, jpgEnd - jpgStart).ToArray());
+                            pics temp = new pics("jpg", file.AsSpan(jpgStart, jpgEnd - jpgStart).ToArray());
+                            images.Add(temp);
                         }
                         else
                         {
@@ -99,7 +110,8 @@ public class carver
                             jpgEnd=cp+ 2;
                             index = jpgEnd - 1;
                             looking = false;
-                            images.Add(file.AsSpan(jpgStart, jpgEnd-jpgStart).ToArray());
+                            pics tempo = new pics("jpg", file.AsSpan(jpgStart, jpgEnd - jpgStart).ToArray());
+                            images.Add(tempo);
                         
                         }else if (temp.SequenceEqual(SOS))
                         {
@@ -124,9 +136,15 @@ public class carver
     public void write(string path)
     {
         int i = 0;
-        foreach (Byte[] s in images)
+        foreach (pics s in images)
         {
-            WriteAllBytes(path + "image_" + i+".png", s);
+            if (s.type == "png")
+            {
+                WriteAllBytes(path + "image_" + i+".png", s.content);
+            }else if (s.type == "jpg")
+            {
+                WriteAllBytes(path + "image_" + i+".jpg", s.content);
+            }
         }
        
     }
