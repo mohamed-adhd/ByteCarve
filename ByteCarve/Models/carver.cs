@@ -64,29 +64,37 @@ public class carver
                 
             }else if (cur3.SequenceEqual(JpgSig))
             {
+                bool inscan = false;
                 jpgStart = index;
                 int cp=jpgStart + 2;
                 looking = true;
                 while (looking)
                 {
-                    byte[] temp = file.AsSpan(cp, 2).ToArray();
-                    if (cp + 3 > file.Length)
-                        break;
-                    uint len = BinaryPrimitives.ReadUInt16BigEndian(file.AsSpan(cp + 2, 2));
-                    byte[] Jpgend = {0xff,0xD9};
-                    if (!temp.SequenceEqual(Jpgend)){
-                        long nextCp = (long)cp + 2 + len;
-                        if (nextCp > file.Length)
-                            break;
-                        cp = (int)nextCp;
+                    if (inscan)
+                    {
+                        
                     }
                     else
                     {
-                        jpgEnd=cp+ 3+ checked((int)len);
-                        index = jpgEnd - 1;
-                        looking = false;
-                        images.Add(file.AsSpan(jpgStart, jpgEnd-jpgStart).ToArray());
+                        byte[] temp = file.AsSpan(cp, 2).ToArray();
+                        if (cp + 4 > file.Length)
+                            break;
+                        uint len = BinaryPrimitives.ReadUInt16BigEndian(file.AsSpan(cp + 2, 2));
+                        byte[] Jpgend = {0xff,0xD9};
+                        if (!temp.SequenceEqual(Jpgend)){
+                            long nextCp = (long)cp + 2 + len;
+                            if (nextCp > file.Length)
+                                break;
+                            cp = (int)nextCp;
+                        }
+                        else
+                        {
+                            jpgEnd=cp+ 2;
+                            index = jpgEnd - 1;
+                            looking = false;
+                            images.Add(file.AsSpan(jpgStart, jpgEnd-jpgStart).ToArray());
                         
+                        }
                     }
                 }
             }
