@@ -94,13 +94,7 @@ public class carver
                             break;
                         uint len = BinaryPrimitives.ReadUInt16BigEndian(file.AsSpan(cp + 2, 2));
                         byte[] Jpgend = {0xff,0xD9};
-                        if (!temp.SequenceEqual(Jpgend)){
-                            long nextCp = (long)cp + 2 + len;
-                            if (nextCp > file.Length)
-                                break;
-                            cp = (int)nextCp;
-                        }
-                        else if (temp.SequenceEqual(Jpgend))
+                        if (temp.SequenceEqual(Jpgend))
                         {
                             jpgEnd=cp+ 2;
                             index = jpgEnd - 1;
@@ -112,15 +106,18 @@ public class carver
                             cp = cp + 2 + (int)len; 
                             inscan= true;            
                         }
+                        else{
+                            long nextCp = (long)cp + 2 + len;
+                            if (nextCp > file.Length)
+                                break;
+                            cp = (int)nextCp;
+                        }
                         
                     }
                 }
             }
-
             index++;
-
         }
-
         return images.Count;
     }
 
