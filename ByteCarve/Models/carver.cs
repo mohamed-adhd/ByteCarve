@@ -23,6 +23,7 @@ public class carver
     public List<pics> images = new();    
     public int pngStart,pngEnd;
     public int jpgStart,jpgEnd;
+    public int bmpStart,bmpEnd;
     private int index = 0;
     private byte[] file;
     int value = 0;
@@ -75,7 +76,6 @@ public class carver
                         images.Add(temp);
                     }
                 }
-                
             }else if (cur3.SequenceEqual(JpgSig))
             {
                 bool inscan = false;
@@ -130,7 +130,14 @@ public class carver
                         
                     }
                 }
-            }
+            }else if (cur3.SequenceEqual(BmpSig)){
+            {
+                bmpStart = index;
+                int cp=bmpStart + 2;
+                uint len = BinaryPrimitives.ReadUInt32BigEndian(file.AsSpan(cp, 4));
+                pics temp = new pics("bmp", file.AsSpan(bmpStart, bmpEnd - bmpStart).ToArray());
+                images.Add(temp);
+            }}
             index++;
         }
         return images.Count;
