@@ -28,9 +28,11 @@ public class carver
     int value = 0;
     private static readonly byte[] PngSig={0x89,0x50,0x4E,0x47,0x0D,0x0A,0x1A,0x0A};
     private static readonly byte[] JpgSig = {0xFF, 0xD8, 0xFF};
+    private static readonly byte[] BmpSig = {0x42, 0x4D};
     
     byte[] cur8; 
     byte[] cur3;
+    byte[] cur2;
     private byte[] SOS = { 0xFF, 0xDA };
     bool looking = true;
     string type = "";
@@ -45,6 +47,7 @@ public class carver
         {
             cur8=file.AsSpan(index, 8).ToArray();
             cur3=file.AsSpan(index, 3).ToArray();
+            cur2=file.AsSpan(index, 2).ToArray();
             if (cur8.SequenceEqual(PngSig))
             {
                 pngStart = index;
