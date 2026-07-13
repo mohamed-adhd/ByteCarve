@@ -157,6 +157,9 @@ public class carver
             }else if (s.type == "jpg")
             {
                 WriteAllBytes(path + "image_" + i+".jpg", s.content);
+            }else if (s.type == "bmp")
+            {
+                WriteAllBytes(path + "image_" + i+".bmp", s.content);
             }
         }
        
