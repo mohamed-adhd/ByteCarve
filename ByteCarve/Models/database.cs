@@ -7,11 +7,11 @@ public class database
 {
     public class ops
     {
-        public string name;
-        public string a_name;
-        public string type;
-        public int images;
-        public int dur;
+        public string name{ get; set; }
+        public string a_name{ get; set; }
+        public string type{ get; set; }
+        public int images{ get; set; }
+        public int dur{ get; set; }
 
     }
     private string path="/home/bro/my-creations/ByteCarve/ByteCarve/Assets/admin.db";

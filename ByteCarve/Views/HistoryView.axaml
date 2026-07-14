@@ -110,7 +110,7 @@
                         </ItemsControl.ItemsPanel>
 
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="models:ops">
+                            <DataTemplate x:DataType="models:database+ops">
                                 <Border Classes="historyRow">
                                     <Grid ColumnDefinitions="*,Auto,Auto,Auto">
 
@@ -183,7 +183,7 @@
         <!-- Back button, floating top-right -->
         <Button Content="←  Back to Menu"
                 Classes="ghost"
-                Command="{Binding BackToMenuCommand}"
+                Command="{Binding Back2mCommand}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Margin="0,48,60,0"/>
