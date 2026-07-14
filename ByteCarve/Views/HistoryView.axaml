@@ -1,0 +1,192 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ByteCarve.ViewModels"
+             xmlns:models="using:ByteCarve.Models"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+             x:Class="ByteCarve.Views.HistoryView"
+             x:DataType="vm:HistoryViewModel">
+
+    <Design.DataContext>
+        <vm:HistoryViewModel/>
+    </Design.DataContext>
+
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="AccentGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+            <GradientStop Color="#6C5CE7" Offset="0"/>
+            <GradientStop Color="#00D2FF" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0%,0%" EndPoint="0%,100%">
+            <GradientStop Color="#12141A" Offset="0"/>
+            <GradientStop Color="#1A1D26" Offset="1"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <Style Selector="Button.ghost">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#8B93A7"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="18,10"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style Selector="Button.ghost:pointerover /template/ ContentPresenter">
+            <Setter Property="TextBlock.Foreground" Value="White"/>
+        </Style>
+
+        <Style Selector="Border.historyRow">
+            <Setter Property="Background" Value="#171A22"/>
+            <Setter Property="CornerRadius" Value="14"/>
+            <Setter Property="Padding" Value="20,16"/>
+            <Setter Property="BorderBrush" Value="#242833"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style Selector="Border.historyRow:pointerover">
+            <Setter Property="BorderBrush" Value="#3A3F52"/>
+        </Style>
+
+        <Style Selector="Border.typeBadge">
+            <Setter Property="Background" Value="#1E2230"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="10,4"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Background="{StaticResource BackgroundGradient}">
+
+        <!-- decorative glow -->
+        <Ellipse Width="460" Height="460"
+                  Fill="#146C5CE7"
+                  HorizontalAlignment="Left" VerticalAlignment="Top"
+                  Margin="-220,-220,0,0"/>
+
+        <DockPanel Margin="60,48" LastChildFill="True">
+
+            <!-- Header -->
+            <StackPanel DockPanel.Dock="Top" Spacing="6" Margin="0,0,0,28">
+                <Border Background="#1E2230"
+                        CornerRadius="20"
+                        Padding="14,6"
+                        HorizontalAlignment="Left">
+                    <TextBlock Text="HISTORY"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Foreground="#8B93A7"
+                               LetterSpacing="1"/>
+                </Border>
+
+                <TextBlock Text="Past Carves"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Foreground="White"/>
+
+                <TextBlock Text="A record of everything ByteCarve has recovered so far."
+                           FontSize="14"
+                           Foreground="#A9AFBC"/>
+            </StackPanel>
+
+            <!-- List -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Spacing="12" MaxWidth="900" HorizontalAlignment="Stretch">
+
+                    <!-- Empty state -->
+                    <TextBlock Text="No carves yet — your history will show up here once you run one."
+                               Foreground="#8B93A7"
+                               FontSize="14"
+                               HorizontalAlignment="Center"
+                               Margin="0,40,0,0"
+                               IsVisible="{Binding !History.Count}"/>
+
+                    <ItemsControl ItemsSource="{Binding History}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Spacing="12"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:ops">
+                                <Border Classes="historyRow">
+                                    <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+
+                                        <!-- Name + app -->
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding name}"
+                                                       FontSize="16"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="White"/>
+                                            <TextBlock Text="{Binding a_name}"
+                                                       FontSize="12"
+                                                       Foreground="#8B93A7"/>
+                                        </StackPanel>
+
+                                        <!-- Type badge -->
+                                        <Border Grid.Column="1"
+                                                Classes="typeBadge"
+                                                VerticalAlignment="Center"
+                                                Margin="12,0">
+                                            <TextBlock Text="{Binding type}"
+                                                       FontSize="12"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="#C9CEDB"/>
+                                        </Border>
+
+                                        <!-- Images count -->
+                                        <StackPanel Grid.Column="2"
+                                                    Spacing="2"
+                                                    VerticalAlignment="Center"
+                                                    Margin="12,0"
+                                                    MinWidth="90">
+                                            <TextBlock Text="{Binding images, StringFormat='{}{0} files'}"
+                                                       FontSize="14"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="White"
+                                                       HorizontalAlignment="Right"/>
+                                            <TextBlock Text="extracted"
+                                                       FontSize="11"
+                                                       Foreground="#8B93A7"
+                                                       HorizontalAlignment="Right"/>
+                                        </StackPanel>
+
+                                        <!-- Duration -->
+                                        <StackPanel Grid.Column="3"
+                                                    Spacing="2"
+                                                    VerticalAlignment="Center"
+                                                    MinWidth="80">
+                                            <TextBlock Text="{Binding dur, StringFormat='{}{0}s'}"
+                                                       FontSize="14"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="White"
+                                                       HorizontalAlignment="Right"/>
+                                            <TextBlock Text="duration"
+                                                       FontSize="11"
+                                                       Foreground="#8B93A7"
+                                                       HorizontalAlignment="Right"/>
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </StackPanel>
+            </ScrollViewer>
+
+        </DockPanel>
+
+        <!-- Back button, floating top-right -->
+        <Button Content="←  Back to Menu"
+                Classes="ghost"
+                Command="{Binding BackToMenuCommand}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0,48,60,0"/>
+
+    </Grid>
+</UserControl>
