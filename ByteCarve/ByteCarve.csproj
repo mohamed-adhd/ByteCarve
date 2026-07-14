@@ -32,8 +32,8 @@
     <Compile Update="Views\Reportview.axaml.cs">
       <DependentUpon>ReportView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\History.axaml.cs">
-      <DependentUpon>HistoryView.axaml</DependentUpon>
+    <Compile Update="Views\HistoryView.axaml.cs">
+      <DependentUpon>HistoryViewView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
