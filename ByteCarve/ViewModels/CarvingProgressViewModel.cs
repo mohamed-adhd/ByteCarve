@@ -23,11 +23,18 @@ public partial class CarvingProgressViewModel : ViewModelBase
 
     public async void Start()
     {
-        await Task.Yield();
-        var sw = Stopwatch.StartNew();
-        cv = new carver(_main.Path);
-        int tot = cv.Carvethashi();
-        cv.write(_main.Op);
-        _main.Current_page = new ReportViewModel(_main, sw.Elapsed.Milliseconds, tot);
+        if (_main.Datype == "media")
+        {
+            await Task.Yield();
+            var sw = Stopwatch.StartNew();
+            cv = new carver(_main.Path);
+            int tot = cv.Carvethashi();
+            cv.write(_main.Op);
+            _main.Current_page = new ReportViewModel(_main, sw.Elapsed.Milliseconds, tot);
+        }
+        else
+        {
+            return;
+        }
     }
 }

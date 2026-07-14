@@ -32,6 +32,11 @@ public partial class PickViewModel : ViewModelBase
         if (file is not null)
             SelectedFilePath = file.Path.LocalPath;
     }
+    [RelayCommand]
+    public void Histo()
+    {
+        _main.Current_page = new HistoryViewModel(_main);
+    }
 
     [RelayCommand]
     public void nex()
@@ -61,4 +66,6 @@ public partial class PickViewModel : ViewModelBase
         _main.Path = SelectedFilePath;
         _main.Current_page=new ConfigsViewModel(_main);
     }
+
+    
 }

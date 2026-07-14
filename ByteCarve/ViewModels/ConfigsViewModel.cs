@@ -58,6 +58,14 @@ public partial class ConfigsViewModel : ViewModelBase
         }
 
         _main.Op = OP;
+        if (IsCodeMode)
+        {
+            _main.Datype = "code";
+        }
+        else
+        {
+            _main.Datype = "media";
+        }
         var progress = new CarvingProgressViewModel(_main);
         _main.Current_page = progress;
         progress.Start();

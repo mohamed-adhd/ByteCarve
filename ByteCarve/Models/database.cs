@@ -22,16 +22,16 @@ public class database
         
     }
 
-    public void add(string n,string a,string t,int i,int d)
+    public void add(ops temp)
     {
         con.Open();
         using var cmd = con.CreateCommand();
         cmd.CommandText = "INSERT INTO tests (test_name,app_name,type,images,duration) VALUES ($n,$a,$t,$i,$d);";
-        cmd.Parameters.AddWithValue("$n", n);
-        cmd.Parameters.AddWithValue("$a", a);
-        cmd.Parameters.AddWithValue("$t", t);
-        cmd.Parameters.AddWithValue("$i", i);
-        cmd.Parameters.AddWithValue("$d", d);
+        cmd.Parameters.AddWithValue("$n", temp.name);
+        cmd.Parameters.AddWithValue("$a", temp.a_name);
+        cmd.Parameters.AddWithValue("$t", temp.type);
+        cmd.Parameters.AddWithValue("$i", temp.images);
+        cmd.Parameters.AddWithValue("$d", temp.dur);
         cmd.ExecuteNonQuery();
     }
 
