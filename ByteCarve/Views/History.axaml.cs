@@ -1,6 +1,10 @@
 namespace ByteCarve.Views;
+using Avalonia.Controls;
 
-public class History_axaml
+public partial class HistoryView:  UserControl
 {
-    
+    public HistoryView()
+    {
+        InitializeComponent();
+    }
 }
