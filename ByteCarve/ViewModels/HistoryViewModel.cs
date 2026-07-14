@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public partial class HistoryViewModel: ViewModelBase
 {
     private ByteCarve.ViewModels.MainWindowViewModel _main;
-    [ObservableProperty] private List<database.ops> history;
+    [ObservableProperty] private List<database.ops> history=null;
 
     public HistoryViewModel(MainWindowViewModel s)
     {

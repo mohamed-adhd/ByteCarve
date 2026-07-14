@@ -14,7 +14,7 @@ public class database
         public int dur{ get; set; }
 
     }
-    private string path="Data Source=/home/bro/my-creations/live-message-app/live-messagge-app/databases/admin.db";
+    private string path="Data Source=/home/bro/my-creations/ByteCarve/ByteCarve/Assets/admin.db";
     public SqliteConnection con;
     public database()
     {

@@ -17,7 +17,6 @@
             <GradientStop Color="#6C5CE7" Offset="0"/>
             <GradientStop Color="#00D2FF" Offset="1"/>
         </LinearGradientBrush>
-
         <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0%,0%" EndPoint="0%,100%">
             <GradientStop Color="#12141A" Offset="0"/>
             <GradientStop Color="#1A1D26" Offset="1"/>
