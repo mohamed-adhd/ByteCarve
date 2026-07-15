@@ -73,15 +73,44 @@ public class DP_immediate
     public void addsubs(uint word)
     {
         string typ = "";
+        string opr = "";
         uint reg = extractBits(word, 31, 31);
+        uint opru=extractBits(word, 30, 30);
+        uint flag=extractBits(word, 29, 29);
         if ((int)reg == 0)
         { 
             typ="W";
         }
-        else if ((int)reg == 1)
+        else
         {
-            typ="X"
+            typ = "X";
         }
+        if ((int)reg == 0)
+        {
+            if ((int)flag == 0)
+            {
+                opr="ADDS";
+            }
+            else
+            {
+                opr="ADD";
+            }
+            
+        }
+        else
+        {
+            if ((int)flag == 0)
+            {
+                opr="SUBS";
+            }
+            else
+            {
+                opr="SUB";
+            }
+            
+        }
+        
+        
         
     }
     
