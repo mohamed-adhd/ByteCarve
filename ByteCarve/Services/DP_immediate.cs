@@ -67,8 +67,22 @@ public class DP_immediate
             int scaled_dist = dist * 4096;
             ulong rad = index & ~0xFFFUL;
             File.AppendAllText(op + "bytecarve.s", rad + ": adrp x" + rgst + " #" + (rad+(ulong)scaled_dist));
-
         }
+    }
+
+    public void addsubs(uint word)
+    {
+        string typ = "";
+        uint reg = extractBits(word, 31, 31);
+        if ((int)reg == 0)
+        { 
+            typ="W";
+        }
+        else if ((int)reg == 1)
+        {
+            typ="X"
+        }
+        
     }
     
 }
