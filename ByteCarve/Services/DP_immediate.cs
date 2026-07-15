@@ -38,7 +38,7 @@ public class DP_immediate
         }
         else if (sig == 0b101)
         {
-            movwid(data);
+            movwide(data);
         }
         else if (sig == 0b110)
         {
@@ -147,6 +147,25 @@ public class DP_immediate
         } 
         File.AppendAllText(op + "bytecarve.s", opr + " " +typ+ dest + ", " +typ+sourcet+", #"+imm12.ToString());
 
+    }
+
+    public void movwide(uint word)
+    {
+        string typ;
+        int opc=(int)extractBits(word,29,30);
+        if ((int)extractBits(word, 31, 31) == 0)
+        {
+            if (opc == 00)
+            {
+                typ = "movn";
+            }else if (opc == 10)
+            {
+                typ = "movz";
+            }else if (opc == 11)
+            {
+                typ = "movk";
+            }
+        }
     }
     
 }
