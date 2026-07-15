@@ -96,7 +96,7 @@ public class DP_immediate
         }
         else
         {
-            sourcet = "x"+source.ToString();
+            sourcet = source.ToString();
         }
 
         if (destination == 31)
@@ -105,7 +105,7 @@ public class DP_immediate
         }
         else
         {
-            dest = "x"+destination.ToString();
+            dest = destination.ToString();
         }
 
         if ((int)reg == 0)
@@ -117,9 +117,9 @@ public class DP_immediate
             typ = "x";
         }
 
-        if ((int)reg == 0)
+        if ((int)opru== 0)
         {
-            if ((int)flag == 0)
+            if ((int)flag == 1)
             {
                 opr = "adds";
             }
@@ -131,7 +131,7 @@ public class DP_immediate
         }
         else
         {
-            if ((int)flag == 0)
+            if ((int)flag == 1)
             {
                 opr = "subs";
             }
@@ -145,7 +145,7 @@ public class DP_immediate
         {
             imm12 *= 4096;
         } 
-        File.AppendAllText(op + "bytecarve.s", opr + " " + dest + ", " + sourcet+", #"+imm12.ToString());
+        File.AppendAllText(op + "bytecarve.s", opr + " " +typ+ dest + ", " +typ+sourcet+", #"+imm12.ToString());
 
     }
     
