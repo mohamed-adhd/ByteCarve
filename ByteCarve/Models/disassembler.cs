@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using static  System.IO.File;
 namespace ByteCarve.Models;
-
+using ByteCarve.Services;
 public class disassembler
 {
     public List<int> loadgrp = [4, 6, 12, 14];
@@ -18,6 +18,18 @@ public class disassembler
     private BitArray bitchunk;
     private bool looking = true;
     public int index = 0;
+    
+    private DP_immediate dp_immediate;
+    private DP_register dp_register;
+    private DP_scalar dp_scalar;
+    private Loads loads;
+    private Branches branches;
+    
+    
+    
+    
+    
+    
 
     public disassembler(string path)
     {
@@ -77,29 +89,4 @@ public class disassembler
 
 
     }
-
-    public void DP_immediate(byte[] data)
-        {
-
-        }
-
-        public void Branches(byte[] data)
-        {
-
-        }
-
-        public void Loads(byte[] data)
-        {
-
-        }
-
-        public void DP_Register(byte[] data)
-        {
-
-        }
-
-        public void DP_Scalar(byte[] data)
-        {
-
-        }
     }
