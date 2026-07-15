@@ -4,39 +4,47 @@ using System.IO;
 namespace ByteCarve.Services;
 using System.Collections;
 using System.Linq;
+
 public class DP_immediate
 {
     private uint word;
     private ulong index;
     private string op;
+
     static uint extractBits(uint word, int hi, int lo)
     {
-        int width = lo-hi + 1;
+        int width = lo - hi + 1;
         uint mask = (1u << width) - 1;
         return (word >> lo) & mask;
     }
-    public void process_it(byte[] tempo,ulong ts,string op)
+
+    public void process_it(byte[] tempo, ulong ts, string op)
     {
         this.op = op;
         index = ts;
-        uint word=BitConverter.ToUInt32(tempo, 0);
-        uint sig=extractBits(word,25, 23);
+        uint word = BitConverter.ToUInt32(tempo, 0);
+        uint sig = extractBits(word, 25, 23);
         if (sig == 0b001 || sig == 0b000)
         {
             pcaddress(word);
-        }else if (sig == 0b010 || sig == 0b011)
+        }
+        else if (sig == 0b010 || sig == 0b011)
         {
             addsubs(data);
-        }else if (sig == 0b100)
+        }
+        else if (sig == 0b100)
         {
             logic(data);
-        }else if (sig == 0b101)
+        }
+        else if (sig == 0b101)
         {
             movwid(data);
-        }else if (sig == 0b110)
+        }
+        else if (sig == 0b110)
         {
             bitfild(data);
-        }else if (sig == 0b111)
+        }
+        else if (sig == 0b111)
         {
             extrct(data);
         }
@@ -44,13 +52,13 @@ public class DP_immediate
 
     public void pcaddress(uint word)
     {
-        if (((word >> 31) & 1 )== 0)
+        if (((word >> 31) & 1) == 0)
         {
-            uint immlo=extractBits(word, 29, 30);
+            uint immlo = extractBits(word, 29, 30);
             int rgst = (int)extractBits(word, 0, 4);
-            uint immhi=extractBits(word, 5, 23);
+            uint immhi = extractBits(word, 5, 23);
             int dist = (int)((immhi << 2) | immlo);
-            if ((dist & (1 << 20))!= 0) 
+            if ((dist & (1 << 20)) != 0)
             {
                 dist |= unchecked((int)0xFFE00000);
             }
@@ -58,15 +66,15 @@ public class DP_immediate
             File.AppendAllText(op + "bytecarve.s", index + ": adr x" + rgst + " #" + (index + 8));
 
         }
-        else if (((word >> 31) & 1 )== 1)
+        else if (((word >> 31) & 1) == 1)
         {
-            uint immlo=extractBits(word, 29, 30);
+            uint immlo = extractBits(word, 29, 30);
             int rgst = (int)extractBits(word, 0, 4);
-            uint immhi=extractBits(word, 5, 23);
+            uint immhi = extractBits(word, 5, 23);
             int dist = (int)((immhi << 2) | immlo);
             int scaled_dist = dist * 4096;
             ulong rad = index & ~0xFFFUL;
-            File.AppendAllText(op + "bytecarve.s", rad + ": adrp x" + rgst + " #" + (rad+(ulong)scaled_dist));
+            File.AppendAllText(op + "bytecarve.s", rad + ": adrp x" + rgst + " #" + (rad + (ulong)scaled_dist));
         }
     }
 
@@ -74,44 +82,71 @@ public class DP_immediate
     {
         string typ = "";
         string opr = "";
+        string sourcet, dest;
         uint reg = extractBits(word, 31, 31);
-        uint opru=extractBits(word, 30, 30);
-        uint flag=extractBits(word, 29, 29);
-        if ((int)reg == 0)
-        { 
-            typ="W";
+        uint opru = extractBits(word, 30, 30);
+        uint flag = extractBits(word, 29, 29);
+        uint shflag = extractBits(word, 22, 23);
+        int source = (int)extractBits(word, 5, 9);
+        int destination = (int)extractBits(word, 0, 4);
+        int imm12 = (int)extractBits(word, 10, 21);
+        if (source == 31)
+        {
+            sourcet = "sp";
         }
         else
         {
-            typ = "X";
+            sourcet = "x"+source.ToString();
         }
+
+        if (destination == 31)
+        {
+            dest = "sp";
+        }
+        else
+        {
+            dest = "x"+destination.ToString();
+        }
+
+        if ((int)reg == 0)
+        {
+            typ = "w";
+        }
+        else
+        {
+            typ = "x";
+        }
+
         if ((int)reg == 0)
         {
             if ((int)flag == 0)
             {
-                opr="ADDS";
+                opr = "adds";
             }
             else
             {
-                opr="ADD";
+                opr = "add";
             }
-            
+
         }
         else
         {
             if ((int)flag == 0)
             {
-                opr="SUBS";
+                opr = "subs";
             }
             else
             {
-                opr="SUB";
+                opr = "sub";
             }
-            
         }
-        
-        
-        
+
+        if ((int)shflag == 1)
+        {
+            imm12 *= 4096;
+        } 
+        File.AppendAllText(op + "bytecarve.s", opr + " " + dest + ", " + sourcet+", #"+imm12.ToString());
+
     }
     
 }
