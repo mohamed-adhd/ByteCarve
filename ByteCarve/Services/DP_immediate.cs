@@ -10,7 +10,7 @@ public class DP_immediate
     private int index;
     static uint extractBits(uint word, int hi, int lo)
     {
-        int width = hi - lo + 1;
+        int width = lo-hi + 1;
         uint mask = (1u << width) - 1;
         return (word >> lo) & mask;
     }
@@ -42,12 +42,16 @@ public class DP_immediate
 
     public void pcaddress(uint word)
     {
-        if (((word >> 31) & 1 )== 1)
+        if (((word >> 31) & 1 )== 0)
         {
             uint immlo=extractBits(word, 29, 30);
             int rgst = (int)extractBits(word, 0, 4);
             uint immhi=extractBits(word, 5, 23);
             int dist = (int)((immhi << 2) | immlo);
+            if ((dist & (1 << 20))!= 0) 
+            {
+                dist |= unchecked((int)0xFFE00000);
+            }
             //here i ll add a file.write(index+": adr x"+"rgst+" #"+(index+8)) 
 
         }
