@@ -1,4 +1,5 @@
 using System;
+using Avalonia.Media.TextFormatting;
 
 namespace ByteCarve.Services;
 using System.Collections;
@@ -20,9 +21,27 @@ public class DP_immediate
         if (sig == 0b001 || sig == 0b000)
         {
             pcaddress(data);
+        }else if (sig == 0b010 || sig == 0b011)
+        {
+            addsubs(data);
+        }else if (sig == 0b100)
+        {
+            logic(data);
+        }else if (sig == 0b101)
+        {
+            movwid(data);
+        }else if (sig == 0b110)
+        {
+            bitfild(data);
+        }else if (sig == 0b111)
+        {
+            extrct(data);
         }
-        
-        
+    }
+
+    public void pcaddress()
+    {
         
     }
+    
 }
