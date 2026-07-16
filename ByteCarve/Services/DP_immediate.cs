@@ -4,6 +4,7 @@ using System.IO;
 namespace ByteCarve.Services;
 using System.Collections;
 using System.Linq;
+using Gee.External.Capstone;
 
 public class DP_immediate
 {
@@ -173,9 +174,9 @@ public class DP_immediate
         File.AppendAllText(op + "bytecarve.s", typ +" x"+rd.ToString()+val.ToString()+shiftText);
     }
 
-    public void logic(uint word)
+    public void logic(uint word,index)
     {
-        
+        Arm64Decoder.Decode(word, index);
     }
     
 }
