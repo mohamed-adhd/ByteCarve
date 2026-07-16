@@ -20,16 +20,19 @@ public class Branches
         uint top7 = extractBits(word, 25,31);
         uint top6 = extractBits(word, 25,30);
         uint top5 = extractBits(word, 26,30);
-        if (top8 == 0b11010100) return exceptions(word);
-        if (top8 == 0b11010101) return systems(word);
-        if (top7 == 0b1101011)  return Uncond(word);
-        if (top7 == 0b0101010)  return Cond(word);
-        if (top6 == 0b011010)   return Compare(word);
-        if (top6 == 0b011011)   return Test(word);
-        if (top5 == 0b00101)    return UncondBranchImmediate(word);
-        
-
-
-
+        if (top8 == 0b11010100) exceptions(word);
+        if (top8 == 0b11010101) systems(word);
+        if (top7 == 0b1101011)  Uncond(word);
+        if (top7 == 0b0101010)  Cond(word);
+        if (top6 == 0b011010)   Compare(word);
+        if (top6 == 0b011011)   Test(word);
+        if (top5 == 0b00101)    UncondBranchImmediate(word);
     }
+
+    public void exceptions(uint word)
+    {
+        int opc = (int)extractBits(word, 21, 23);
+        int im16 = (int)extractBits(word, 5, 20);
+    }
+    
 }
