@@ -31,8 +31,20 @@ public class Branches
 
     public void exceptions(uint word)
     {
-        int opc = (int)extractBits(word, 21, 23);
+        uint opc = extractBits(word, 21, 23);
         int im16 = (int)extractBits(word, 5, 20);
+        int ll=(int)extractBits(word, 0, 1);
+        switch (opc)
+        {
+            case 000:
+                break;
+            case 001:
+                break;
+            case 010:
+                break;
+            case 101:
+                break;
+        }
     }
     
 }
