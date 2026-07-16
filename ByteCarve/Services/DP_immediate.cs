@@ -231,5 +231,13 @@ public class DP_immediate
         }
         
     }
+
+    public void extrct(uint word)
+    {
+        int sf = (int)extractBits(word, 31, 31);
+        int rm = (int)extractBits(word, 16, 20);
+        
+
+    }
     
 }
