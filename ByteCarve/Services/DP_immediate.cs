@@ -151,8 +151,11 @@ public class DP_immediate
 
     public void movwide(uint word)
     {
-        string typ;
+        string typ="";
         int opc=(int)extractBits(word,29,30);
+        int slice = (int)extractBits(word, 21, 22);
+        uint val=extractBits(word, 5,20);
+        int rd = (int)extractBits(word, 0, 4);
         if ((int)extractBits(word, 31, 31) == 0)
         {
             if (opc == 00)
@@ -166,6 +169,11 @@ public class DP_immediate
                 typ = "movk";
             }
         }
+        if 
+
+        
+        
+        
     }
     
 }
