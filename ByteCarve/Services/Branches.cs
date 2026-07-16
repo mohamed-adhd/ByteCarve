@@ -2,13 +2,18 @@ namespace ByteCarve.Services;
 
 public class Branches
 {
-    private byte[] data;
-
-    public void process_it(byte[] tempo)
+    ulong index;
+    public Branches(ulong ts)
     {
-        data = tempo;
+        index = ts;
+    }
+
+    public void process_it(byte[] tempo,ulong index)
+    {
         
         
-        
+
+
+
     }
 }
