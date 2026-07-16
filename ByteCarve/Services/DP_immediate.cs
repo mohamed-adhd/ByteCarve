@@ -30,23 +30,23 @@ public class DP_immediate
         }
         else if (sig == 0b010 || sig == 0b011)
         {
-            addsubs(data);
+            addsubs(word);
         }
         else if (sig == 0b100)
         {
-            logic(data);
+            logic(word);
         }
         else if (sig == 0b101)
         {
-            movwide(data);
+            movwide(word);
         }
         else if (sig == 0b110)
         {
-            bitfild(data);
+            bitfild(word);
         }
         else if (sig == 0b111)
         {
-            extrct(data);
+            extrct(word);
         }
     }
 
@@ -169,10 +169,12 @@ public class DP_immediate
                 typ = "movk";
             }
         }
-        if 
+        string shiftText = (slice == 0) ? "" : $", lsl #{slice*16}";
+        File.AppendAllText(op + "bytecarve.s", typ +" x"+rd.ToString()+val.ToString()+shiftText);
+    }
 
-        
-        
+    public void logic(uint word)
+    {
         
     }
     
