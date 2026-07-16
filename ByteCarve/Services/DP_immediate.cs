@@ -210,8 +210,23 @@ public class DP_immediate
                 
                 break;
             case 1:
+                if (rt == 0 && es == 7)
+                {
+                    line="UXTB "+dst+", "+src;
+                }else if (rt == 0 && es == 15)
+                {
+                    line="UXTH "+dst+", "+src;
+                }else if ((es == 31 && reg == 0) || (es == 63 && reg == 1))
+                {
+                    line = "LSR" + dst + ", " + src + " #" + rt;
+                }else if (es == rt - 1)
+                {
+                    int regsize = (reg == 0) ? 32 : 64;
+                    line = "LSL " + dst + "," + src + ", #" + (regsize - rt);
+                }
                 break;
             case 10:
+                line = "BFM" + dst + ", " + src + ", #" + rt + ", #" + es;
                 break;
         }
         
