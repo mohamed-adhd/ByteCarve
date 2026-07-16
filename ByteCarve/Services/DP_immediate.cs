@@ -236,7 +236,18 @@ public class DP_immediate
     {
         int sf = (int)extractBits(word, 31, 31);
         int rm = (int)extractBits(word, 16, 20);
-        
+        int es = (int)extractBits(word,10, 15);
+        int rn=(int) extractBits(word, 5, 9);
+        int dest=(int)extractBits(word, 0, 4);
+        if (rn == rm)
+        {
+            File.AppendAllText(op + "bytecarve.s", "ROR"+dest+","+rm+", #"+es);
+        }
+        else
+        {
+            File.AppendAllText(op + "bytecarve.s", "ZXTR"+dest+","+rn+", "+rm+",#"+es);
+
+        }
 
     }
     
