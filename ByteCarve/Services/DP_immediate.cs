@@ -5,6 +5,7 @@ namespace ByteCarve.Services;
 using System.Collections;
 using System.Linq;
 using Gee.External.Capstone;
+using Gee.External.Capstone.Arm;
 
 public class DP_immediate
 {
@@ -174,9 +175,13 @@ public class DP_immediate
         File.AppendAllText(op + "bytecarve.s", typ +" x"+rd.ToString()+val.ToString()+shiftText);
     }
 
-    public void logic(uint word,index)
+    public void logic(byte[] word)
     {
-        Arm64Decoder.Decode(word, index);
+        var dis = CapstoneDisassembler.CreateArmDisassembler(ArmDisassembleMode.Arm);
+        var ins = dis.Disassemble(word,(long)index)[0];
+        File.AppendAllText(op + "bytecarve.s",ins.ToString());
+
+        
     }
     
 }
