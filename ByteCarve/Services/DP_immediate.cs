@@ -184,7 +184,37 @@ public class DP_immediate
 
     public void bitfild(uint word)
     {
-        int reg=extractBits(word,)
+        string line="";
+        int reg = (int)extractBits(word, 31, 31);
+        int tyo = (int)extractBits(word,29, 30);
+        int rt=(int)extractBits(word, 16, 21);
+        int es=(int)extractBits(word, 10, 15);
+        int src=(int)extractBits(word, 5, 9);
+        int dst=(int)extractBits(word, 0, 4);
+        switch (tyo)
+        {
+            case 0:
+                if (rt == 0 && es == 7)
+                {
+                    line="SXTB "+dst+", "+src;
+                }else if (rt == 0 && es == 15)
+                {
+                    line="SXTH "+dst+", "+src;
+                }else if (rt == 0 && es == 31)
+                {
+                    line="SXTW "+dst+", "+src;
+                }else if ((es == 31 && reg == 0) || (es == 63 && reg == 1))
+                {
+                    line = "ASR" + dst + ", " + src + " #" + rt;
+                }
+                
+                break;
+            case 1:
+                break;
+            case 10:
+                break;
+        }
+        
     }
     
 }
