@@ -36,7 +36,7 @@ public class DP_immediate
         }
         else if (sig == 0b100)
         {
-            logic(word);
+            logic(tempo);
         }
         else if (sig == 0b101)
         {
@@ -180,8 +180,11 @@ public class DP_immediate
         var dis = CapstoneDisassembler.CreateArmDisassembler(ArmDisassembleMode.Arm);
         var ins = dis.Disassemble(word,(long)index)[0];
         File.AppendAllText(op + "bytecarve.s",ins.ToString());
+    }
 
-        
+    public void bitfild(uint word)
+    {
+        int reg=extractBits(word,)
     }
     
 }
