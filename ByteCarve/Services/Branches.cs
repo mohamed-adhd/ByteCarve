@@ -79,20 +79,25 @@ public class Branches
 
     }
 
-    public void test(uint word)
+    public void test(uint word,ulong index)
     {
         string typo;
         int sp = (int)extractBits(word, 24, 24);
         int rt = (int)extractBits(word, 0, 4);
         typo = sp == 0 ? "tbz" : "tbnz";
         uint st_seg = extractBits(word, 19, 23);
+        uint imm14 = extractBits(word, 5, 18);
+        long signedImm14;
+        if ((imm14 & 0x2000) != 0)
+            signedImm14 = imm14 - 0x4000;
+        else
+            signedImm14 = imm14;
+        long offset = signedImm14 << 2;
+        long target = (long)index + offset;
         uint nd_seg = extractBits(word, 31, 31);
-        uint res=(st_seg << 5) | nd_seg;
-        W
-
-
-
-
+        uint res=(nd_seg << 5) | st_seg;
+        string regPrefix = nd_seg == 0 ? "w" : "x";
+        File.AppendAllText(op + "bytecarve.s",typo+" "+regPrefix+rt+", #"+target+", "+imm14.ToString());
     }
     
 }
