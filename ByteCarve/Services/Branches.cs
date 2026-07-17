@@ -104,6 +104,9 @@ public class Branches
     {
         string regsize = (int)extractBits(word, 31,31)==0? "w" : "x";
         string op =(int)extractBits(word, 24,24)==0? "cbz" : "cbnz";
-        
+        uint imm19=extractBits(word, 5,23);
+        int rt=(int)extractBits(word, 0, 4);
+        File.AppendAllText(op + "bytecarve.s", op+" "+regsize+rt+", "+(index+imm19));
+    }
     
 }
