@@ -1,11 +1,14 @@
 namespace ByteCarve.Services;
-
+using System.IO;
 public class Branches
 {
+    private string op;
     ulong index;
-    public Branches(ulong ts)
+    public Branches(ulong ts,string ops)
     {
         index = ts;
+        op = ops;
+
     }
     static uint extractBits(uint word, int hi, int lo)
     {
@@ -31,24 +34,49 @@ public class Branches
 
     public void exceptions(uint word)
     {
+        string typo = "";
         uint opc = extractBits(word, 21, 23);
         int im16 = (int)extractBits(word, 5, 20);
-        int ll=(int)extractBits(word, 0, 1);
+        uint ll=extractBits(word, 0, 1);
         switch (opc)
         {
             case 0b000:
                 switch (ll)
             {
-                
+                case 0b01:
+                    typo = "svc";
+                    break;
+                case 0b10:
+                    typo = "hvc";
+                    break;
+                case 0b11:
+                    typo = "smc";
+                    break;
             }
                 break;
             case 0b001:
+                typo = "brk";
                 break;
             case 0b010:
+                typo = "hlt";
                 break;
             case 0b101:
+                switch (ll)
+                {
+                    case 0b01:
+                        typo = "dcps1";
+                        break;
+                    case 0b10:
+                        typo = "dcps2";
+                        break;
+                    case 0b11:
+                        typo = "dcps3";
+                        break;
+                }
                 break;
         }
+        File.AppendAllText(op + "bytecarve.s", typo+", #"+im16);
+
     }
     
 }
