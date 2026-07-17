@@ -111,7 +111,15 @@ public class Branches
 
     public void systems(uint word)
     {
-        
+        int l = (int)extractBits(word, 23, 23);
+        int rt=(int)extractBits(word, 0, 4);
+        switch (l)
+        {
+            case 1:
+                File.AppendAllText(op + "bytecarve.s","mrs x"+rt+" NZCV");
+                break;
+                
+        }
     }
 
     public void cond(uint word)
