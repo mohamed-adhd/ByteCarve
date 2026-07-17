@@ -10,12 +10,21 @@ public class Branches
         op = ops;
 
     }
+    
+    
+    
+    
+    
+    
+    
+    
     static uint extractBits(uint word, int hi, int lo)
     {
         int width = lo - hi + 1;
         uint mask = (1u << width) - 1;
         return (word >> lo) & mask;
     }
+    
 
     public void process_it(uint word,ulong index)
     {
@@ -138,4 +147,14 @@ public class Branches
         File.AppendAllText(op + "bytecarve.s",opss+" "+(index+imm19));
 
     }
+    public string system_reg(uint word)
+    {
+        int Op0;
+        int Op1;
+        int CRn;
+        int CRm;
+        int Op2;
+        string Name; 
+    return "nah thanks";
+}
 }
