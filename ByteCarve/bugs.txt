@@ -1,0 +1,1 @@
+*- fucked up the byte comparison , come back and switch from int to 0b

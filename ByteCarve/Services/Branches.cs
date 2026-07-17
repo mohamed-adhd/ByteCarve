@@ -36,13 +36,17 @@ public class Branches
         int ll=(int)extractBits(word, 0, 1);
         switch (opc)
         {
-            case 000:
+            case 0b000:
+                switch (ll)
+            {
+                
+            }
                 break;
-            case 001:
+            case 0b001:
                 break;
-            case 010:
+            case 0b010:
                 break;
-            case 101:
+            case 0b101:
                 break;
         }
     }
