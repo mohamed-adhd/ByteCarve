@@ -117,6 +117,9 @@ public class Branches
     public void cond(uint word)
     {
         uint imm19 = extractBits(word,5, 23);
+        uint cond = extractBits(word,0, 3);
+        File.AppendAllText(op + "bytecarve.s",cond+" "+(index+imm19));
+
         
     }
 
