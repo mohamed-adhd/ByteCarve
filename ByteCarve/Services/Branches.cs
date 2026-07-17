@@ -17,7 +17,7 @@ public class Branches
         return (word >> lo) & mask;
     }
 
-    public void process_it(uint word)
+    public void process_it(uint word,ulong index)
     {
         uint top8 = extractBits(word, 24,31);
         uint top7 = extractBits(word, 25,31);
@@ -27,8 +27,8 @@ public class Branches
         if (top8 == 0b11010101) systems(word);
         if (top7 == 0b1101011)  Uncond(word);
         if (top7 == 0b0101010)  Cond(word);
-        if (top6 == 0b011010)   Compare(word);
-        if (top6 == 0b011011)   test(word);
+        if (top6 == 0b011010)   compare(word);
+        if (top6 == 0b011011)   test(word,index );
         if (top5 == 0b00101)    UncondBranchImmediate(word);
     }
 
@@ -98,6 +98,11 @@ public class Branches
         uint res=(nd_seg << 5) | st_seg;
         string regPrefix = nd_seg == 0 ? "w" : "x";
         File.AppendAllText(op + "bytecarve.s",typo+" "+regPrefix+rt+", #"+target+", "+imm14.ToString());
+    }
+
+    public void compare(uint word)
+    {
+        
     }
     
 }
