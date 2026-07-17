@@ -102,7 +102,8 @@ public class Branches
 
     public void compare(uint word)
     {
+        string regsize = (int)extractBits(word, 31,31)==0? "w" : "x";
+        string op =(int)extractBits(word, 24,24)==0? "cbz" : "cbnz";
         
-    }
     
 }
