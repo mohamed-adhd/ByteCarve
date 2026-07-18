@@ -37,7 +37,7 @@ public class Branches
         if (top7 == 0b0101010)  cond(word);
         if (top6 == 0b011010)   compare(word);
         if (top6 == 0b011011)   test(word,index );
-        if (top5 == 0b00101)    UncondBranchImmediate(word);
+        if (top5 == 0b00101)    uncondBranchImmediate(word);
     }
 
     public void exceptions(uint word)
@@ -175,6 +175,14 @@ public class Branches
         uint imm19 = extractBits(word,0, 25);
         string opss=(int)extractBits(word, 31,31)==0? "b" : "bl";
         File.AppendAllText(op + "bytecarve.s",opss+" "+(index+imm19));
+
+    }
+
+    public void UncondBranchImmediate(uint word,ulong index)
+    {
+        string typo = (int)extractBits(word, 30, 31) == 0 ? "b" : "bl";
+        uint offset=extractBits(word, 0, 25);
+        File.AppendAllText(op + "bytecarve.s",typo+" "+(index+offset));
 
     }
     public string system_reg(uint word)
