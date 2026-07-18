@@ -42,7 +42,6 @@ public class DP_register
                         {
                             addsubshif(word);
                         }
-
                         break;
                     case 1:
                         if (op2.Equals(0b0100))
@@ -75,5 +74,39 @@ public class DP_register
                 }
         }
         
+    }
+
+    public void logical(uint word)
+    {
+        return;
+    }
+    public void condselec(uint word)
+    {
+        return;
+    }
+    public void addsubshif(uint word)
+    {
+        return;
+    }public void addsubex(uint word)
+    {
+        return;
+    }public void condcompimed(uint word)
+    {
+        return;
+    }public void condcompreg(uint word)
+    {
+        return;
+    }public void DP_sc3(uint word)
+    {
+        return;
+    }public void DP_sc1(uint word)
+    {
+        return;
+    }public void rmif(uint word)
+    {
+        return;
+    }public void  addsubcarr(uint word)
+    {
+        return;
     }
 }
