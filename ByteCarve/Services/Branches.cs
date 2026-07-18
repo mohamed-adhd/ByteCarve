@@ -37,7 +37,7 @@ public class Branches
         if (top7 == 0b0101010)  cond(word);
         if (top6 == 0b011010)   compare(word);
         if (top6 == 0b011011)   test(word,index );
-        if (top5 == 0b00101)    uncondBranchImmediate(word);
+        if (top5 == 0b00101)    UncondBranchImmediate(word,index);
     }
 
     public void exceptions(uint word)
