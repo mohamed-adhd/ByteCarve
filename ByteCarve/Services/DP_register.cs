@@ -1,3 +1,5 @@
+using System.Security.Permissions;
+
 namespace ByteCarve.Services;
 using System;
 public class DP_register
@@ -46,7 +48,14 @@ public class DP_register
                         if (op2.Equals(0b0100))
                         {
                             condselec(word);
-                        }else if (op2.Equals(0b1000))
+                        }else if (op2.Equals(0b0000) && op3.Equals(0b000000))
+                        {
+                            addsubcarr(word);
+                        }else if (op3.Equals(0b000010) && op2.Equals(0101))
+                        {
+                            rmif(word);
+                        }
+                        else if (op2.Equals(0b1000))
                         {
                             DP_sc1(word);
                         }else if ((op2 & 0b1000) == 0b1000)
