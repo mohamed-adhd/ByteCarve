@@ -119,22 +119,53 @@ public class Branches
 
     public void systems(uint word)
     {
-        int l = (int)extractBits(word, 23, 23);
-        int rt=(int)extractBits(word, 0, 4);
-        switch (l)
+        int l   = (int)extractBits(word, 21, 21);
+        int op0 = (int)extractBits(word, 19, 20);
+        int op1 = (int)extractBits(word, 16, 18);
+        int crn = (int)extractBits(word, 12, 15);
+        int crm = (int)extractBits(word, 8, 11);
+        int op2 = (int)extractBits(word, 5, 7);
+        int rt  = (int)extractBits(word, 0, 4);
+        string register = (op0, op1, crn, crm, op2) switch
         {
-            case 1:
-                File.AppendAllText(op + "bytecarve.s","mrs x"+rt+" NZCV");
-                break;
-                
-        }
+            (3, 3, 4, 2, 0) => "NZCV",
+            (3, 3, 4, 2, 1) => "DAIF",
+            (3, 0, 4, 2, 2) => "CurrentEL",
+            (3, 3, 4, 4, 0) => "FPCR",
+            (3, 3, 4, 4, 1) => "FPSR",
+            _ => $"S{op0}_{op1}_C{crn}_C{crm}_{op2}"
+        };
+        string mnemonic = l == 1 ? "mrs" : "msr";
+        string output = l == 1
+            ? $"{mnemonic} x{rt}, {register}\n"
+            : $"{mnemonic} {register}, x{rt}\n";
+        File.AppendAllText(op + "bytecarve.s", output);
     }
 
     public void cond(uint word)
     {
         uint imm19 = extractBits(word,5, 23);
         uint cond = extractBits(word,0, 3);
-        File.AppendAllText(op + "bytecarve.s",cond+" "+(index+imm19));
+        string s = cond switch
+        {
+            0x0=> "eq",
+            0x1=> "ne",
+            0x2 =>"cs",
+            0x3 => "cc",
+            0x4 =>"mi",
+            0x5 =>"pl",
+            0x6=> "vs",
+            0x7=>"vc",
+            0x8 => "hi",
+            0x9 => "ls",
+            0xA=> "ge",
+            0xB=> "lt",
+            0xC =>"gt",
+            0xD =>"le",
+            0xE =>"al",
+            _   =>"nv"
+        };
+        File.AppendAllText(op + "bytecarve.s",s+" "+(index+imm19));
 
         
     }
