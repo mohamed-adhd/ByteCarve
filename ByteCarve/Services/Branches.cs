@@ -8,7 +8,6 @@ public class Branches
     {
         index = ts;
         op = ops;
-
     }
     
     

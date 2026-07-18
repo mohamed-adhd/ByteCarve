@@ -56,7 +56,7 @@ public class disassembler
                 Loads(chunk);
             }else if (dpimngrp.Contains(sig))
             {
-                DP_immediate(chunk);
+                dp_immediate.process_it(chunk);
             }else if (dpreggrp.Contains(sig))
             {
                 DP_Register(chunk);
@@ -65,7 +65,7 @@ public class disassembler
                 DP_Scalar(chunk);
             }else if (branch.Contains(sig))
             {
-                Branches(chunk);
+                branches.process_it(chunk);
             }
 
 
