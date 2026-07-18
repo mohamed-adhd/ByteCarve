@@ -20,7 +20,36 @@ public class DP_register
         uint op1 = extractBits(word, 28, 28);
         uint op2 = extractBits(word, 21, 24);
         uint op3 = extractBits(word, 10, 15);
-        
+        switch ((int)op0)
+        {
+            case 0:
+                if ((int)op1 == 0)
+                {
+                    logical(word);
+                }
+                break;
+            case 1:
+                switch ((int)op1)
+                {
+                    case 0:
+                        if ((op3 & 0b111000) == 0b000000)
+                        {
+                            addsubex(word);
+                        }
+                        else
+                        {
+                            addsubshif(word);
+                        }
+
+                        break;
+                    case 1:
+                        if (op2.Equals(0b100))
+                        {
+                            condselec(word);
+                        }
+                        break;
+                }
+        }
         
     }
 }
