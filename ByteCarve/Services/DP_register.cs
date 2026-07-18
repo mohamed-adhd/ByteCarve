@@ -43,9 +43,24 @@ public class DP_register
 
                         break;
                     case 1:
-                        if (op2.Equals(0b100))
+                        if (op2.Equals(0b0100))
                         {
                             condselec(word);
+                        }else if (op2.Equals(0b1000))
+                        {
+                            DP_sc1(word);
+                        }else if ((op2 & 0b1000) == 0b1000)
+                        {
+                            DP_sc3(word);
+                        }else if (op2.Equals(0b0010))
+                        {
+                            if ((op3 & 0b100000) == 0b000000)
+                            {
+                                condcompreg(word);
+                            }else if ((op3 & 0b111000) == 0b100000)
+                            {
+                                condcompimed(word);
+                            }
                         }
                         break;
                 }
