@@ -456,6 +456,8 @@ public void condcompreg(uint word)
                 break;
         }
         mn=(int)extractBits(word, 29, 29) == 0 ? mn+="s" : mn;
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , "+rm );
+
         
 
     }
