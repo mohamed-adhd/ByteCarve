@@ -1,1 +1,3 @@
 *- fucked up the byte comparison , come back and switch from int to 0b
+
+again , dont forget the int to uint comparaison its not getting out of head

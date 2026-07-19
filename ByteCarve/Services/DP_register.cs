@@ -78,7 +78,66 @@ public class DP_register
 
     public void logical(uint word)
     {
-        return;
+        string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
+        uint opc = extractBits(word, 29, 30);
+        int n = (int)extractBits(word, 21, 21);
+        uint shift = extractBits(word, 22, 23);
+        string mn = "";
+        switch (n)
+        {
+            case 0:
+                switch (opc)
+                {
+                    case 0b00:
+                        mn = "and";
+                        break;
+                    case 0b10:
+                        mn = "eor";
+                        break;
+                    case 0b11:
+                        mn = "ands";
+                        break;
+                    case 0b01:
+                        mn = "orr";
+                        break;
+                }
+                break;
+            case 1:
+                switch (opc)
+                {
+                    case 0b00:
+                        mn = "ric";
+                        break;
+                    case 0b10:
+                        mn = "orn";
+                        break;
+                    case 0b11:
+                        mn = "bics";
+                        break;
+                    case 0b01:
+                        mn = "orn";
+                        break;
+                }
+                break;
+        }
+
+        string sh;
+        switch (shift)
+        {
+            case 0b00:
+                mn = "lsl";
+                break;
+            case 0b10:
+                mn = "asr";
+                break;
+            case 0b11:
+                mn = "ror";
+                break;
+            case 0b01:
+                mn = "lsr";
+                break;
+        }
+
     }
     public void condselec(uint word)
     {
