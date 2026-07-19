@@ -412,7 +412,44 @@ public void condcompreg(uint word)
         
     }public void DP_sc1(uint word)
     {
-        
+        string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
+        uint op1 =extractBits(word,16,20) ;
+        uint op2 = extractBits(word, 10, 15);
+        string rd = typo + (int)extractBits(word, 0, 4);
+        string rn = typo + (int)extractBits(word, 5, 9);
+        string mn = "";
+        switch (op1)
+        {
+            case 0b00000:
+                switch (op2)
+                {
+                    case 0b000000:
+                        mn = "rbit";
+                        break;
+                    case 0b000001:
+                        mn = "rev16";
+                        break;
+                    case 0b000010:
+                        if ((int)extractBits(word, 31, 31) == 0)
+                        {
+                            mn = "rev";
+                        }
+                        else
+                        {
+                            mn = "rev32";
+                        }
+                        break;
+                    //the sheer amount of redbulls and monster i consumed in this damn part of the fucking data processing bucket : 13 bottles so far 
+                    case 0b000011:
+                        if ((int)extractBits(word, 31, 31) == 0)
+                        {
+                            mn = "rev64";
+                            
+                        }
+                }
+                break;
+        }
+
     }public void rmif(uint word)
     {
         string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
