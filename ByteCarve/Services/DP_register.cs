@@ -423,6 +423,40 @@ public void condcompreg(uint word)
 
     }public void  addsubcarr(uint word)
     {
+        string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
+        string rd = typo + (int)extractBits(word, 0, 4);
+        string rm = typo + (int)extractBits(word, 16, 20);
+        string rn = typo + (int)extractBits(word, 5, 9);
+        string mn = "";
+        switch ((int)extractBits(word, 30, 30))
+        {
+            case 1:
+                switch ((int)extractBits(word, 29, 29))
+                {
+                    case 0:
+                        mn = "sbc";
+                        break;
+                    case 1:
+                        mn = "sbcs";
+                        break;
+                }
+
+                break;
+            case 0:
+                switch ((int)extractBits(word, 29, 29))
+                {
+                    case 0:
+                        mn = "adc";
+                        break;
+                    case 1:
+                        mn = "adcs";
+                        break;
+                }
+
+                break;
+        }
+        mn=(int)extractBits(word, 29, 29) == 0 ? mn+="s" : mn;
         
+
     }
 }
