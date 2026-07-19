@@ -259,7 +259,13 @@ public class DP_register
 
     }public void addsubex(uint word)
     {
-        return;
+        string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
+        uint op = extractBits(word, 30, 30);
+        int s = (int)extractBits(word, 29, 29);
+        uint shift = extractBits(word, 22, 23);
+        string rd = typo + (int)extractBits(word, 0, 4);
+        string rn = typo + (int)extractBits(word, 5, 9);
+        string rm = typo + (int)extractBits(word, 16, 20);
     }public void condcompimed(uint word)
     {
         return;
