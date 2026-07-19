@@ -406,20 +406,18 @@ public void condcompreg(uint word)
             _ => "nv"
         };
         File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , #"+rm + ", #" +nzcv+" "+s);
-
-        
         
     }public void DP_sc3(uint word)
     {
-        return;
+        
     }public void DP_sc1(uint word)
     {
-        return;
+        
     }public void rmif(uint word)
     {
-        return;
+        
     }public void  addsubcarr(uint word)
     {
-        return;
+        
     }
 }
