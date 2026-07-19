@@ -31,6 +31,7 @@ public class DP_register
                 {
                     logical(word);
                 }
+
                 break;
             case 1:
                 switch ((int)op1)
@@ -44,38 +45,45 @@ public class DP_register
                         {
                             addsubshif(word);
                         }
+
                         break;
                     case 1:
                         if (op2.Equals(0b0100))
                         {
                             condselec(word);
-                        }else if (op2.Equals(0b0000) && op3.Equals(0b000000))
+                        }
+                        else if (op2.Equals(0b0000) && op3.Equals(0b000000))
                         {
                             addsubcarr(word);
-                        }else if (op3.Equals(0b000010) && op2.Equals(0101))
+                        }
+                        else if (op3.Equals(0b000010) && op2.Equals(0101))
                         {
                             rmif(word);
                         }
                         else if (op2.Equals(0b1000))
                         {
                             DP_sc1(word);
-                        }else if ((op2 & 0b1000) == 0b1000)
+                        }
+                        else if ((op2 & 0b1000) == 0b1000)
                         {
                             DP_sc3(word);
-                        }else if (op2.Equals(0b0010))
+                        }
+                        else if (op2.Equals(0b0010))
                         {
                             if ((op3 & 0b100000) == 0b000000)
                             {
                                 condcompreg(word);
-                            }else if ((op3 & 0b111000) == 0b100000)
+                            }
+                            else if ((op3 & 0b111000) == 0b100000)
                             {
                                 condcompimed(word);
                             }
                         }
+
                         break;
                 }
         }
-        
+
     }
 
     public void logical(uint word)
@@ -107,6 +115,7 @@ public class DP_register
                         mn = "orr";
                         break;
                 }
+
                 break;
             case 1:
                 switch (opc)
@@ -124,10 +133,11 @@ public class DP_register
                         mn = "orn";
                         break;
                 }
+
                 break;
         }
 
-        string sh="";
+        string sh = "";
         switch (shift)
         {
             case 0b00:
@@ -143,10 +153,12 @@ public class DP_register
                 sh = "lsr";
                 break;
         }
-        File.AppendAllText(op + "bytecarve.s", mn+" "+rd+", "+rn+" ,"+rm+" ,"+sh+" #"+(int)im6);
+
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + sh + " #" + (int)im6);
 
 
     }
+
     public void condselec(uint word)
     {
         string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
@@ -157,10 +169,10 @@ public class DP_register
         string rn = typo + (int)extractBits(word, 5, 9);
         string rm = typo + (int)extractBits(word, 16, 20);
         uint im6 = extractBits(word, 10, 15);
-        uint cond=extractBits(word, 12, 15);
+        uint cond = extractBits(word, 12, 15);
         string mn = "";
         switch (op)
-        { 
+        {
             case 1:
                 switch (o2)
                 {
@@ -171,6 +183,7 @@ public class DP_register
                         mn = "cseng";
                         break;
                 }
+
                 break;
             case 0:
                 switch (o2)
@@ -182,29 +195,32 @@ public class DP_register
                         mn = "csinc";
                         break;
                 }
+
                 break;
         }
+
         string s = cond switch
         {
-            0x0=> "eq",
-            0x1=> "ne",
-            0x2 =>"cs",
+            0x0 => "eq",
+            0x1 => "ne",
+            0x2 => "cs",
             0x3 => "cc",
-            0x4 =>"mi",
-            0x5 =>"pl",
-            0x6=> "vs",
-            0x7=>"vc",
+            0x4 => "mi",
+            0x5 => "pl",
+            0x6 => "vs",
+            0x7 => "vc",
             0x8 => "hi",
             0x9 => "ls",
-            0xA=> "ge",
-            0xB=> "lt",
-            0xC =>"gt",
-            0xD =>"le",
-            0xE =>"al",
-            _   =>"nv"
+            0xA => "ge",
+            0xB => "lt",
+            0xC => "gt",
+            0xD => "le",
+            0xE => "al",
+            _ => "nv"
         };
-        File.AppendAllText(op + "bytecarve.s", mn+" "+rd+", "+rn+" ,"+rm+" ,"+(int)im6);
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + (int)im6);
     }
+
     public void addsubshif(uint word)
     {
         string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
@@ -231,7 +247,7 @@ public class DP_register
 
         string mn = "";
         switch (op)
-        { 
+        {
             case 1:
                 switch (s)
                 {
@@ -242,6 +258,7 @@ public class DP_register
                         mn = "subs";
                         break;
                 }
+
                 break;
             case 0:
                 switch (s)
@@ -253,20 +270,86 @@ public class DP_register
                         mn = "adds";
                         break;
                 }
+
                 break;
         }
-        File.AppendAllText(op + "bytecarve.s", mn+" "+rd+", "+rn+" ,"+rm+" ,"+sh+" #"+(int)im6);
 
-    }public void addsubex(uint word)
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + sh + " #" + (int)im6);
+
+    }
+
+    public void addsubex(uint word)
     {
         string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
         uint op = extractBits(word, 30, 30);
         int s = (int)extractBits(word, 29, 29);
-        uint shift = extractBits(word, 22, 23);
+        uint im3 = extractBits(word, 10, 12);
         string rd = typo + (int)extractBits(word, 0, 4);
         string rn = typo + (int)extractBits(word, 5, 9);
         string rm = typo + (int)extractBits(word, 16, 20);
-    }public void condcompimed(uint word)
+        string mn = "";
+        uint wtvrman = extractBits(word, 13, 15);
+        switch (op)
+        {
+            case 1:
+                switch (s)
+                {
+                    case 0:
+                        mn = "sub";
+                        break;
+                    case 1:
+                        mn = "subs";
+                        break;
+                }
+
+                break;
+            case 0:
+                switch (s)
+                {
+                    case 0:
+                        mn = "add";
+                        break;
+                    case 1:
+                        mn = "adds";
+                        break;
+                }
+
+                break;
+        }
+
+        string ex = "";
+        switch (wtvrman)
+        {
+            case 0b000:
+                ex = "uxtb";
+                break;
+            case 0b001:
+                ex = "uxth";
+                break;
+            case 0b010:
+                ex = "uxtw";
+                break;
+            case 0b011:
+                ex = "uxtx";
+                break;
+            case 0b100:
+                ex = "sxtb";
+                break;
+            case 0b101:
+                ex = "sxth";
+                break;
+            case 0b110:
+                ex = "sxtw";
+                break;
+            case 0b111:
+                ex = "sxtx";
+                break;
+        }
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + ex + " #" + (int)im3);
+        
+    }
+
+}public void condcompimed(uint word)
     {
         return;
     }public void condcompreg(uint word)
