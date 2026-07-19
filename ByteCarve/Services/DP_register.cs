@@ -149,7 +149,60 @@ public class DP_register
     }
     public void condselec(uint word)
     {
-        return;
+        string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
+        int op = (int)extractBits(word, 30, 30);
+        int o2 = (int)extractBits(word, 10, 10);
+        uint shift = extractBits(word, 22, 23);
+        string rd = typo + (int)extractBits(word, 0, 4);
+        string rn = typo + (int)extractBits(word, 5, 9);
+        string rm = typo + (int)extractBits(word, 16, 20);
+        uint im6 = extractBits(word, 10, 15);
+        uint cond=extractBits(word, 12, 15);
+        string mn = "";
+        switch (op)
+        { 
+            case 1:
+                switch (o2)
+                {
+                    case 0:
+                        mn = "csinv";
+                        break;
+                    case 1:
+                        mn = "cseng";
+                        break;
+                }
+                break;
+            case 0:
+                switch (o2)
+                {
+                    case 0:
+                        mn = "csel";
+                        break;
+                    case 1:
+                        mn = "csinc";
+                        break;
+                }
+                break;
+        }
+        string s = cond switch
+        {
+            0x0=> "eq",
+            0x1=> "ne",
+            0x2 =>"cs",
+            0x3 => "cc",
+            0x4 =>"mi",
+            0x5 =>"pl",
+            0x6=> "vs",
+            0x7=>"vc",
+            0x8 => "hi",
+            0x9 => "ls",
+            0xA=> "ge",
+            0xB=> "lt",
+            0xC =>"gt",
+            0xD =>"le",
+            0xE =>"al",
+            _   =>"nv"
+        };
     }
     public void addsubshif(uint word)
     {
