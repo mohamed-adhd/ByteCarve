@@ -376,7 +376,7 @@ public void condcompimed(uint word)
             0xE => "al",
             _ => "nv"
         };
-        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , #"+(int)imm16 + ", #" +nzcv+s);
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , #"+(int)imm16 + ", #" +nzcv+" "+s);
     }
 public void condcompreg(uint word)
     {
@@ -385,7 +385,7 @@ public void condcompreg(uint word)
         string rd = typo + (int)extractBits(word, 0, 4);
         uint cond = extractBits(word, 12, 15);
         int nzcv = (int)extractBits(word, 5, 7);
-        uint imm16 = extractBits(word, 16, 20);
+        string rm =typo+(int) extractBits(word, 16, 20);
         string s = cond switch
         {
             0x0 => "eq",
@@ -405,6 +405,10 @@ public void condcompreg(uint word)
             0xE => "al",
             _ => "nv"
         };
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , #"+rm + ", #" +nzcv+" "+s);
+
+        
+        
     }public void DP_sc3(uint word)
     {
         return;
