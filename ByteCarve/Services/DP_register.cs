@@ -357,9 +357,27 @@ public void condcompimed(uint word)
         string rn = typo + (int)extractBits(word, 5, 9);
         string rm = typo + (int)extractBits(word, 16, 20);
         uint cond = extractBits(word, 12, 15);
-        uint nzcv = extractBits(word, 5, 7);
+        int nzcv = (int)extractBits(word, 5, 7);
         uint imm16 = extractBits(word, 16, 20);
-        
+        string s = cond switch
+        {
+            0x0 => "eq",
+            0x1 => "ne",
+            0x2 => "cs",
+            0x3 => "cc",
+            0x4 => "mi",
+            0x5 => "pl",
+            0x6 => "vs",
+            0x7 => "vc",
+            0x8 => "hi",
+            0x9 => "ls",
+            0xA => "ge",
+            0xB => "lt",
+            0xC => "gt",
+            0xD => "le",
+            0xE => "al",
+            _ => "nv"
+        };
     }
 public void condcompreg(uint word)
     {
