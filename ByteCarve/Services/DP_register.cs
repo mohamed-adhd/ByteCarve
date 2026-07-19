@@ -416,11 +416,11 @@ public void condcompreg(uint word)
     }public void rmif(uint word)
     {
         string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
-        string mn = (int)extractBits(word, 30, 30) == 0 ? "add" : "sub";
-        mn=(int)extractBits(word, 0, 4) == 0 ? mn += "s":mn;
         uint im16=extractBits(word, 20, 15);
-
+        uint mask = extractBits(word, 0, 3);
         string rm = typo + (int)extractBits(word, 5, 9);
+        File.AppendAllText(op + "bytecarve.s", "rmif  " + rm +" , #"+im16+" ,#"+mask);
+
     }public void  addsubcarr(uint word)
     {
         
