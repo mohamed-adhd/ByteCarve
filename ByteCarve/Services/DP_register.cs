@@ -203,6 +203,7 @@ public class DP_register
             0xE =>"al",
             _   =>"nv"
         };
+        File.AppendAllText(op + "bytecarve.s", mn+" "+rd+", "+rn+" ,"+rm+" ,"+(int)im6);
     }
     public void addsubshif(uint word)
     {
