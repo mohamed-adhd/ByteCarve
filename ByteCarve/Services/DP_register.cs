@@ -444,11 +444,26 @@ public void condcompreg(uint word)
                         if ((int)extractBits(word, 31, 31) == 0)
                         {
                             mn = "rev64";
-                            
                         }
+                        else
+                        {
+                            mn = "undefined twin";
+                        }
+
+                        break;
+                    case 0b000100:
+                        mn = "clz";
+                        break;
+                    case 0b000101:
+                        mn = "cls";//mercedes cls lol
+                        break;
                 }
                 break;
+            
         }
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , "+rn );
+
+        
 
     }public void rmif(uint word)
     {
