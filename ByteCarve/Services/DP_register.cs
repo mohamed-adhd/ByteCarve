@@ -2,6 +2,8 @@ using System.Security.Permissions;
 
 namespace ByteCarve.Services;
 using System;
+using System.IO;
+
 public class DP_register
 {
     private uint word;
@@ -82,6 +84,10 @@ public class DP_register
         uint opc = extractBits(word, 29, 30);
         int n = (int)extractBits(word, 21, 21);
         uint shift = extractBits(word, 22, 23);
+        string rd = typo + (int)extractBits(word, 0, 4);
+        string rn = typo + (int)extractBits(word, 5, 9);
+        string rm = typo + (int)extractBits(word, 16, 20);
+        uint im6 = extractBits(word, 10, 15);
         string mn = "";
         switch (n)
         {
@@ -121,22 +127,24 @@ public class DP_register
                 break;
         }
 
-        string sh;
+        string sh="";
         switch (shift)
         {
             case 0b00:
-                mn = "lsl";
+                sh = "lsl";
                 break;
             case 0b10:
-                mn = "asr";
+                sh = "asr";
                 break;
             case 0b11:
-                mn = "ror";
+                sh = "ror";
                 break;
             case 0b01:
-                mn = "lsr";
+                sh = "lsr";
                 break;
         }
+        File.AppendAllText(op + "bytecarve.s", mn+" "+rd+", "+rn+" ,"+rm+" ,"+sh+" #"+(int)im6);
+
 
     }
     public void condselec(uint word)
