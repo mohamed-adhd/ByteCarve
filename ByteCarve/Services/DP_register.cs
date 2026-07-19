@@ -81,6 +81,7 @@ public class DP_register
                         }
 
                         break;
+                    
                 }
         }
 
@@ -348,11 +349,19 @@ public class DP_register
         File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + ex + " #" + (int)im3);
         
     }
-
-}public void condcompimed(uint word)
+public void condcompimed(uint word)
     {
-        return;
-    }public void condcompreg(uint word)
+        string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
+        string mn = (int)extractBits(word, 30, 30) == 0 ? "ccmn" : "ccmp";
+        string rd = typo + (int)extractBits(word, 0, 4);
+        string rn = typo + (int)extractBits(word, 5, 9);
+        string rm = typo + (int)extractBits(word, 16, 20);
+        uint cond = extractBits(word, 12, 15);
+        uint nzcv = extractBits(word, 5, 7);
+        uint imm16 = extractBits(word, 16, 20);
+        
+    }
+public void condcompreg(uint word)
     {
         return;
     }public void DP_sc3(uint word)
