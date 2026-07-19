@@ -207,7 +207,56 @@ public class DP_register
     }
     public void addsubshif(uint word)
     {
-        return;
+        string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
+        uint op = extractBits(word, 30, 30);
+        int s = (int)extractBits(word, 29, 29);
+        uint shift = extractBits(word, 22, 23);
+        string rd = typo + (int)extractBits(word, 0, 4);
+        string rn = typo + (int)extractBits(word, 5, 9);
+        string rm = typo + (int)extractBits(word, 16, 20);
+        uint im6 = extractBits(word, 10, 15);
+        string sh = "";
+        switch (shift)
+        {
+            case 0b00:
+                sh = "lsl";
+                break;
+            case 0b10:
+                sh = "asr";
+                break;
+            case 0b01:
+                sh = "lsr";
+                break;
+        }
+
+        string mn = "";
+        switch (op)
+        { 
+            case 1:
+                switch (s)
+                {
+                    case 0:
+                        mn = "sub";
+                        break;
+                    case 1:
+                        mn = "subs";
+                        break;
+                }
+                break;
+            case 0:
+                switch (s)
+                {
+                    case 0:
+                        mn = "add";
+                        break;
+                    case 1:
+                        mn = "adds";
+                        break;
+                }
+                break;
+        }
+        File.AppendAllText(op + "bytecarve.s", mn+" "+rd+", "+rn+" ,"+rm+" ,"+sh+" #"+(int)im6);
+
     }public void addsubex(uint word)
     {
         return;
