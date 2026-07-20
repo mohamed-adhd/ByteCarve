@@ -225,6 +225,11 @@ public class DP_register
         File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + (int)im6);
     }
 
+    public void DP_sc2(uint word)
+    {
+        
+    }
+
     public void addsubshif(uint word)
     {
         string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
@@ -412,7 +417,13 @@ public void condcompreg(uint word)
         
     }public void DP_sc3(uint word)
     {
+        string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
+        string rd = typo + (int)extractBits(word, 0, 4);
+        string rn = typo + (int)extractBits(word, 5, 9);
+        uint opc = extractBits(10, 15);
         
+
+
     }public void DP_sc1(uint word)
     {
         string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
