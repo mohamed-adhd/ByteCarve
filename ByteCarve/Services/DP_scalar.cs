@@ -68,8 +68,92 @@ public class DP_scalar
 
     public void fpintcon(uint word)
     {
-        
+        string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
+        string rd = typo + (int)extractBits(word, 0, 4);
+        string rn = typo + (int)extractBits(word, 5, 9);
+        uint opc = extractBits(word, 16, 18);
+        uint rmd = extractBits(word, 19, 20);
+        uint type = extractBits(word, 22, 23);
+        string mn = "";
+
+        switch (rmd)
+        {
+            case 0b00:
+                switch (opc)
+                {
+                    case 0b000: mn = "fcvtns"; break;
+                    case 0b001: mn = "fcvtnu"; break;
+                    case 0b010: mn = "scvtf"; break;
+                    case 0b011: mn = "ucvtf"; break;
+                    case 0b100: mn = "fcvtas"; break;
+                    case 0b101: mn = "fcvtau"; break;
+                    case 0b110: mn = "fmov"; break;
+                    case 0b111: mn = "fmov"; break;
+                    default: mn = "undefined"; break;
+                }
+
+                break;
+
+            case 0b01:
+                switch (opc)
+                {
+                    case 0b000: mn = "fcvtps"; break;
+                    case 0b001: mn = "fcvtpu"; break;
+                    case 0b110: mn = "fmov"; break;
+                    case 0b111:
+                        mn = "fmov";
+                        break; // i had my brother type this switch for me lmao , git his ass working like a maid
+                    default: mn = "undefined"; break;
+                }
+
+                break;
+
+            case 0b10:
+                switch (opc)
+                {
+                    case 0b000: mn = "fcvtms"; break;
+                    case 0b001: mn = "fcvtmu"; break;
+                    default: mn = "undefined"; break;
+                }
+
+                break;
+
+            case 0b11:
+                switch (opc)
+                {
+                    case 0b000: mn = "fcvtzs"; break;
+                    case 0b001: mn = "fcvtzu"; break;
+                    case 0b110: mn = "fjcvtzs"; break;
+                    default: mn = "undefined"; break;
+                }
+
+                break;
+
+        }
+        bool intToFloat = (opc == 0b010 || opc== 0b011); 
+        string Rns, Rds;
+        if (intToFloat)
+        {
+            Rns = (extractBits(word,31,31) == 1 ? "x" : "w") + rn; 
+            Rds = TypeToFpPrefix(type) + rd; 
+        }
+        else
+        {
+            Rns = TypeToFpPrefix(type) + rn;  
+            Rds = (extractBits(word,31,31) == 1 ? "x" : "w") + rd;   
+        }
+        File.AppendAllText(op + "bytecarve.s", mn + " " + Rds +" , "+Rns );
+
     }
+    string TypeToFpPrefix(uint type) => type switch
+    {
+        0b00 => "s",
+        0b01 => "d",
+        0b11 => "h",
+        _ => "?"
+    };
+    
+
     public void fpcomp(uint word)
     {
         uint sf = extractBits(word, 22, 23);
@@ -84,4 +168,5 @@ public class DP_scalar
         string o2 = cmpZero ? "#0.0" : $"{sz}{rm}";
         File.AppendAllText(op + "bytecarve.s", mn + " " + sz+rn+" , "+o2 );
     }
+    
 }
