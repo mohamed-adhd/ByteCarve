@@ -1,5 +1,6 @@
 namespace ByteCarve.Services;
 using System;
+using System.IO;
 public class DP_scalar
 {
     private string op;
@@ -80,8 +81,7 @@ public class DP_scalar
         bool signaling  = (opc & 0b10000) != 0;
         bool cmpZero    = (opc & 0b01000) != 0;
         string mn = signaling ? "fcmpe" : "fcmp";
-        string operand2 = cmpZero ? "#0.0" : $"{sz}{rm}";
-        
-
+        string o2 = cmpZero ? "#0.0" : $"{sz}{rm}";
+        File.AppendAllText(op + "bytecarve.s", mn + " " + sz+rn+" , "+o2 );
     }
 }
