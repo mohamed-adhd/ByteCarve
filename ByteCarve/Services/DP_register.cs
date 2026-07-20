@@ -420,7 +420,53 @@ public void condcompreg(uint word)
         string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
         string rd = typo + (int)extractBits(word, 0, 4);
         string rn = typo + (int)extractBits(word, 5, 9);
-        uint opc = extractBits(10, 15);
+        uint opc = extractBits(word,10, 15);
+        string mn = "";
+        switch (opc)
+        {
+            case 0b00010:
+                mn = "udiv";
+                break;
+            case 0b00011:
+                mn = "sdiv";
+                break;
+            case 0b00100:
+                mn = "crc32b";
+                break;
+            case 0b00101:
+                mn = "crc32h";
+                break;
+            case 0b00110:
+                mn = "crc32w";
+                break;
+            case 0b00111:
+                mn = "crc32x";
+                break;
+            case 0b01000:
+                mn = "lsl";
+                break;
+            case 0b01001:
+                mn = "lsr";
+                break;
+            case 0b01010:
+                mn = "asr";
+                break;
+            case 0b01011:
+                mn = "ror";
+                break;
+            case 0b10100:
+                mn = "crc32cb";
+                break;
+            case 0b10101:
+                mn = "crc32ch";
+                break;
+            case 0b10110:
+                mn = "crc32cw";
+                break;
+            case 0b10111:
+                mn = "crc32cx";
+                break;
+        }
         
 
 
