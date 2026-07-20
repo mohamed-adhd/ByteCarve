@@ -23,20 +23,30 @@ public class DP_scalar
         uint op1 = extractBits(word, 24, 24);
         uint op2 = extractBits(word, 21, 21);
         uint op3 = extractBits(word, 10, 15);
-        switch (op0)
+        uint extra = extractBits(word, 21, 28);
+        if (op0.Equals(0b1111) && op1.Equals(0b0) && op2.Equals(0b1) && (op3 & 0b001111) == 0b001000)
         {
-            case 0b1111:
-                switch (op1)
-                {
-                    case 1:
-                        fpdp3(word);
-                        break;
-                    case 0:
-                        break;
-                }
-                break;
-            case 0b0111:
-                break;
+            fpcomp(word);
+        }else if (op0.Equals(0b1111) && op1.Equals(0b0) && op2.Equals(0b1) && (op3 & 0b011111) == 0b010000)
+        {
+            fpdp1(word);
+        }else if (op0.Equals(0b1111) && op1.Equals(0b0) && op2.Equals(0b1) && op3.Equals(000000))
+        {
+            fpintcon(word);
+        }else if (op0.Equals(0b1111) && op1.Equals(0b0) && op2.Equals(0b1))
+        {
+            fpdp1(word);
         }
+        else if (op0.Equals(0b1111) &&  op2.Equals(0b1))
+        {
+            fpdp1(word);
+        }else if (op0.Equals(0b1111) &&  op2.Equals(0b1))
+        {
+            advs3(word);
+        }else if (op0.Equals(0b1111) &&  extra.Equals(0b01110000))
+        {
+            advcp(word);
+        }
+
     }
 }
