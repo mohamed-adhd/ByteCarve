@@ -49,4 +49,28 @@ public class DP_scalar
         }
 
     }
+
+    public void advcp(uint word)
+    {
+        
+    }
+
+    public void advs3(uint word)
+    {
+        
+    }
+
+    public void fpdp1(uint word)
+    {
+        
+    }
+
+    public void fpintcon(uint word)
+    {
+        
+    }
+    public void fpcomp(uint word)
+    {
+        
+    }
 }
