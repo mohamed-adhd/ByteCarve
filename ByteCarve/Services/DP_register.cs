@@ -420,6 +420,8 @@ public void condcompreg(uint word)
         string typo = (int)extractBits(word, 31, 31) == 1 ? "x" : "w";
         string rd = typo + (int)extractBits(word, 0, 4);
         string rn = typo + (int)extractBits(word, 5, 9);
+        string rm =typo+(int) extractBits(word, 16, 20);
+
         uint opc = extractBits(word,10, 15);
         string mn = "";
         switch (opc)
@@ -467,6 +469,8 @@ public void condcompreg(uint word)
                 mn = "crc32cx";
                 break;
         }
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , "+rn+" ,"+rm);
+
         
 
 
