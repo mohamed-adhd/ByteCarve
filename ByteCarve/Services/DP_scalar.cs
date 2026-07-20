@@ -71,6 +71,17 @@ public class DP_scalar
     }
     public void fpcomp(uint word)
     {
+        uint sf = extractBits(word, 22, 23);
+        string typo = "";
+        string sz = sf == 0 ? "s" : sf == 1 ? "d" : sf == 3 ? "h" : "?";
+        uint opc = extractBits(word, 0, 4);
+        uint rm = extractBits(word, 16, 20);
+        uint rn = extractBits(word, 5, 9);
+        bool signaling  = (opc & 0b10000) != 0;
+        bool cmpZero    = (opc & 0b01000) != 0;
+        string mn = signaling ? "fcmpe" : "fcmp";
+        string operand2 = cmpZero ? "#0.0" : $"{sz}{rm}";
         
+
     }
 }
