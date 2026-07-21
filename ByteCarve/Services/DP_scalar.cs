@@ -64,6 +64,7 @@ public class DP_scalar
         uint opc = extractBits(word, 11, 15);
         string rd =((int)extractBits(word, 0, 4)).ToString();
         string rn = ((int)extractBits(word, 5, 9)).ToString();
+        string rm = ((int)extractBits(word, 16, 20)).ToString();
         string mn = "";
         switch (opc)
         {
@@ -107,7 +108,6 @@ public class DP_scalar
                 else
                 {
                     mn = "cmhs";
-
                 }
                 break;
             case 0b01100:
@@ -184,7 +184,28 @@ public class DP_scalar
                 break;
             case 0b00011:
                 mn = logica(sz, u);
+                break;
         }
+        string arrangement = (q, sz) switch
+        {
+            (0, 0b00) => "8b",
+            (1, 0b00) => "16b",
+            (0, 0b01) => "4h",
+            (1, 0b01) => "8h",
+            (0, 0b10) => "2s",
+            (1, 0b10) => "4s",
+            (0, 0b11) => "1d",
+            (1, 0b11) => "2d",
+            _ => throw new InvalidOperationException()
+        };
+        string rds = $"v{rd}.{arrangement}";
+        string rns = $"v{rn}.{arrangement}";
+        string rms = $"v{rm}.{arrangement}";
+        File.AppendAllText(
+            op + "bytecarve.s",
+            $"{mn} {rds}, {rns}, {rms}\n"
+        );
+
         
 
     }
@@ -204,20 +225,22 @@ public class DP_scalar
         }else if (sz ==0b11 && u== 0)
         {
             return "orn";
-        }if (sz ==0b00 && u== 0)
+        }if (sz ==0b00 && u== 1)
         {
-            return "and";
+            return "eor";
         }
-        else if (sz ==0b01 && u== 0)
+        else if (sz ==0b01 && u== 1)
         {
-            return "bic";
-        }else if (sz ==0b10 && u== 0)
+            return "bsl";
+        }else if (sz ==0b10 && u== 1)
         {
-            return "orr";
-        }else if (sz ==0b11 && u== 0)
+            return "bit";
+        }else if (sz ==0b11 && u== 1)
         {
-            return "orn";
+            return "bif";
         }
+
+        return "dunno_twin";
     }
 
     public void fpdp1(uint word)
