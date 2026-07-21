@@ -69,9 +69,7 @@ public class DP_scalar
         string rn = typo + (int)extractBits(word, 5, 9);
         uint type   = extractBits(word, 22, 23);
         uint opcode = extractBits(word, 15, 20);
-
-        string mn;
-
+        string mn="";
         switch (opcode)
         {
             case 0b000000: mn = "fmov";   break;
@@ -89,6 +87,8 @@ public class DP_scalar
             case 0b001110: mn = "frintx"; break;
             case 0b001111: mn = "frinti"; break;
         }
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , "+rn );
+
     }
 
     public void fpintcon(uint word)
