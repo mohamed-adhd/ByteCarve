@@ -58,7 +58,14 @@ public class DP_scalar
 
     public void advs3(uint word)
     {
+        int q = (int)extractBits(word, 30, 30);
+        int u = (int)extractBits(word, 29, 29);
+        uint sz =extractBits(word, 22, 23);
+        uint opc = extractBits(word, 11, 15);
+        string rd =((int)extractBits(word, 0, 4)).ToString();
+        string rn = ((int)extractBits(word, 5, 9)).ToString();
         
+
     }
 
     public void fpdp1(uint word)
