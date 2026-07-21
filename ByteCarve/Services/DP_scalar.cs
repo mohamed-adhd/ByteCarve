@@ -182,9 +182,42 @@ public class DP_scalar
                     mn = "pmul";
                 }
                 break;
+            case 0b00011:
+                mn = logica(sz, u);
         }
         
 
+    }
+
+    public string logica(uint sz, int u)
+    {
+        if (sz ==0b00 && u== 0)
+        {
+            return "and";
+        }
+        else if (sz ==0b01 && u== 0)
+        {
+            return "bic";
+        }else if (sz ==0b10 && u== 0)
+        {
+            return "orr";
+        }else if (sz ==0b11 && u== 0)
+        {
+            return "orn";
+        }if (sz ==0b00 && u== 0)
+        {
+            return "and";
+        }
+        else if (sz ==0b01 && u== 0)
+        {
+            return "bic";
+        }else if (sz ==0b10 && u== 0)
+        {
+            return "orr";
+        }else if (sz ==0b11 && u== 0)
+        {
+            return "orn";
+        }
     }
 
     public void fpdp1(uint word)
