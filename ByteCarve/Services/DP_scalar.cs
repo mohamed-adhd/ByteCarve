@@ -54,8 +54,8 @@ public class DP_scalar
     public void advcp(uint word)
     {
         uint opc = extractBits(word, 29, 29);
-        string rd =((int)extractBits(word, 0, 4)).ToString();
-        string rn = ((int)extractBits(word, 5, 9)).ToString();
+        int rd =(int)extractBits(word, 0, 4);
+        int rn =(int)extractBits(word, 5, 9);
         uint im5 = extractBits(word, 16, 20);
         uint im6 = extractBits(word, 11, 15);
         string mn = "";
@@ -66,54 +66,58 @@ public class DP_scalar
                 {
                     mn = "dup";
                 }
-                else
-                {
-                    
-                }
-
                 break;
             case 0b0001:
                 if (opc == 0)
                 {
                     mn = "dup";
                 }
-                else
-                {
-                    
-                }
-
                 break;
             case 0b0101:
                 if (opc == 0)
                 {
                     mn = "smov";
                 }
-                else
-                {
-                    
-                }
-
                 break;
             case 0b0111:
                 if (opc == 0)
                 {
                     mn = "umov";
                 }
-                else
-                {
-                    
-                }
-
                 break;
             default:
                 if (opc == 1)
                 {
-                    
+                    mn = "ins";
                 }
                 break;
         }
 
+        string rds = drr(im5, rd);
+        string rns = drr(im5, rn);
+        File.AppendAllText(
+            op + "bytecarve.s",
+            $"{mn} {rds}, {rns}\n"
+        );
+
     }
+    private static string drr(uint imm5, int reg)
+    {
+        if ((imm5 & 0b00001) != 0)
+            return $"v{reg}.b[{imm5 >> 1}]";
+
+        if ((imm5 & 0b00010) != 0)
+            return $"v{reg}.h[{imm5 >> 2}]";
+
+        if ((imm5 & 0b00100) != 0)
+            return $"v{reg}.s[{imm5 >> 3}]";
+
+        if ((imm5 & 0b01000) != 0)
+            return $"v{reg}.d[{imm5 >> 4}]";
+
+        return "invalid ahh";
+    }
+
 
     public void advs3(uint word)
     {
