@@ -64,116 +64,122 @@ public class DP_scalar
         uint opc = extractBits(word, 11, 15);
         string rd =((int)extractBits(word, 0, 4)).ToString();
         string rn = ((int)extractBits(word, 5, 9)).ToString();
+        string mn = "";
         switch (opc)
         {
             case 0b00000:
                 if (u==0)
                 {
-                    
+                    mn = "shadd";
+                }
+                else
+                {
+                    mn = "uhadd";
+                }
+                break;
+            case 0b00100:
+                if (u==0)
+                {
+                    mn = "shsub";
+
+                }
+                else
+                {
+                    mn = "uhsub";
+                }
+                break;
+            case 0b00110:
+                if (u==0)
+                {
+                    mn = "cmgt";
+                }
+                else
+                {
+                    mn = "cmhi";
+
+                }
+                break;
+            case 0b00111:
+                if (u==0)
+                {
+                    mn = "cmge";
+                }
+                else
+                {
+                    mn = "cmhs";
+
+                }
+                break;
+            case 0b01100:
+                if (u==0)
+                {
+                    mn = "smax";
+                }
+                else
+                {
+                    mn = "umax";
+                }
+                break;
+            case 0b01101:
+                if (u==0)
+                {
+                    mn = "smin";
+                }
+                else
+                {
+                    mn = "umin";
+                }
+                break;
+            case 0b01110:
+                if (u==0)
+                {
+                    mn = "sabd";
+                }
+                else
+                {
+                    mn = "uabd";
+                }
+                break;
+            case 0b10000:
+                if (u==0)
+                {
+                    mn = "add";
+                }
+                else
+                {
+                    mn = "sub";
+                }
+                break;
+            case 0b10001:
+                if (u==0)
+                {
+                    mn = "cmtst";
+
                 }
                 else
                 {
                     
                 }
                 break;
-            case 0b00000:
+            case 0b10010:
                 if (u==0)
                 {
-                    
+                    mn = "mla";
                 }
                 else
                 {
+                    mn = "mls";
                     
                 }
                 break;
-            case 0b00000:
+            case 0b10011:
                 if (u==0)
                 {
-                    
+                    mn = "mul";
                 }
                 else
                 {
-                    
-                }
-                break;
-            case 0b00000:
-                if (u==0)
-                {
-                    
-                }
-                else
-                {
-                    
-                }
-                break;
-            case 0b00000:
-                if (u==0)
-                {
-                    
-                }
-                else
-                {
-                    
-                }
-                break;
-            case 0b00000:
-                if (u==0)
-                {
-                    
-                }
-                else
-                {
-                    
-                }
-                break;
-            case 0b00000:
-                if (u==0)
-                {
-                    
-                }
-                else
-                {
-                    
-                }
-                break;
-            case 0b00000:
-                if (u==0)
-                {
-                    
-                }
-                else
-                {
-                    
-                }
-                break;
-            case 0b00000:
-                if (u==0)
-                {
-                    
-                }
-                else
-                {
-                    
-                }
-                break;
-            case 0b00000:
-                if (u==0)
-                {
-                    
-                }
-                else
-                {
-                    
-                }
-                break;
-            case 0b00000:
-                if (u==0)
-                {
-                    
-                }
-                else
-                {
-                    
+                    mn = "pmul";
                 }
                 break;
         }
