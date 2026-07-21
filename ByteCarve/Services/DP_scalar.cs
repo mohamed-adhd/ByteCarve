@@ -64,6 +64,119 @@ public class DP_scalar
         uint opc = extractBits(word, 11, 15);
         string rd =((int)extractBits(word, 0, 4)).ToString();
         string rn = ((int)extractBits(word, 5, 9)).ToString();
+        switch (opc)
+        {
+            case 0b00000:
+                if (u==0)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+                break;
+            case 0b00000:
+                if (u==0)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+                break;
+            case 0b00000:
+                if (u==0)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+                break;
+            case 0b00000:
+                if (u==0)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+                break;
+            case 0b00000:
+                if (u==0)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+                break;
+            case 0b00000:
+                if (u==0)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+                break;
+            case 0b00000:
+                if (u==0)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+                break;
+            case 0b00000:
+                if (u==0)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+                break;
+            case 0b00000:
+                if (u==0)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+                break;
+            case 0b00000:
+                if (u==0)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+                break;
+            case 0b00000:
+                if (u==0)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+                break;
+        }
         
 
     }
