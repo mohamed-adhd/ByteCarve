@@ -63,7 +63,10 @@ public class DP_scalar
 
     public void fpdp1(uint word)
     {
-        
+        uint opc = extractBits(word, 15, 20);
+        string typo = (int)extractBits(word, 22, 23)== 0 ? "s" : (int)extractBits(word, 22, 23) == 1 ? "d" : (int)extractBits(word, 22, 23) == 3 ? "h" : "?";
+        string rd = typo + (int)extractBits(word, 0, 4);
+        string rn = typo + (int)extractBits(word, 5, 9);
     }
 
     public void fpintcon(uint word)
