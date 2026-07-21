@@ -53,7 +53,12 @@ public class DP_scalar
 
     public void advcp(uint word)
     {
-        
+        uint opc = extractBits(word, 29, 29);
+        string rd =((int)extractBits(word, 0, 4)).ToString();
+        string rn = ((int)extractBits(word, 5, 9)).ToString();
+        uint im5 = extractBits(word, 16, 20);
+        uint im6 = extractBits(word, 11, 15);
+
     }
 
     public void advs3(uint word)
@@ -205,9 +210,6 @@ public class DP_scalar
             op + "bytecarve.s",
             $"{mn} {rds}, {rns}, {rms}\n"
         );
-
-        
-
     }
 
     public string logica(uint sz, int u)
