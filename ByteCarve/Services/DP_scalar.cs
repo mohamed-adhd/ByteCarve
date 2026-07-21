@@ -67,6 +67,28 @@ public class DP_scalar
         string typo = (int)extractBits(word, 22, 23)== 0 ? "s" : (int)extractBits(word, 22, 23) == 1 ? "d" : (int)extractBits(word, 22, 23) == 3 ? "h" : "?";
         string rd = typo + (int)extractBits(word, 0, 4);
         string rn = typo + (int)extractBits(word, 5, 9);
+        uint type   = extractBits(word, 22, 23);
+        uint opcode = extractBits(word, 15, 20);
+
+        string mn;
+
+        switch (opcode)
+        {
+            case 0b000000: mn = "fmov";   break;
+            case 0b000001: mn = "fabs";   break;
+            case 0b000010: mn = "fneg";   break;
+            case 0b000011: mn = "fsqrt";  break;
+            case 0b000100: mn = "fcvt";   break; 
+            case 0b000101: mn = "fcvt";   break;
+            case 0b000111: mn = "fcvt";   break; 
+            case 0b001000: mn = "frintn"; break;
+            case 0b001001: mn = "frintp"; break;
+            case 0b001010: mn = "frintm"; break;
+            case 0b001011: mn = "frintz"; break;
+            case 0b001100: mn = "frinta"; break;
+            case 0b001110: mn = "frintx"; break;
+            case 0b001111: mn = "frinti"; break;
+        }
     }
 
     public void fpintcon(uint word)
