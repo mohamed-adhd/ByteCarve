@@ -133,9 +133,13 @@ public class Loads
         var (reg, scale) = Dpr(opc, v);
         string rt  = $"{reg}{rd}";
         string rt2s = $"{reg}{rt2}";
+        string rns=$"{reg}{rn}";
         long shift = 64 - 19;
         uint s = (im7 << (int)shift) >> (int)shift;
-
+        File.AppendAllText(
+            op + "bytecarve.s",
+            $"{mn} {rt}, {rt2s},[{rns}], #{s}\n"
+        );
     }public void pso(uint word)
     {
         
