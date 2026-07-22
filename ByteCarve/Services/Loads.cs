@@ -107,22 +107,19 @@ public class Loads
             case 3: return ("d", 3);
             case 5: return ("q", 4);
         }
+        throw new Exception("shi not found ");
     }
-    
-    
-    
-    
     
     public void ppi(uint word)
     {
-        uint opc = extractBits(word, 30, 31);
+        int opc = (int)extractBits(word, 30, 31);
         int l = (int)extractBits(word, 28, 28);
         int v = (int)extractBits(word, 29, 29);
         string mn = "";
         int rd =(int)extractBits(word, 0, 4);
         int rn =(int)extractBits(word, 5, 9);
         int rt2 =(int)extractBits(word, 10, 14);
-        int im7 =(int)extractBits(word, 15, 21);
+        uint im7 =extractBits(word, 15, 21);
         switch (l)
         {
             case 0:
@@ -133,6 +130,11 @@ public class Loads
                 break;
             
         }
+        var (reg, scale) = Dpr(opc, v);
+        string rt  = $"{reg}{rd}";
+        string rt2s = $"{reg}{rt2}";
+        long shift = 64 - 19;
+        uint s = (im7 << (int)shift) >> (int)shift;
 
     }public void pso(uint word)
     {
