@@ -68,4 +68,36 @@ public class Loads
         
 
     }
+
+    public void ldlt(uint word)
+    {
+        
+    }public void ppi(uint word)
+    {
+        
+    }public void pso(uint word)
+    {
+        
+    }public void ppri(uint word)
+    {
+        
+    }public void ui(uint word)
+    {
+        
+    }public void usci(uint word)
+    {
+             
+    }
+    public void opstid(uint word)
+    {
+      
+    }
+    public void preid(uint word)
+    {
+                       
+    }
+    public void reg(uint word)
+        {
+            
+        }
 }
