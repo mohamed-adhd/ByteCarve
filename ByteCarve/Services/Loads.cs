@@ -97,7 +97,22 @@ public class Loads
 
     }public void ppi(uint word)
     {
-        
+        uint opc = extractBits(word, 30, 31);
+        int l = (int)extractBits(word, 28, 28);
+        string mn = "";
+        int rd =(int)extractBits(word, 0, 4);
+        int rn =(int)extractBits(word, 5, 9);
+        switch (l)
+        {
+            case 0:
+                mn = "stp";
+                break;
+            case 1:
+                mn = "ldp";
+                break;
+            
+        }
+
     }public void pso(uint word)
     {
         
