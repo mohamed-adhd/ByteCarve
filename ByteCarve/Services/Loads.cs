@@ -93,7 +93,7 @@ public class Loads
 
         long shift = 64 - 19;
         uint s = (im9 << (int)shift) >> (int)shift;
-        
+        File.AppendAllText(op + "bytecarve.s", mn + ", "+s+index);
 
     }public void ppi(uint word)
     {
