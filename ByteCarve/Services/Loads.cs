@@ -71,7 +71,30 @@ public class Loads
 
     public void ldlt(uint word)
     {
+        uint opc = extractBits(word, 30, 31);
+        string mn = "";
+        string rt = ((int)extractBits(word, 0, 4)).ToString();
+        uint im9 = extractBits(word, 5, 23);
+        switch (opc)
+        {
+            case 0b00:
+                mn = "ldr w"+rt;
+                break;
+            case 0b01:
+                mn = "ldr x"+rt;
+                break;
+            case 0b11:
+                mn = "ldrsw x"+rt;
+                break;
+            case 0b10:
+                mn = "prfm "+rt;
+                break;
+        }
+
+        long shift = 64 - 19;
+        uint s = (im9 << (int)shift) >> (int)shift;
         
+
     }public void ppi(uint word)
     {
         
