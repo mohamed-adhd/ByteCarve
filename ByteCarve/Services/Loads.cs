@@ -20,11 +20,51 @@ public class Loads
     public void process_it(byte[] data)
     {
         uint word = BitConverter.ToUInt32(data, 0);
-        uint op0 = extractBits(word, 25, 28);
-        uint op1 = extractBits(word, 24, 24);
-        uint op2 = extractBits(word, 21, 21);
-        uint op3 = extractBits(word, 10, 15);
-        uint extra = extractBits(word, 21, 28);
+        uint op0 = extractBits(word, 27, 29);
+
+        if (op0 == 0b011)
+            ldlt(word);
+
+        else if (op0 == 0b101)
+        {
+            uint mode = extractBits(word, 23, 24);
+            switch (mode)
+            {
+                case 0b01: ppi(word); break;
+                case 0b10: pso(word); break;
+                case 0b11: ppri(word); break;
+            }
+        }
+
+        else if (op0 == 0b111)
+        {
+            int bit24 = (int)extractBits(word, 24, 24);
+
+            if (bit24 == 1)
+                ui(word);
+            else
+            {
+                uint mode = extractBits(word, 10, 11);
+
+                switch (mode)
+                {
+                    case 0b00:
+                        usci(word);
+                        break;
+
+                    case 0b01:
+                        opstid(word);
+                        break;
+
+                    case 0b11:
+                        if (extractBits(word, 21, 21) == 0)
+                            preid(word);
+                        else
+                            reg(word);
+                        break;
+                }
+            }
+        }
         
 
     }
