@@ -173,7 +173,34 @@ public class Loads
         
     }public void ppri(uint word)
     {
-        
+        int opc = (int)extractBits(word, 30, 31);
+        int l = (int)extractBits(word, 28, 28);
+        int v = (int)extractBits(word, 29, 29);
+        string mn = "";
+        int rd =(int)extractBits(word, 0, 4);
+        int rn =(int)extractBits(word, 5, 9);
+        int rt2 =(int)extractBits(word, 10, 14);
+        uint im7 =extractBits(word, 15, 21);
+        switch (l)
+        {
+            case 0:
+                mn = "stp";
+                break;
+            case 1:
+                mn = "ldp";
+                break;
+            
+        }
+        var (reg, scale) = Dpr(opc, v);
+        string rt  = $"{reg}{rd}";
+        string rt2s = $"{reg}{rt2}";
+        string rns=$"{reg}{rn}";
+        long shift = 64 - 19;
+        uint s = (im7 << (int)shift) >> (int)shift;
+        File.AppendAllText(
+            op + "bytecarve.s",
+            $"{mn} {rt}, {rt2s},[{rns} #{s}]!\n"
+        );
     }public void ui(uint word)
     {
         
