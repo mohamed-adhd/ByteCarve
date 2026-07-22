@@ -142,6 +142,24 @@ public class Loads
         );
     }public void pso(uint word)
     {
+        int opc = (int)extractBits(word, 30, 31);
+        int l = (int)extractBits(word, 28, 28);
+        int v = (int)extractBits(word, 29, 29);
+        string mn = "";
+        int rd =(int)extractBits(word, 0, 4);
+        int rn =(int)extractBits(word, 5, 9);
+        int rt2 =(int)extractBits(word, 10, 14);
+        uint im7 =extractBits(word, 15, 21);
+        switch (l)
+        {
+            case 0:
+                mn = "stp";
+                break;
+            case 1:
+                mn = "ldp";
+                break;
+            
+        }
         
     }public void ppri(uint word)
     {
