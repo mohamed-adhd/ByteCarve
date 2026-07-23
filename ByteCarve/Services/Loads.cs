@@ -208,25 +208,35 @@ public class Loads
         uint opc = extractBits(word, 22, 23);
         int rd =(int)extractBits(word, 0, 4);
         int rn =(int)extractBits(word, 5, 9);
+        string mn = "";
         switch ((sz << 2) | opc)
         {
             case 0b0000:
+                mn = "strb";
                 break;
             case 0b0001:
+                mn = "ldrb";
                 break;
             case 0b0010:
+                mn = "ldrsb w";
                 break;
             case 0b0011:
+                mn = "ldrsb x";
                 break;
             case 0b0100:
+                mn = "strh";
                 break;
             case 0b0101:
+                mn = "ldrh";
                 break;
             case 0b0111:
+                mn = "ldrsh x";
                 break;
             case 0b0110:
+                mn = "ldrsh w";
                 break;
             case 0b1000:
+                mn = ;
                 break;
             case 0b1001:
                 break;
