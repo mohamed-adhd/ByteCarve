@@ -208,6 +208,41 @@ public class Loads
         uint opc = extractBits(word, 22, 23);
         int rd =(int)extractBits(word, 0, 4);
         int rn =(int)extractBits(word, 5, 9);
+        switch ((sz << 2) | opc)
+        {
+            case 0b0000:
+                break;
+            case 0b0001:
+                break;
+            case 0b0010:
+                break;
+            case 0b0011:
+                break;
+            case 0b0100:
+                break;
+            case 0b0101:
+                break;
+            case 0b0111:
+                break;
+            case 0b0110:
+                break;
+            case 0b1000:
+                break;
+            case 0b1001:
+                break;
+            case 0b1010:
+                break;
+            case 0b1011:
+                break;
+            case 0b1100:
+                break;
+            case 0b1101:
+                break;
+            case 0b1111:
+                break;
+            case 0b1110:
+                break;
+        }
 
 
     }public void usci(uint word)
