@@ -277,6 +277,79 @@ public class Loads
         int rd =(int)extractBits(word, 0, 4);
         int rn =(int)extractBits(word, 5, 9);
         uint im12 = extractBits(word, 12, 20);
+        string mn = "";
+        string reg = "";
+        switch ((sz << 2) | opc)
+        {
+            case 0b0000:
+                mn = "strb";
+                reg = "w";
+                break;
+
+            case 0b0001:
+                mn = "ldrb";
+                reg = "w";
+                break;
+
+            case 0b0010:
+                mn = "ldrsb";
+                reg = "w";
+                break;
+
+            case 0b0011:
+                mn = "ldrsb";
+                reg = "x";
+                break;
+
+            case 0b0100:
+                mn = "strh";
+                reg = "w";
+                break;
+
+            case 0b0101:
+                mn = "ldrh";
+                reg = "w";
+                break;
+
+            case 0b0110:
+                mn = "ldrsh";
+                reg = "w";
+                break;
+
+            case 0b0111:
+                mn = "ldrsh";
+                reg = "x";
+                break;
+
+            case 0b1000:
+                mn = "str";
+                reg = "w";
+                break;
+
+            case 0b1001:
+                mn = "ldr";
+                reg = "w";
+                break;
+
+            case 0b1010:
+                mn = "ldrsw";
+                reg = "x";
+                break;
+
+            case 0b1100:
+                mn = "str";
+                reg = "x";
+                break;
+
+            case 0b1101:
+                mn = "ldr";
+                reg = "x";
+                break;
+            default:
+                throw new Exception("Reserved twin");
+        }
+        
+        
     }
     public void opstid(uint word)
     {
