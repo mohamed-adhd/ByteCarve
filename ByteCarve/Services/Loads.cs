@@ -269,12 +269,14 @@ public class Loads
             $"{mn} {tReg}, [{bReg}, #{offset}]";
         File.AppendAllText(
             op + "bytecarve.s",ins);
-        
-
-
     }public void usci(uint word)
     {
-             
+        uint sz = extractBits(word, 30, 31);
+        int v = (int)extractBits(word, 29, 29);
+        uint opc = extractBits(word, 22, 23);
+        int rd =(int)extractBits(word, 0, 4);
+        int rn =(int)extractBits(word, 5, 9);
+        uint im12 = extractBits(word, 12, 20);
     }
     public void opstid(uint word)
     {
