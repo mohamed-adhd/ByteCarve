@@ -203,7 +203,13 @@ public class Loads
         );
     }public void ui(uint word)
     {
-        
+        uint sz = extractBits(word, 30, 31);
+        int v = (int)extractBits(word, 29, 29);
+        uint opc = extractBits(word, 22, 23);
+        int rd =(int)extractBits(word, 0, 4);
+        int rn =(int)extractBits(word, 5, 9);
+
+
     }public void usci(uint word)
     {
              

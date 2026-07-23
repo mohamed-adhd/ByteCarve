@@ -224,11 +224,7 @@ public class DP_register
         };
         File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + (int)im6);
     }
-
-    public void DP_sc2(uint word)
-    {
-        
-    }
+    
 
     public void addsubshif(uint word)
     {
