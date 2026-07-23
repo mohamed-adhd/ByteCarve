@@ -355,6 +355,16 @@ public class Loads
     }
     public void opstid(uint word)
     {
+        uint sz = extractBits(word, 30, 31);
+        int v = (int)extractBits(word, 29, 29);
+        uint opc = extractBits(word, 22, 23);
+        int rd =(int)extractBits(word, 0, 4);
+        int rn =(int)extractBits(word, 5, 9);
+        uint im12 = extractBits(word, 12, 20);
+        string mn = "";
+        string reg = "";
+        ulong offset = (ulong)im12 << (int)sz;
+        
       
     }
     public void preid(uint word)
