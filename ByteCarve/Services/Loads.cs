@@ -433,7 +433,10 @@ public class Loads
 
             default:
                 throw new Exception("Reserved af" );
+            
         }
+        File.AppendAllText(
+            op + "bytecarve.s",$"{mn} {reg+rd}, [{reg+rn}], #{offset}");
       
     }
     public void preid(uint word)
