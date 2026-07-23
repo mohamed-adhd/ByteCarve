@@ -208,26 +208,27 @@ public class Loads
         uint opc = extractBits(word, 22, 23);
         int rd =(int)extractBits(word, 0, 4);
         int rn =(int)extractBits(word, 5, 9);
-        string mn = "";
+        uint im12 = extractBits(word, 10, 21);
+        string rtPrefix="", mn = "";
         switch ((sz << 2) | opc)
         {
             case 0b0000:
-                mn = "strb";
+                mn = "strb ";
                 break;
             case 0b0001:
-                mn = "ldrb";
+                mn = "ldrb ";
                 break;
             case 0b0010:
-                mn = "ldrsb w";
+                mn = "ldrsb w ";
                 break;
             case 0b0011:
-                mn = "ldrsb x";
+                mn = "ldrsb x ";
                 break;
             case 0b0100:
-                mn = "strh";
+                mn = "strh ";
                 break;
             case 0b0101:
-                mn = "ldrh";
+                mn = "ldrh ";
                 break;
             case 0b0111:
                 mn = "ldrsh x";
@@ -236,10 +237,10 @@ public class Loads
                 mn = "ldrsh w";
                 break;
             case 0b1000:
-                mn = "strw";
+                mn = "strw ";
                 break;
             case 0b1001:
-                mn = "ldrw";
+                mn = "ldrw ";
                 break;
             case 0b1010:
                 mn = "ldrsw x";
@@ -261,6 +262,14 @@ public class Loads
                 mn = "shi_reseeerved";
                 break;
         }
+        ulong offset = (ulong)im12 << (int)sz;
+        string bReg = rn == 31 ? "sp" : $"x{rn}";
+        string tReg = $"{rtPrefix}{rd}";
+        string ins =
+            $"{mn} {tReg}, [{bReg}, #{offset}]";
+        File.AppendAllText(
+            op + "bytecarve.s",ins);
+        
 
 
     }public void usci(uint word)
