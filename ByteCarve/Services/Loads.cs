@@ -236,21 +236,29 @@ public class Loads
                 mn = "ldrsh w";
                 break;
             case 0b1000:
-                mn = ;
+                mn = "strw";
                 break;
             case 0b1001:
+                mn = "ldrw";
                 break;
             case 0b1010:
+                mn = "ldrsw x";
                 break;
             case 0b1011:
+                mn = "shi_reseeerved";
                 break;
+            //here lies my own soul , after countless nights of sub-buckets designing and more than 50 redbull can drank, i got enough here , but aint gon lie  , mama aint raised a complainer not a  quitter , so continue type shi
             case 0b1100:
+                mn = "str x";
                 break;
             case 0b1101:
+                mn = "ldr x";
                 break;
             case 0b1111:
+                mn = "shi_reseeerved";
                 break;
             case 0b1110:
+                mn = "shi_reseeerved";
                 break;
         }
 
