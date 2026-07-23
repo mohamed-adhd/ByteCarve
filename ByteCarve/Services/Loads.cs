@@ -348,7 +348,9 @@ public class Loads
             default:
                 throw new Exception("Reserved twin");
         }
-        
+        ulong offset = (ulong)im12 << (int)sz;
+        File.AppendAllText(
+            op + "bytecarve.s",$"{mn} {reg+rd}, [{reg+rn}, #{offset}]");
         
     }
     public void opstid(uint word)
