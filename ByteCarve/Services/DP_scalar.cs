@@ -10,9 +10,9 @@ public class DP_scalar
         index = ts;
         op = ops;
     }
-    static uint extractBits(uint word, int hi, int lo)
+    static uint extractBits(uint word, int lo, int hi)
     {
-        int width = lo - hi + 1;
+        int width = hi - lo + 1;
         uint mask = (1u << width) - 1;
         return (word >> lo) & mask;
     }
