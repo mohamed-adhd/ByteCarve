@@ -502,12 +502,18 @@ public class Loads
         string bReg = rn == 31 ? "sp" : $"x{rn}";
         string tReg = $"{rtPrefix}{rd}";
         string ins =
-            $"{mn} {tReg}, [{bReg}, #{offset}]";
+            $"{mn} {tReg}, [{bReg}, #{offset}]!";
         File.AppendAllText(
             op + "bytecarve.s",ins);
     }
     public void reg(uint word)
         {
-            
+            uint sz = extractBits(word, 30, 31);
+            int v = (int)extractBits(word, 29, 29);
+            uint opc = extractBits(word, 22, 23);
+            int rd =(int)extractBits(word, 0, 4);
+            int rn =(int)extractBits(word, 5, 9);
+            int rm = (int)extractBits(word, 16, 20);
+            int s = (int)extractBits(word, 12, 12);
         }
 }
