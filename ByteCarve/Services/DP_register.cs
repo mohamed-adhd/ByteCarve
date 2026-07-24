@@ -9,6 +9,10 @@ public class DP_register
     private uint word;
     private ulong index;
     private string op;
+    public DP_register(string ops)
+    {
+        op = ops;
+    }
 
     static uint extractBits(uint word, int hi, int lo)
     {

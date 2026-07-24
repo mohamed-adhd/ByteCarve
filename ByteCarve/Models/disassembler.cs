@@ -36,11 +36,16 @@ public class disassembler
     {
         data = ReadAllBytes(path);
         this.op = op;
+        dp_immediate = new DP_immediate();
+        dp_register = new DP_register(op);
+        dp_scalar = new DP_scalar(index, op);
+        loads = new Loads(index, op);
+        branches = new Branches(index, op);
     }
 
     public void lord_have_mercy()
     {
-        while (looking)
+        while (index + 4 <= (ulong)data.Length)
         {
             chunk = data.AsSpan((int)index, 4).ToArray();
             BitArray result = new BitArray(new BitArray(chunk).Cast<bool>().Skip(25).Take(4).ToArray());
