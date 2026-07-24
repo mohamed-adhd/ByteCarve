@@ -40,6 +40,11 @@ public class Branches
         if (top7 == 0b0101010)  cond(word);
         if (top6 == 0b011010)   compare(word);
         if (top6 == 0b011011)   test(word,index );
+        if ((word & 0xFFFFFC1F) == 0xD65F0000)
+        {
+            int rn = (int)extractBits(word, 5, 9);
+            File.AppendAllText(op + "bytecarve.s", rn == 30 ? "ret\n" : $"ret x{rn}\n");
+        }
         if (top5 == 0b00101)    UncondBranchImmediate(word,index);
     }
 

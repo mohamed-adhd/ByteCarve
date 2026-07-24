@@ -25,7 +25,7 @@ public class DP_immediate
         this.op = op;
         index = ts;
         uint word = BitConverter.ToUInt32(tempo, 0);
-        uint sig = extractBits(word, 25, 23);
+        uint sig = extractBits(word, 23, 25);
         if (sig == 0b001 || sig == 0b000)
         {
             pcaddress(word);
