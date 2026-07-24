@@ -498,6 +498,13 @@ public class Loads
             mn = "shi_reseeerved";
             break;
         }
+        ulong offset = (ulong)im12 << (int)sz;
+        string bReg = rn == 31 ? "sp" : $"x{rn}";
+        string tReg = $"{rtPrefix}{rd}";
+        string ins =
+            $"{mn} {tReg}, [{bReg}, #{offset}]";
+        File.AppendAllText(
+            op + "bytecarve.s",ins);
     }
     public void reg(uint word)
         {
