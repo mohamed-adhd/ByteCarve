@@ -12,6 +12,7 @@ public partial class CarvingProgressViewModel : ViewModelBase
     [ObservableProperty] public string selectedmode;
 
     private carver cv;
+    private disassembler darksouls;
     private MainWindowViewModel _main;
 
     public CarvingProgressViewModel(MainWindowViewModel main)
@@ -34,7 +35,11 @@ public partial class CarvingProgressViewModel : ViewModelBase
         }
         else
         {
-            return;
+            await Task.Yield();
+            var sw = Stopwatch.StartNew();
+            darksouls = new disassembler(_main.Path, _main.Op);
+            darksouls.lord_have_mercy();
+            _main.Current_page = new ReportViewModel(_main, sw.Elapsed.Milliseconds, 0);
         }
     }
 }

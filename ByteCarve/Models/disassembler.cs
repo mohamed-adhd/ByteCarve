@@ -69,8 +69,6 @@ public class disassembler
             {
                 branches.process_it(chunk,index);
             }
-
-
             index += 4;
         }
 
