@@ -515,5 +515,79 @@ public class Loads
             int rn =(int)extractBits(word, 5, 9);
             int rm = (int)extractBits(word, 16, 20);
             int s = (int)extractBits(word, 12, 12);
+            string rtPrefix="", mn = "";
+            switch ((sz << 2) | opc){
+                case 0b0000:
+                    mn = "strb ";
+                    break;
+                case 0b0001:
+                    mn = "ldrb ";
+                    break;
+                case 0b0010:
+                    mn = "ldrsb w ";
+                    break;
+                case 0b0011:
+                    mn = "ldrsb x ";
+                    break;
+                case 0b0100:
+                    mn = "strh ";
+                    break;
+                case 0b0101:
+                    mn = "ldrh ";
+                    break;
+                case 0b0111:
+                    mn = "ldrsh x";
+                    break;
+                case 0b0110:
+                    mn = "ldrsh w";
+                    break;
+                case 0b1000:
+                    mn = "strw ";
+                    break;
+                case 0b1001:
+                    mn = "ldrw ";
+                    break;
+                case 0b1010:
+                    mn = "ldrsw x";
+                    break;
+                case 0b1011:
+                    mn = "shi_reseeerved";
+                    break;
+                case 0b1100:
+                    mn = "str x";
+                    break;
+                case 0b1101:
+                    mn = "ldr x";
+                    break;
+                case 0b1111:
+                    mn = "shi_reseeerved";
+                    break;
+                case 0b1110:
+                    mn = "shi_reseeerved";
+                    break;
+            }
+            uint option = extractBits(word, 13, 15);
+            string opt = "";
+            switch (option)
+            {
+                case 0b010:
+                    opt = "uxtw";
+                    break;
+                case 0b011:
+                    opt = "lsl";
+                    break;
+                case 0b110:
+                    opt = "sxtw";
+                    break;
+                case 0b111:
+                    opt = "sxtx";
+                    break;
+            }
+
+            if (s == 0)
+            {
+                
+            }
         }
+    
 }
