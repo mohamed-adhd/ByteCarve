@@ -17,7 +17,7 @@ public class disassembler
     public byte[] data, chunk;
     private BitArray bitchunk;
     private bool looking = true;
-    public ulong index;
+    public ulong index=0;
     
     private DP_immediate dp_immediate;
     private DP_register dp_register;
@@ -42,7 +42,7 @@ public class disassembler
     {
         while (looking)
         {
-            chunk = data.AsSpan(index, 4).ToArray();
+            chunk = data.AsSpan((int)index, 4).ToArray();
             BitArray result = new BitArray(new BitArray(chunk).Cast<bool>().Skip(25).Take(4).ToArray());
             byte[] bytes = new byte[4]; // extracting a byte section , taking a bits chunk from it and then transforming it back into bytes  , yay i m having so much fun on 10:52 on a random fucking tuesday night
             result.CopyTo(bytes, 0);
@@ -71,7 +71,7 @@ public class disassembler
             }
 
 
-
+            index += 4;
         }
 
 
