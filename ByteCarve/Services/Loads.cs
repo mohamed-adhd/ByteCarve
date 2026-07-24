@@ -515,56 +515,23 @@ public class Loads
             int rn =(int)extractBits(word, 5, 9);
             int rm = (int)extractBits(word, 16, 20);
             int s = (int)extractBits(word, 12, 12);
-            string rtPrefix="", mn = "";
-            switch ((sz << 2) | opc){
-                case 0b0000:
-                    mn = "strb ";
-                    break;
-                case 0b0001:
-                    mn = "ldrb ";
-                    break;
-                case 0b0010:
-                    mn = "ldrsb w ";
-                    break;
-                case 0b0011:
-                    mn = "ldrsb x ";
-                    break;
-                case 0b0100:
-                    mn = "strh ";
-                    break;
-                case 0b0101:
-                    mn = "ldrh ";
-                    break;
-                case 0b0111:
-                    mn = "ldrsh x";
-                    break;
-                case 0b0110:
-                    mn = "ldrsh w";
-                    break;
-                case 0b1000:
-                    mn = "strw ";
-                    break;
-                case 0b1001:
-                    mn = "ldrw ";
-                    break;
-                case 0b1010:
-                    mn = "ldrsw x";
-                    break;
-                case 0b1011:
-                    mn = "shi_reseeerved";
-                    break;
-                case 0b1100:
-                    mn = "str x";
-                    break;
-                case 0b1101:
-                    mn = "ldr x";
-                    break;
-                case 0b1111:
-                    mn = "shi_reseeerved";
-                    break;
-                case 0b1110:
-                    mn = "shi_reseeerved";
-                    break;
+            string rtPrefix="", mn = "",reg="";
+            switch ((sz << 2) | opc)
+            {
+                case 0b0000: mn = "strb";  reg = "w"; break;
+                case 0b0001: mn = "ldrb";  reg = "w"; break;
+                case 0b0010: mn = "ldrsb"; reg = "w"; break;
+                case 0b0011: mn = "ldrsb"; reg = "x"; break;
+                case 0b0100: mn = "strh";  reg = "w"; break;
+                case 0b0101: mn = "ldrh";  reg = "w"; break;
+                case 0b0110: mn = "ldrsh"; reg = "w"; break;
+                case 0b0111: mn = "ldrsh"; reg = "x"; break;
+                case 0b1000: mn = "str";   reg = "w"; break;
+                case 0b1001: mn = "ldr";   reg = "w"; break;
+                case 0b1010: mn = "ldrsw"; reg = "x"; break;
+                case 0b1100: mn = "str";   reg = "x"; break;
+                case 0b1101: mn = "ldr";   reg = "x"; break;
+                default: throw new Exception("shi_is_Reserved");//finally done god damn it 
             }
             uint option = extractBits(word, 13, 15);
             string opt = "";
@@ -583,10 +550,15 @@ public class Loads
                     opt = "sxtx";
                     break;
             }
-
             if (s == 0)
             {
-                
+                File.AppendAllText(
+                    op + "bytecarve.s",$"{mn} {reg+rd}, [{reg+rn}, #{reg+rm}]");
+            }
+            else
+            {
+                File.AppendAllText(
+                    op + "bytecarve.s",$"{mn} {reg+rd}, [{reg+rn}, #{reg+rm}, {opt} #{rm+rn}]");
             }
         }
     
