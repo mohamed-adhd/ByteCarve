@@ -17,23 +17,25 @@ public class disassembler
     public byte[] data, chunk;
     private BitArray bitchunk;
     private bool looking = true;
-    public int index = 0;
+    public ulong index;
     
     private DP_immediate dp_immediate;
     private DP_register dp_register;
     private DP_scalar dp_scalar;
     private Loads loads;
     private Branches branches;
-    
-    
-    
-    
-    
-    
+    private string op;
 
-    public disassembler(string path)
+
+
+
+
+
+
+    public disassembler(string path,string op)
     {
         data = ReadAllBytes(path);
+        this.op = op;
     }
 
     public void lord_have_mercy()
@@ -53,19 +55,19 @@ public class disassembler
 
             if (loadgrp.Contains(sig))
             {
-                Loads(chunk);
+                loads.process_it(chunk);
             }else if (dpimngrp.Contains(sig))
             {
-                dp_immediate.process_it(chunk);
+                dp_immediate.process_it(chunk, index,op);
             }else if (dpreggrp.Contains(sig))
             {
-                DP_Register(chunk);
+                dp_register.process_it(chunk);
             }else if (dpsimmgrp.Contains(sig))
             {
-                DP_Scalar(chunk);
+                dp_scalar.process_it(chunk);
             }else if (branch.Contains(sig))
             {
-                branches.process_it(chunk);
+                branches.process_it(chunk,index);
             }
 
 

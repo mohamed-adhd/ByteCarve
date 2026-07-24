@@ -62,9 +62,6 @@ public class DP_register
                         }
                         else if (op2.Equals(0b1000))
                         {
-                            if (op0 == 0)
-                                DP_sc2(word);   
-                            else
                                 DP_sc1(word); 
                         }
                         else if ((op2 & 0b1000) == 0b1000)
@@ -86,6 +83,8 @@ public class DP_register
                         break;
                     
                 }
+
+                break;
         }
 
     }

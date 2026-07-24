@@ -1,5 +1,6 @@
 namespace ByteCarve.Services;
 using System.IO;
+using System;
 public class Branches
 {
     private string op;
@@ -25,8 +26,10 @@ public class Branches
     }
     
 
-    public void process_it(uint word,ulong index)
+    public void process_it(byte[] words,ulong index)
     {
+        uint word = BitConverter.ToUInt32(words, 0);
+
         uint top8 = extractBits(word, 24,31);
         uint top7 = extractBits(word, 25,31);
         uint top6 = extractBits(word, 25,30);
