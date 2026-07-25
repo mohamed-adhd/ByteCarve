@@ -91,7 +91,7 @@ public class Branches
                 }
                 break;
         }
-        File.AppendAllText(op + "bytecarve.s", typo+", #"+im16);
+        File.AppendAllText(op + "bytecarve.s", typo+", #"+im16+"\n");
 
     }
 
@@ -113,7 +113,7 @@ public class Branches
         uint nd_seg = extractBits(word, 31, 31);
         uint res=(nd_seg << 5) | st_seg;
         string regPrefix = nd_seg == 0 ? "w" : "x";
-        File.AppendAllText(op + "bytecarve.s",typo+" "+regPrefix+rt+", #"+target+", "+imm14.ToString());
+        File.AppendAllText(op + "bytecarve.s",typo+" "+regPrefix+rt+", #"+target+", "+imm14+"\n");
     }
 
     public void compare(uint word)
@@ -122,7 +122,7 @@ public class Branches
         string op =(int)extractBits(word, 24,24)==0? "cbz" : "cbnz";
         uint imm19=extractBits(word, 5,23);
         int rt=(int)extractBits(word, 0, 4);
-        File.AppendAllText(op + "bytecarve.s", op+" "+regsize+rt+", "+(index+imm19));
+        File.AppendAllText(op + "bytecarve.s", op+" "+regsize+rt+", "+(index+imm19)+"\n");
     }
 
     public void systems(uint word)
@@ -147,7 +147,7 @@ public class Branches
         string output = l == 1
             ? $"{mnemonic} x{rt}, {register}\n"
             : $"{mnemonic} {register}, x{rt}\n";
-        File.AppendAllText(op + "bytecarve.s", output);
+        File.AppendAllText(op + "bytecarve.s", output+"\n");
     }
 
     public void cond(uint word)
@@ -173,7 +173,7 @@ public class Branches
             0xE =>"al",
             _   =>"nv"
         };
-        File.AppendAllText(op + "bytecarve.s",s+" "+(index+imm19));
+        File.AppendAllText(op + "bytecarve.s",s+" "+(index+imm19)+"\n");
 
         
     }
@@ -190,7 +190,7 @@ public class Branches
     {
         string typo = (int)extractBits(word, 30, 31) == 0 ? "b" : "bl";
         uint offset=extractBits(word, 0, 25);
-        File.AppendAllText(op + "bytecarve.s",typo+" "+(index+offset));
+        File.AppendAllText(op + "bytecarve.s",typo+" "+(index+offset)+"\n");
 
     }
     public string system_reg(uint word)
