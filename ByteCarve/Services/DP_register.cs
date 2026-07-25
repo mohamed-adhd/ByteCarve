@@ -161,7 +161,7 @@ public class DP_register
                 break;
         }
 
-        File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + sh + " #" + (int)im6);
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + sh + " #" + (int)im6+"\n");
 
 
     }
@@ -225,7 +225,7 @@ public class DP_register
             0xE => "al",
             _ => "nv"
         };
-        File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + (int)im6);
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + (int)im6+"\n");
     }
     
 
@@ -282,7 +282,7 @@ public class DP_register
                 break;
         }
 
-        File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + sh + " #" + (int)im6);
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + sh + " #" + (int)im6+"\n");
 
     }
 
@@ -353,7 +353,7 @@ public class DP_register
                 ex = "sxtx";
                 break;
         }
-        File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + ex + " #" + (int)im3);
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd + ", " + rn + " ," + rm + " ," + ex + " #" + (int)im3+"\n");
         
     }
 public void condcompimed(uint word)
@@ -383,7 +383,7 @@ public void condcompimed(uint word)
             0xE => "al",
             _ => "nv"
         };
-        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , #"+(int)imm16 + ", #" +nzcv+" "+s);
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , #"+(int)imm16 + ", #" +nzcv+" "+s+"\n");
     }
 public void condcompreg(uint word)
     {
@@ -412,7 +412,7 @@ public void condcompreg(uint word)
             0xE => "al",
             _ => "nv"
         };
-        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , #"+rm + ", #" +nzcv+" "+s);
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , #"+rm + ", #" +nzcv+" "+s+"\n");
         
     }public void DP_sc3(uint word)
     {
@@ -468,7 +468,7 @@ public void condcompreg(uint word)
                 mn = "crc32cx";
                 break;
         }
-        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , "+rn+" ,"+rm);
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , "+rn+" ,"+rm+"\n");
 
         
 
@@ -524,7 +524,7 @@ public void condcompreg(uint word)
                 break;
             
         }
-        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , "+rn );
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , "+rn+"\n" );
 
         
 
@@ -534,7 +534,7 @@ public void condcompreg(uint word)
         uint im16=extractBits(word, 20, 15);
         uint mask = extractBits(word, 0, 3);
         string rm = typo + (int)extractBits(word, 5, 9);
-        File.AppendAllText(op + "bytecarve.s", "rmif  " + rm +" , #"+im16+" ,#"+mask);
+        File.AppendAllText(op + "bytecarve.s", "rmif  " + rm +" , #"+im16+" ,#"+mask+"\n");
 
     }public void  addsubcarr(uint word)
     {
@@ -571,7 +571,7 @@ public void condcompreg(uint word)
                 break;
         }
         mn=(int)extractBits(word, 29, 29) == 0 ? mn+="s" : mn;
-        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , "+rm );
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , "+rm+"\n" );
 
         
 
