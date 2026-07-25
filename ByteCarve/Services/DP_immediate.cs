@@ -65,7 +65,7 @@ public class DP_immediate
                 dist |= unchecked((int)0xFFE00000);
             }
 
-            File.AppendAllText(op + "bytecarve.s", index + ": adr x" + rgst + " #" + (index + 8));
+            File.AppendAllText(op + "bytecarve.s", index + ": adr x" + rgst + " #" + (index + 8)+"\n");
 
         }
         else if (((word >> 31) & 1) == 1)
@@ -76,7 +76,7 @@ public class DP_immediate
             int dist = (int)((immhi << 2) | immlo);
             int scaled_dist = dist * 4096;
             ulong rad = index & ~0xFFFUL;
-            File.AppendAllText(op + "bytecarve.s", rad + ": adrp x" + rgst + " #" + (rad + (ulong)scaled_dist));
+            File.AppendAllText(op + "bytecarve.s", rad + ": adrp x" + rgst + " #" + (rad + (ulong)scaled_dist)+"\n");
         }
     }
 
@@ -147,7 +147,7 @@ public class DP_immediate
         {
             imm12 *= 4096;
         } 
-        File.AppendAllText(op + "bytecarve.s", opr + " " +typ+ dest + ", " +typ+sourcet+", #"+imm12.ToString());
+        File.AppendAllText(op + "bytecarve.s", opr + " " +typ+ dest + ", " +typ+sourcet+", #"+imm12+"\n");
 
     }
 
@@ -172,28 +172,28 @@ public class DP_immediate
             }
         }
         string shiftText = (slice == 0) ? "" : $", lsl #{slice*16}";
-        File.AppendAllText(op + "bytecarve.s", typ +" x"+rd.ToString()+val.ToString()+shiftText);
+        File.AppendAllText(op + "bytecarve.s", typ +" x"+rd.ToString()+val.ToString()+shiftText+"\n");
     }
 
     public void logic(byte[] word)
     {
         var dis = CapstoneDisassembler.CreateArmDisassembler(ArmDisassembleMode.Arm);
         var ins = dis.Disassemble(word,(long)index)[0];
-        File.AppendAllText(op + "bytecarve.s",ins.ToString());
+        File.AppendAllText(op + "bytecarve.s",ins.ToString()+"\n");
     }
 
     public void bitfild(uint word)
     {
         string line="";
         int reg = (int)extractBits(word, 31, 31);
-        int tyo = (int)extractBits(word,29, 30);
+        uint tyo = extractBits(word,29, 30);
         int rt=(int)extractBits(word, 16, 21);
         int es=(int)extractBits(word, 10, 15);
         int src=(int)extractBits(word, 5, 9);
         int dst=(int)extractBits(word, 0, 4);
         switch (tyo)
         {
-            case 0:
+            case 0b00:
                 if (rt == 0 && es == 7)
                 {
                     line="SXTB "+dst+", "+src;
@@ -209,7 +209,7 @@ public class DP_immediate
                 }
                 
                 break;
-            case 1:
+            case 0b01:
                 if (rt == 0 && es == 7)
                 {
                     line="UXTB "+dst+", "+src;
@@ -225,7 +225,7 @@ public class DP_immediate
                     line = "LSL " + dst + "," + src + ", #" + (regsize - rt);
                 }
                 break;
-            case 10:
+            case 0b10:
                 line = "BFM" + dst + ", " + src + ", #" + rt + ", #" + es;
                 break;
         }
@@ -241,11 +241,11 @@ public class DP_immediate
         int dest=(int)extractBits(word, 0, 4);
         if (rn == rm)
         {
-            File.AppendAllText(op + "bytecarve.s", "ROR"+dest+","+rm+", #"+es);
+            File.AppendAllText(op + "bytecarve.s", "ROR"+dest+","+rm+", #"+es+"\n");
         }
         else
         {
-            File.AppendAllText(op + "bytecarve.s", "ZXTR"+dest+","+rn+", "+rm+",#"+es);
+            File.AppendAllText(op + "bytecarve.s", "ZXTR"+dest+","+rn+", "+rm+",#"+es+"\n");
 
         }
 
