@@ -329,7 +329,7 @@ public class DP_scalar
             case 0b001110: mn = "frintx"; break;
             case 0b001111: mn = "frinti"; break;
         }
-        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , "+rn );
+        File.AppendAllText(op + "bytecarve.s", mn + " " + rd +" , "+rn+"\n" );
 
     }
 
@@ -409,7 +409,7 @@ public class DP_scalar
             Rns = TypeToFpPrefix(type) + rn;  
             Rds = (extractBits(word,31,31) == 1 ? "x" : "w") + rd;   
         }
-        File.AppendAllText(op + "bytecarve.s", mn + " " + Rds +" , "+Rns );
+        File.AppendAllText(op + "bytecarve.s", mn + " " + Rds +" , "+Rns+"\n" );
 
     }
     string TypeToFpPrefix(uint type) => type switch
@@ -433,7 +433,7 @@ public class DP_scalar
         bool cmpZero    = (opc & 0b01000) != 0;
         string mn = signaling ? "fcmpe" : "fcmp";
         string o2 = cmpZero ? "#0.0" : $"{sz}{rm}";
-        File.AppendAllText(op + "bytecarve.s", mn + " " + sz+rn+" , "+o2 );
+        File.AppendAllText(op + "bytecarve.s", mn + " " + sz+rn+" , "+o2+"\n" );
     }
     
 }
