@@ -93,7 +93,7 @@ public class Loads
 
         long shift = 64 - 19;
         uint s = (im9 << (int)shift) >> (int)shift;
-        File.AppendAllText(op + "bytecarve.s", mn + ", "+s+index);
+        File.AppendAllText(op + "bytecarve.s", mn + ", "+s+index+"\n");
 
     }
     private static (string pre, int scale) Dpr(int opc, int v)
@@ -268,7 +268,7 @@ public class Loads
         string ins =
             $"{mn} {tReg}, [{bReg}, #{offset}]";
         File.AppendAllText(
-            op + "bytecarve.s",ins);
+            op + "bytecarve.s",ins+"\n");
     }public void usci(uint word)
     {
         uint sz = extractBits(word, 30, 31);
@@ -350,7 +350,7 @@ public class Loads
         }
         ulong offset = (ulong)im12 << (int)sz;
         File.AppendAllText(
-            op + "bytecarve.s",$"{mn} {reg+rd}, [{reg+rn}, #{offset}]");
+            op + "bytecarve.s",$"{mn} {reg+rd}, [{reg+rn}, #{offset}]"+"\n");
         
     }
     public void opstid(uint word)
@@ -436,7 +436,7 @@ public class Loads
             
         }
         File.AppendAllText(
-            op + "bytecarve.s",$"{mn} {reg+rd}, [{reg+rn}], #{offset}");
+            op + "bytecarve.s",$"{mn} {reg+rd}, [{reg+rn}], #{offset}"+"\n");
       
     }
     public void preid(uint word)
@@ -504,7 +504,7 @@ public class Loads
         string ins =
             $"{mn} {tReg}, [{bReg}, #{offset}]!";
         File.AppendAllText(
-            op + "bytecarve.s",ins);
+            op + "bytecarve.s",ins+"\n");
     }
     public void reg(uint word)
         {
@@ -553,12 +553,12 @@ public class Loads
             if (s == 0)
             {
                 File.AppendAllText(
-                    op + "bytecarve.s",$"{mn} {reg+rd}, [{reg+rn}, #{reg+rm}]");
+                    op + "bytecarve.s",$"{mn} {reg+rd}, [{reg+rn}, #{reg+rm}]"+"\n");
             }
             else
             {
                 File.AppendAllText(
-                    op + "bytecarve.s",$"{mn} {reg+rd}, [{reg+rn}, #{reg+rm}, {opt} #{rm+rn}]");
+                    op + "bytecarve.s",$"{mn} {reg+rd}, [{reg+rn}, #{reg+rm}, {opt} #{rm+rn}]"+"\n");
             }
         }
     
