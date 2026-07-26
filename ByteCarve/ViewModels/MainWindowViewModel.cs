@@ -11,7 +11,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public MainWindowViewModel()
     {
         
-        current_page = this;
+        current_page = null;
     }
 
     [RelayCommand]
