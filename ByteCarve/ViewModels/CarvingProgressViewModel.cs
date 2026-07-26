@@ -31,7 +31,7 @@ public partial class CarvingProgressViewModel : ViewModelBase
             cv = new carver(_main.Path);
             int tot = cv.Carvethashi();
             cv.write(_main.Op);
-            _main.Current_page = new ReportViewModel(_main, sw.Elapsed.Milliseconds, tot);
+            _main.Current_page = new ReportViewModel(_main, sw.Elapsed.Seconds, tot,_main.Daname);
         }
         else
         {
@@ -39,7 +39,7 @@ public partial class CarvingProgressViewModel : ViewModelBase
             var sw = Stopwatch.StartNew();
             darksouls = new disassembler(_main.Path, _main.Op);
             darksouls.lord_have_mercy();
-            _main.Current_page = new ReportViewModel(_main, sw.Elapsed.Milliseconds, 0);
+            _main.Current_page = new ReportViewModel(_main, sw.Elapsed.Seconds, 0,_main.Daname);
         }
     }
 }

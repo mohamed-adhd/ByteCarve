@@ -15,10 +15,10 @@ public partial class ReportViewModel : ViewModelBase
     [ObservableProperty] private string pn,dr,op;
     [ObservableProperty] private int totalfiles=-1,sec;
 
-    public ReportViewModel(MainWindowViewModel s,int dur,int tot)
+public ReportViewModel(MainWindowViewModel s,int dur,int tot,string Daname)
     {
         _main = s;
-        Pn = _main.Daname;
+        Pn = Daname;
         Dr = TimeSpan.FromSeconds(dur).ToString(@"mm\:ss");
         sec = dur;
         Op=_main.Op;

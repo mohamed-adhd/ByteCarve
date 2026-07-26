@@ -51,6 +51,7 @@ public partial class PickViewModel : ViewModelBase
         {
             if (SelectedFilePath.Contains(".bin"))
             {
+                _main.Daname = Pn;
                 _main.Path = SelectedFilePath;
                 _main.Current_page=new ConfigsViewModel(_main);
             }
@@ -62,7 +63,7 @@ public partial class PickViewModel : ViewModelBase
             }
             
         }
-
+        _main.Daname = Pn;
         _main.Path = SelectedFilePath;
         _main.Current_page=new ConfigsViewModel(_main);
     }
