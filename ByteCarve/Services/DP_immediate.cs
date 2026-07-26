@@ -160,13 +160,13 @@ public class DP_immediate
         int rd = (int)extractBits(word, 0, 4);
         if ((int)extractBits(word, 31, 31) == 0)
         {
-            if (opc == 00)
+            if (opc == 0b00)
             {
                 typ = "movn";
-            }else if (opc == 10)
+            }else if (opc == 0b10)
             {
                 typ = "movz";
-            }else if (opc == 11)
+            }else if (opc == 0b11)
             {
                 typ = "movk";
             }
