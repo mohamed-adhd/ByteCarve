@@ -26,26 +26,28 @@ public class Branches
     }
     
 
-    public void process_it(byte[] words,ulong index)
+    public void process_it(byte[] words, ulong index)
     {
         uint word = BitConverter.ToUInt32(words, 0);
 
-        uint top8 = extractBits(word, 24,31);
-        uint top7 = extractBits(word, 25,31);
-        uint top6 = extractBits(word, 25,30);
-        uint top5 = extractBits(word, 26,30);
-        if (top8 == 0b11010100) exceptions(word);
-        if (top8 == 0b11010101) systems(word);
-        if (top7 == 0b1101011)  uncond(word);
-        if (top7 == 0b0101010)  cond(word);
-        if (top6 == 0b011010)   compare(word);
-        if (top6 == 0b011011)   test(word,index );
         if ((word & 0xFFFFFC1F) == 0xD65F0000)
         {
             int rn = (int)extractBits(word, 5, 9);
             File.AppendAllText(op + "bytecarve.s", rn == 30 ? "ret\n" : $"ret x{rn}\n");
+            return;
         }
-        if (top5 == 0b00101)    UncondBranchImmediate(word,index);
+
+        uint top8 = extractBits(word, 24, 31);
+        uint top7 = extractBits(word, 25, 31);
+        uint top6 = extractBits(word, 25, 30);
+        uint top5 = extractBits(word, 26, 30);
+
+        if (top8 == 0b11010100) { exceptions(word); return; }
+        if (top8 == 0b11010101) { systems(word); return; }
+        if (top7 == 0b0101010) { cond(word); return; }
+        if (top6 == 0b011010) { compare(word); return; }
+        if (top6 == 0b011011) { test(word, index); return; }
+        if (top5 == 0b00101) { UncondBranchImmediate(word, index); return; }
     }
 
     public void exceptions(uint word)

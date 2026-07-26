@@ -189,7 +189,6 @@ public class Loads
             case 1:
                 mn = "ldp";
                 break;
-            
         }
         var (reg, scale) = Dpr(opc, v);
         string rt  = $"{reg}{rd}";
