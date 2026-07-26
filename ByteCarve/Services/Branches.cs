@@ -195,14 +195,13 @@ public class Branches
         File.AppendAllText(op + "bytecarve.s",typo+" "+(index+offset)+"\n");
 
     }
-    public string system_reg(uint word)
-    {
-        int Op0;
-        int Op1;
-        int CRn;
-        int CRm;
-        int Op2;
-        string Name; 
-    return "nah thanks";
-}
+    //public string system_reg(uint word)
+    //{
+       // int Op0;
+      //  int Op1;
+        //int CRn;
+            //    int CRm;
+    //    int Op2;
+    //    string Name; 
+    //return "nah thanks";
 }
