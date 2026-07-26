@@ -23,6 +23,14 @@ public class DP_register
 
     public void process_it(byte[] data)
     {
+        uint wordy = BitConverter.ToUInt32(data, 0);
+
+        uint fixedPattern = extractBits(wordy, 24, 28);
+        if (fixedPattern == 0b01010)
+        {
+            logical(wordy);
+            return;
+        }
         uint word = BitConverter.ToUInt32(data, 0);
         uint op0 = extractBits(word, 30, 30);
         uint op1 = extractBits(word, 28, 28);
