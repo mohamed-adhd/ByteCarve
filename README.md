@@ -21,7 +21,6 @@ es from raw binary data, recovering embedded media by signature, and experimenti
   <img alt="PNG" src="https://img.shields.io/badge/PNG-Signature%20Recovery-22c55e?style=flat-square">
   <img alt="JPG" src="https://img.shields.io/badge/JPG-Segment%20Parsing-f59e0b?style=flat-square">
   <img alt="BMP" src="https://img.shields.io/badge/BMP-Header%20Recovery-ef4444?style=flat-square">
-  <img alt="Capstone" src="https://img.shields.io/badge/Capstone-Disassembly%20Stack-8b5cf6?style=flat-square">
   <img alt="Inter" src="https://img.shields.io/badge/Inter-Clean%20UI-38bdf8?style=flat-square">
 </p>
 
@@ -105,7 +104,6 @@ Show report + save history
 | **Avalonia 12** | Cross-platform desktop UI |
 | **CommunityToolkit.Mvvm** | Observable properties and relay commands |
 | **Microsoft.Data.Sqlite** | Local history database |
-| **Gee.External.Capstone** | Disassembly tooling foundation |
 | **Inter Font + Fluent Theme** | Clean desktop styling |
 
 ## Running Locally
@@ -138,6 +136,7 @@ disassembler just for fun , but jokes aside thie repo really did help me get bet
 *frontend : helped by a web-dev friend (mostly he used generative ai ), i aint a front-end developer to spend weeks on the ui 
 *total sub-buckets: 38 , price: my soul ..
 * this repo is a learning project , not a serious project , further updates and commits will contribute into upgrading it into a more production ready state
+*NOTE : all of the subbuckets are made by me , the only sub-bucket i used capstone for was in the data_processing_immediate section , it was an isolated and very long sub-bucket so it wasnt worth the time and effort.
 
 ---
 
