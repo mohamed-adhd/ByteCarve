@@ -37,7 +37,7 @@ es from raw binary data, recovering embedded media by signature, and experimenti
 
 ## Overview
 
-**ByteCarve** is a desktop forensic-style utility built with **C#**, **.NET 10**, and **Avalonia UI**. The app takes a raw file, lets the user choose a carving mode and output folder, scans the byte stream for recognizable file signatures, extracts recoverable content, and presents the result in a clean report view.
+**ByteCarve** is a desktop forensic-style utility built with **C#**, **.NET 10**, and **Avalonia UI**. The app takes a raw file, lets the user choose a carving mode and output folder, scans the byte stream for recognizable file signatures/extracts recoverable content, and presents the result in a clean report view.
 
 The current focus is media carving, with support for detecting and extracting embedded **PNG**, **JPG**, and **BMP** data. The repo also includes a low-level disassembly layer with instruction-group services for branches, loads, register operations, scalar operations, and immediate data-processing experiments.
 
