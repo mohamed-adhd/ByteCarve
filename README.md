@@ -122,8 +122,6 @@ dotnet build
 
 ## Why I Built This
 
-> Write your personal explanation here.
-
 well,reverse engineering was always something that attracted me yet i had no knowledge about it , so yea here goes an Aarch64
 disassembler just for fun , but jokes aside thie repo really did help me get better at low level systems and really got a string foundation on binaries/registers/buckets etc , fun and interesting repo! (i sold my soul to finish this...)
 ## Developer Notes
